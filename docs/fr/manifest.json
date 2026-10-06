@@ -1,0 +1,38 @@
+{
+  "title": "Navigation",
+  "summary": "Affiche un extrait du menu sous forme de menu défilant sur la page.",
+  "icon": "🧭",
+  "pages": [
+    {
+      "id": "overview",
+      "title": "Aperçu",
+      "file": "overview.md"
+    },
+    {
+      "id": "usage",
+      "title": "Étape par étape",
+      "file": "usage.md"
+    },
+    {
+      "id": "settings",
+      "title": "Décors",
+      "file": "settings.md"
+    },
+    {
+      "id": "faq",
+      "title": "FAQ",
+      "file": "faq.md"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Menu défilant",
+      "attributes": {
+        "heading": "Weiterführende Links"
+      },
+      "resolve": [
+        "menu-id"
+      ]
+    }
+  ]
+}

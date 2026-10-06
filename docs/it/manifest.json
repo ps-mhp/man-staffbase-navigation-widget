@@ -1,0 +1,38 @@
+{
+  "title": "Navigazione",
+  "summary": "Mostra un estratto del menu come un menu a scorrimento sulla pagina.",
+  "icon": "🧭",
+  "pages": [
+    {
+      "id": "overview",
+      "title": "Panoramica",
+      "file": "overview.md"
+    },
+    {
+      "id": "usage",
+      "title": "Passo dopo passo",
+      "file": "usage.md"
+    },
+    {
+      "id": "settings",
+      "title": "Impostazioni",
+      "file": "settings.md"
+    },
+    {
+      "id": "faq",
+      "title": "Domande frequenti",
+      "file": "faq.md"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Menu a scorrimento",
+      "attributes": {
+        "heading": "Weiterführende Links"
+      },
+      "resolve": [
+        "menu-id"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "title": "Navigatie",
+  "summary": "Toont een fragment van het menu als een scrollend menu op de pagina.",
+  "icon": "🧭",
+  "pages": [
+    {
+      "id": "overview",
+      "title": "Overzicht",
+      "file": "overview.md"
+    },
+    {
+      "id": "usage",
+      "title": "Stap voor stap",
+      "file": "usage.md"
+    },
+    {
+      "id": "settings",
+      "title": "Instellingen",
+      "file": "settings.md"
+    },
+    {
+      "id": "faq",
+      "title": "FAQ",
+      "file": "faq.md"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Scrollend menu",
+      "attributes": {
+        "heading": "Weiterführende Links"
+      },
+      "resolve": [
+        "menu-id"
+      ]
+    }
+  ]
+}

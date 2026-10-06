@@ -1,0 +1,38 @@
+{
+  "title": "Navegación",
+  "summary": "Muestra un extracto del menú como un menú de desplazamiento en la página.",
+  "icon": "🧭",
+  "pages": [
+    {
+      "id": "overview",
+      "title": "Resumen",
+      "file": "overview.md"
+    },
+    {
+      "id": "usage",
+      "title": "Paso a paso",
+      "file": "usage.md"
+    },
+    {
+      "id": "settings",
+      "title": "Escenarios",
+      "file": "settings.md"
+    },
+    {
+      "id": "faq",
+      "title": "Preguntas frecuentes",
+      "file": "faq.md"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Menú de desplazamiento",
+      "attributes": {
+        "heading": "Weiterführende Links"
+      },
+      "resolve": [
+        "menu-id"
+      ]
+    }
+  ]
+}

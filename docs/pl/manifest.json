@@ -1,0 +1,38 @@
+{
+  "title": "Nawigacja",
+  "summary": "Na stronie wyświetlany jest fragment menu jako przewijane menu.",
+  "icon": "🧭",
+  "pages": [
+    {
+      "id": "overview",
+      "title": "Przegląd",
+      "file": "overview.md"
+    },
+    {
+      "id": "usage",
+      "title": "Krok po kroku",
+      "file": "usage.md"
+    },
+    {
+      "id": "settings",
+      "title": "Ustawienia",
+      "file": "settings.md"
+    },
+    {
+      "id": "faq",
+      "title": "FAQ",
+      "file": "faq.md"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Menu przewijane",
+      "attributes": {
+        "heading": "Weiterführende Links"
+      },
+      "resolve": [
+        "menu-id"
+      ]
+    }
+  ]
+}
