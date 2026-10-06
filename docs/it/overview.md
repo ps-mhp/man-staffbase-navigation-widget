@@ -15,6 +15,8 @@ Area con molte sottopagine.
 - In alto, l'**intestazione — la registrazione o, senza annotazione, il titolo
   del punto di partenza. 
 - Sotto i **sotto-elementi** del punto di partenza, nell'ordine del menu. 
+- La **pagina su cui ti trovi attualmente** è in grigio — anch'essa una
+  Livelli più bassi se scorri lì. 
 - Cliccando su un **titolo** si apre la pagina stessa. 
 - Cliccando sulla **freccia** a destra si scorre ai sotto-elementi di questo
   Ingresso. In cima c'è poi una freccia a sinistra con il titolo del livello; a

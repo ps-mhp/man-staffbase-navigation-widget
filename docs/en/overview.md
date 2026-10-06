@@ -15,6 +15,8 @@ Area with many subpages.
 - At the top, the **heading** — the registered or, without an entry, the title
   of the starting point. 
 - Below the **sub-items** of the starting point, in the order of the menu. 
+- The **page you are currently on** is grayed out — also a
+  level lower if you scroll there. 
 - Clicking on a **title** opens the page itself. 
 - Clicking on the **arrow** on the right will scroll to the sub-items of this
   entry. At the top there is then an arrow to the left with the title of the level; a

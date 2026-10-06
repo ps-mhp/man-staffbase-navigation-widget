@@ -15,6 +15,8 @@ Gebied met veel subpagina's.
 - Bovenaan de **kop** — de geregistreerde of, zonder vermelding, de titel
   van het beginpunt. 
 - Onder de **sub-items** van het startpunt, in de volgorde van het menu. 
+- De **pagina waar je momenteel op bent** is grijs gemaakt — ook een
+  Level lager als je daar scrollt. 
 - Door op een **titel** te klikken, opent de pagina zelf. 
 - Door op de **pijltjes** rechts te klikken, scrollen we naar de subitems van dit
   Ingang. Bovenaan staat dan een pijl links met de titel van het level; a

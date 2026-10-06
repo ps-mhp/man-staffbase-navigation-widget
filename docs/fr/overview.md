@@ -15,6 +15,8 @@ Zone avec de nombreuses sous-pages.
 - En haut, le **titre** — le titre enregistré ou, sans entrée, le titre
   du point de départ. 
 - Sous les **sous-éléments** du point de départ, dans l’ordre du menu. 
+- La **page sur laquelle vous êtes actuellement** est grisée — également une
+  Un niveau inférieur si tu y fais défiler. 
 - Cliquer sur un **titre** ouvre la page elle-même. 
 - Cliquer sur la **flèche** à droite fera défiler jusqu’aux sous-éléments de cette flèche
   entrée. En haut, il y a alors une flèche à gauche avec le titre du niveau ; a

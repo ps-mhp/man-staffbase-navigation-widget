@@ -15,6 +15,8 @@ Obszar z wieloma podstronami.
 - Na górze **nagłówek** — zarejestrowany lub bez wpisu tytuł
   punktu wyjścia. 
 - Pod **podpozycjami** punktu startowego, w kolejności menu. 
+- **Strona, na której obecnie jesteś** jest wyszarzona — również
+  niżej się wynij, jeśli tam przewiniesz. 
 - Kliknięcie na **tytuł** otwiera samą stronę. 
 - Kliknięcie na **strzałkę** po prawej przewinie do podelementów tego
   wpis. Na górze znajduje się strzałka po lewej stronie z tytułem poziomu; a

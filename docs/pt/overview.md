@@ -15,6 +15,8 @@ Visão geral do tópico em uma página de entrada, um sumário para um
 - No topo, o **cabeçalho** — o registro ou, sem entrada, o título
   do ponto de partida. 
 - Abaixo dos **subitens** do ponto de partida, na ordem do menu. 
+- A **página em que você está atual** está acinzentada — também um
+  Nível inferior se você rolar até lá. 
 - Clicar em um **título** abre a própria página. 
 - Clicar na **seta** à direita será direcionado para os subitens deste
   entrada. No topo há então uma seta à esquerda com o título do nível; a

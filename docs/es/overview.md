@@ -15,6 +15,8 @@ Zona con muchas subpáginas.
 - En la parte superior, el **encabezado** — el registro o, sin entrada, el título
   del punto de partida. 
 - Debajo de los **sub-elementos** del punto de inicio, en el orden del menú. 
+- La **página en la que estás actual** está deshabilitada — también una
+  De nivel inferior si desplazas hasta allí. 
 - Al hacer clic en un **título** se abre la página en sí. 
 - Al hacer clic en la **flecha** de la derecha se desplazará hasta los subelementos de este
   entrada. En la parte superior hay una flecha a la izquierda con el título del nivel; a
