@@ -120,19 +120,14 @@
       content: none !important;
     }
   }
-
 }
 
 // Nur mit echtem Zeiger: auf dem Telefon bliebe die Fläche nach dem Tippen
-// an der Zeile hängen, die nach dem Blättern unter dem Finger liegt.
+// an der Zeile hängen, die nach dem Blättern unter dem Finger liegt. Die
+// Fläche ist der einzige Hinweis — unterstrichen wird nie (Vorgabe 06.10.2026).
 @media (hover: hover) {
   .man-nav__item:hover {
     background: man("border-subtle");
-  }
-
-  .man-nav__link:hover .man-nav__title {
-    text-decoration: underline;
-    text-underline-offset: 3px;
   }
 }
 
@@ -148,6 +143,13 @@
     font: inherit !important;
     text-decoration: none !important;
 
+    // Auch kein Unterstrich der Wirtsseite für `a:hover`.
+    &:hover,
+    &:focus,
+    &:active {
+      text-decoration: none !important;
+    }
+
     &:focus-visible {
       @include man-focus-ring($important: true);
     }
@@ -156,6 +158,7 @@
 
 .man-nav__title {
   overflow-wrap: anywhere;
+  text-decoration: none !important;
 }
 
 // Der Pfeil: ein ganzes Tippziel, nicht nur das Zeichen.

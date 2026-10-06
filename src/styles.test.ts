@@ -60,6 +60,12 @@ describe("Stylesheet", () => {
     expect(css).toMatch(/@media \(hover: hover\)\s*\{\s*\.man-nav__item:hover/);
   });
 
+  // Vorgabe 06.10.2026: kein Unterstrich im Hover, auch nicht von der Wirtsseite.
+  it("unterstreicht die Einträge nie", () => {
+    expect(css).not.toMatch(/text-decoration:\s*underline/);
+    expect(css).toMatch(/\.man-nav__link:hover\s*,?[^{]*\{[^}]*text-decoration:\s*none\s*!important/);
+  });
+
   it("überlässt das Scrollen längs dem Browser", () => {
     expect(css).toMatch(/touch-action:\s*pan-y pinch-zoom/);
   });
