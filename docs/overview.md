@@ -15,6 +15,8 @@ Bereich mit vielen Unterseiten.
 - Oben die **Überschrift** — die eingetragene oder, ohne Eintrag, der Titel
   des Startpunkts.
 - Darunter die **Unterpunkte** des Startpunkts, in der Reihenfolge des Menüs.
+- Die **Seite, auf der man gerade ist**, ist grau hinterlegt — auch eine
+  Ebene tiefer, wenn man dorthin blättert.
 - Ein Klick auf einen **Titel** öffnet die Seite selbst.
 - Ein Klick auf den **Pfeil** rechts blättert zu den Unterpunkten dieses
   Eintrags. Oben steht dann ein Pfeil nach links mit dem Titel der Ebene; ein
