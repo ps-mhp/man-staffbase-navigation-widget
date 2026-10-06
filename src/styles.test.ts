@@ -60,6 +60,14 @@ describe("Stylesheet", () => {
     expect(css).toMatch(/@media \(hover: hover\)\s*\{\s*\.man-nav__item:hover/);
   });
 
+  // Vorgabe 06.10.2026: die aktuelle Seite ist immer hinterlegt, nicht nur
+  // unter dem Zeiger — also ausserhalb der Hover-Abfrage, mit derselben Fläche.
+  it("hinterlegt die aktuelle Seite immer wie unter dem Zeiger", () => {
+    const [outsideHoverQuery] = css.split("@media (hover: hover)");
+    expect(outsideHoverQuery).toMatch(/\.man-nav__item--current\s*\{\s*background:\s*var\(--man-border-subtle, #eaedf3\)/);
+    expect(css).toMatch(/\.man-nav__item:hover\s*\{\s*background:\s*var\(--man-border-subtle, #eaedf3\)/);
+  });
+
   // Vorgabe 06.10.2026: kein Unterstrich im Hover, auch nicht von der Wirtsseite.
   it("unterstreicht die Einträge nie", () => {
     expect(css).not.toMatch(/text-decoration:\s*underline/);

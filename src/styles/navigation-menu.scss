@@ -122,6 +122,12 @@
   }
 }
 
+// Die Seite, auf der das Widget steht: immer hinterlegt, wie unter dem Zeiger
+// (Vorgabe 06.10.2026).
+.man-nav__item--current {
+  background: man("border-subtle");
+}
+
 // Nur mit echtem Zeiger: auf dem Telefon bliebe die Fläche nach dem Tippen
 // an der Zeile hängen, die nach dem Blättern unter dem Finger liegt. Die
 // Fläche ist der einzige Hinweis — unterstrichen wird nie (Vorgabe 06.10.2026).

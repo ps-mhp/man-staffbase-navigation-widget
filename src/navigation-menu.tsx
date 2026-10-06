@@ -14,7 +14,7 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 
 import { useHotStyle } from "@shared/hot-style";
-import { MenuEntry, MenuLevel, fetchMenuLevel } from "@shared/staffbase/menu";
+import { MenuEntry, MenuLevel, fetchMenuLevel, readMenuId } from "@shared/staffbase/menu";
 
 import navigationCss from "./styles/navigation-menu.scss";
 import { LevelLoader, LevelState, useMenuLevel } from "./use-menu-level";
@@ -48,9 +48,20 @@ export interface NavigationMenuProps {
   startId: string | null;
   /** Steht über der ersten Ebene; ohne sie der Titel des Startpunkts. */
   heading: string | null;
+  /**
+   * Der Menüeintrag der Seite, auf der das Widget steht — seine Zeile ist
+   * hinterlegt. Ohne Angabe aus der Adresse gelesen (`/content/page/{id}`).
+   */
+  currentId?: string | null;
   /** Nur für Tests. */
   loadLevel?: LevelLoader;
 }
+
+/**
+ * Die Leseadresse einer Seite trägt die ID ihres Menüeintrags, dieselbe, unter
+ * der die Navigation ihn führt (geprüft 06.10.2026: `/content/page/{menuId}`).
+ */
+const currentMenuId = (): string | null => readMenuId(window.location.pathname);
 
 const Chevron = ({ direction }: { direction: "left" | "right" }): React.JSX.Element => (
   <svg className="man-nav__chevron" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
@@ -60,6 +71,8 @@ const Chevron = ({ direction }: { direction: "left" | "right" }): React.JSX.Elem
 
 interface MenuRowProps {
   entry: MenuEntry;
+  /** Die Seite, auf der das Widget steht. */
+  current: boolean;
   onOpen: (entry: MenuEntry) => void;
 }
 
@@ -67,10 +80,11 @@ interface MenuRowProps {
  * Eine Zeile: der Titel führt auf die Seite, der Pfeil eine Ebene tiefer.
  * Ein reiner Ordner hat keine Seite — bei ihm blättert die ganze Zeile.
  */
-function MenuRow({ entry, onOpen }: MenuRowProps): React.JSX.Element {
+function MenuRow({ entry, current, onOpen }: MenuRowProps): React.JSX.Element {
+  const itemClass = current ? "man-nav__item man-nav__item--current" : "man-nav__item";
   if (entry.href === null) {
     return (
-      <li className="man-nav__item">
+      <li className={itemClass}>
         <button type="button" className="man-nav__row" data-entry-id={entry.id} onClick={() => onOpen(entry)}>
           <span className="man-nav__title">{entry.title}</span>
           <Chevron direction="right" />
@@ -79,10 +93,11 @@ function MenuRow({ entry, onOpen }: MenuRowProps): React.JSX.Element {
     );
   }
   return (
-    <li className="man-nav__item">
+    <li className={itemClass}>
       <a
         className="man-nav__link"
         href={entry.href}
+        aria-current={current ? "page" : undefined}
         target={entry.external ? "_blank" : undefined}
         rel={entry.external ? "noopener noreferrer" : undefined}
       >
@@ -104,7 +119,13 @@ function MenuRow({ entry, onOpen }: MenuRowProps): React.JSX.Element {
   );
 }
 
-function LevelBody({ state, onOpen }: { state: LevelState; onOpen: (entry: MenuEntry) => void }): React.JSX.Element {
+interface LevelBodyProps {
+  state: LevelState;
+  currentId: string | null;
+  onOpen: (entry: MenuEntry) => void;
+}
+
+function LevelBody({ state, currentId, onOpen }: LevelBodyProps): React.JSX.Element {
   if (state.status === "loading") {
     return (
       <p className="man-nav__status man-nav__status--loading" role="status">
@@ -127,7 +148,7 @@ function LevelBody({ state, onOpen }: { state: LevelState; onOpen: (entry: MenuE
   return (
     <ul className="man-nav__list">
       {visible.map((entry) => (
-        <MenuRow key={entry.id} entry={entry} onOpen={onOpen} />
+        <MenuRow key={entry.id} entry={entry} current={entry.id === currentId} onOpen={onOpen} />
       ))}
     </ul>
   );
@@ -137,7 +158,12 @@ function LevelBody({ state, onOpen }: { state: LevelState; onOpen: (entry: MenuE
  * Das blätternde Menü: eine Ebene zur Zeit, vor per Pfeil, zurück per Knopf
  * in der Kopfzeile oder — auf dem Telefon — per Wischen nach rechts.
  */
-export function NavigationMenu({ startId, heading, loadLevel = fetchMenuLevel }: NavigationMenuProps): React.JSX.Element {
+export function NavigationMenu({
+  startId,
+  heading,
+  currentId = currentMenuId(),
+  loadLevel = fetchMenuLevel,
+}: NavigationMenuProps): React.JSX.Element {
   const liveCss = useHotStyle(navigationCss, "navigation-widget", "styles/navigation-menu.scss");
 
   if (startId === null) {
@@ -149,17 +175,27 @@ export function NavigationMenu({ startId, heading, loadLevel = fetchMenuLevel }:
     );
   }
   // Der Schlüssel setzt das Blättern zurück, wenn die Redaktion einen anderen Startpunkt wählt.
-  return <NavigationLevels key={startId} css={liveCss} startId={startId} heading={heading} loadLevel={loadLevel} />;
+  return (
+    <NavigationLevels
+      key={startId}
+      css={liveCss}
+      startId={startId}
+      heading={heading}
+      currentId={currentId}
+      loadLevel={loadLevel}
+    />
+  );
 }
 
 interface NavigationLevelsProps {
   css: string;
   startId: string;
   heading: string | null;
+  currentId: string | null;
   loadLevel: LevelLoader;
 }
 
-function NavigationLevels({ css, startId, heading, loadLevel }: NavigationLevelsProps): React.JSX.Element {
+function NavigationLevels({ css, startId, heading, currentId, loadLevel }: NavigationLevelsProps): React.JSX.Element {
   const [trail, setTrail] = useState<Crumb[]>([]);
   const [direction, setDirection] = useState<Direction>("none");
   const rootRef = useRef<HTMLElement>(null);
@@ -235,7 +271,7 @@ function NavigationLevels({ css, startId, heading, loadLevel }: NavigationLevels
             </button>
           )}
         </div>
-        <LevelBody state={state} onOpen={open} />
+        <LevelBody state={state} currentId={currentId} onOpen={open} />
       </div>
     </nav>
   );

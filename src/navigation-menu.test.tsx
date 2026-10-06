@@ -143,6 +143,38 @@ describe("NavigationMenu", () => {
     expect(screen.getByRole("button", { name: `${MESSAGES.back}Argumentation` })).toBeInTheDocument();
   });
 
+  it("hinterlegt die Seite, auf der das Widget steht", async () => {
+    renderMenu({ currentId: RUHE });
+
+    const current = await screen.findByRole("link", { name: "Ruhebereich" });
+    expect(current).toHaveAttribute("aria-current", "page");
+    expect(current.closest("li")).toHaveClass("man-nav__item--current");
+    expect(screen.getByRole("link", { name: "Fahrerarbeitsplatz" })).not.toHaveAttribute("aria-current");
+    expect(screen.getByRole("link", { name: "Fahrerarbeitsplatz" }).closest("li")).not.toHaveClass(
+      "man-nav__item--current",
+    );
+  });
+
+  it("findet die aktuelle Seite auch eine Ebene tiefer", async () => {
+    const user = userEvent.setup();
+    renderMenu({ currentId: LENKRAD });
+
+    await user.click(await screen.findByRole("button", { name: MESSAGES.openChildren("Fahrerarbeitsplatz") }));
+
+    expect(await screen.findByRole("link", { name: "Lenkrad" })).toHaveAttribute("aria-current", "page");
+  });
+
+  it("liest die aktuelle Seite aus der Adresse", async () => {
+    window.history.pushState({}, "", `/content/page/${RUHE}`);
+    try {
+      renderMenu();
+
+      expect(await screen.findByRole("link", { name: "Ruhebereich" })).toHaveAttribute("aria-current", "page");
+    } finally {
+      window.history.pushState({}, "", "/");
+    }
+  });
+
   it("öffnet eine fremde Adresse in einem neuen Tab", async () => {
     renderMenu({
       loadLevel: loaderFor({
