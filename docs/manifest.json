@@ -1,11 +1,18 @@
 {
-  "title": "navigation-widget",
-  "summary": "TODO: Ein Satz, was dieses Widget für Redakteure tut.",
-  "icon": "🧩",
+  "title": "Navigation",
+  "summary": "Zeigt einen Ausschnitt des Menüs als blätterndes Menü auf der Seite.",
+  "icon": "🧭",
   "pages": [
     { "id": "overview", "title": "Übersicht", "file": "overview.md" },
     { "id": "usage", "title": "Schritt für Schritt", "file": "usage.md" },
     { "id": "settings", "title": "Einstellungen", "file": "settings.md" },
     { "id": "faq", "title": "FAQ", "file": "faq.md" }
+  ],
+  "examples": [
+    {
+      "title": "Blätterndes Menü",
+      "attributes": { "heading": "Weiterführende Links" },
+      "resolve": ["menu-id"]
+    }
   ]
 }

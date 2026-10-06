@@ -1,12 +1,9 @@
 # Einstellungen
 
-TODO: Liste jede Einstellung im Konfigurationsdialog auf, mit dem exakten
-Namen aus dem Dialog, was sie bewirkt, welcher Wert voreingestellt ist und —
-falls relevant — welche Werte erlaubt sind.
-
 | Einstellung | Beschreibung |
 | --- | --- |
-| _(Name)_ | _(Beschreibung)_ |
+| Startpunkt im Menü | Der Menüpunkt, dessen Unterpunkte die Navigation zeigt. Pflichtfeld. Aus der Liste **Startpunkt auswählen …** wählen — sie zeigt das Menü als eingerückten Baum, nur Menüpunkte mit Unterpunkten. Im Menü verborgene Menüpunkte tragen den Zusatz „(im Menü verborgen)“. Fehlt der Menüpunkt in der Liste, **Andere Menü-ID eingeben …** wählen und die Adresse seiner Seite oder die 24-stellige ID einfügen. |
+| Überschrift | Steht über der ersten Ebene. Optional; leer erscheint der Titel des Startpunkts. Wird beim Übersetzen der Seite mit übersetzt. |
 
-TODO: Falls Einstellungen voneinander abhängen (z. B. Feld wirkt nur in einem
-bestimmten Modus), das hier ausdrücklich sagen.
+Reihenfolge, Titel und Sichtbarkeit der Einträge kommen aus dem Menü der App
+und werden dort gepflegt, nicht im Widget.
