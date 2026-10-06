@@ -1,0 +1,259 @@
+/*!
+ * Copyright 2026, MHP Management und IT-Beratung GmbH and contributors.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@use "@shared/stylings/man-tokens" as *;
+@use "@shared/stylings/man-craft" as *;
+
+// Ein Kasten wie in der Vorlage: helle Fläche, Craft-Haarlinie, keine Rundung.
+// `overflow: hidden`, weil die Ebenen beim Blättern seitlich hereinschieben
+// und beim Wischen dem Finger folgen — über den Rand hinaus wäre das Unruhe
+// in der Nachbarspalte.
+.man-nav {
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: man("space-4") man("space-3") man("space-3");
+  border: man("border-width") solid man("border");
+  border-radius: man("radius");
+  background: man("surface-sunken");
+  color: man("text");
+  @include man-type("body");
+
+  // Längs gehört der Finger der Seite, quer dem Widget; Zoomen bleibt erlaubt.
+  touch-action: pan-y pinch-zoom;
+}
+
+.man-nav__panel {
+  // Während des Wischens setzt `use-swipe-back.ts` den Weg des Fingers.
+  transform: translateX(var(--man-nav-drag, 0px));
+}
+
+.man-nav__header {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  margin: 0 0 man("space-2");
+  padding: 0 man("space-2");
+}
+
+.man-nav__heading {
+  @include man-type("h4");
+
+  overflow-wrap: anywhere;
+}
+
+// Der Pfeil folgt der Schrift; die Linie ist kräftig wie in der Vorlage.
+.man-nav__chevron {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 2.75;
+  stroke-linejoin: miter;
+}
+
+// Jeder blanke `button` im Inhaltsbereich bekommt von man-theme den Grundriss
+// eines Handlungsknopfs über die volle Breite. Diese hier sind Zeilen und
+// Pfeile, keine Handlungen — also gegen die Wirtsseite durchgesetzt.
+@mixin -bare-button {
+  @include man-outshine-host {
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: man("radius") !important;
+    background: none !important;
+    box-shadow: none !important;
+    color: inherit !important;
+    font: inherit !important;
+    text-align: left !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    cursor: pointer;
+
+    &:focus-visible {
+      @include man-focus-ring($important: true);
+    }
+  }
+}
+
+.man-nav__back {
+  @include -bare-button;
+  @include man-outshine-host {
+    display: flex !important;
+    gap: man("space-2");
+    align-items: center;
+    width: 100% !important;
+    padding: man("space-1") 0 !important;
+  }
+}
+
+.man-nav__list {
+  @include man-outshine-host {
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+}
+
+.man-nav__item {
+  @include man-outshine-host {
+    display: flex;
+    align-items: stretch;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+
+    // Manche Themes zeichnen Aufzählungszeichen selbst.
+    &::before {
+      content: none !important;
+    }
+  }
+
+}
+
+// Nur mit echtem Zeiger: auf dem Telefon bliebe die Fläche nach dem Tippen
+// an der Zeile hängen, die nach dem Blättern unter dem Finger liegt.
+@media (hover: hover) {
+  .man-nav__item:hover {
+    background: man("border-subtle");
+  }
+
+  .man-nav__link:hover .man-nav__title {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+.man-nav__link {
+  @include man-outshine-host {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    min-width: 0;
+    min-height: 44px;
+    padding: man("space-2") !important;
+    color: inherit !important;
+    font: inherit !important;
+    text-decoration: none !important;
+
+    &:focus-visible {
+      @include man-focus-ring($important: true);
+    }
+  }
+}
+
+.man-nav__title {
+  overflow-wrap: anywhere;
+}
+
+// Der Pfeil: ein ganzes Tippziel, nicht nur das Zeichen.
+.man-nav__open {
+  @include -bare-button;
+  @include man-outshine-host {
+    display: grid !important;
+    flex: none;
+    place-items: center;
+    width: 44px !important;
+    min-height: 44px !important;
+    padding: 0 !important;
+  }
+}
+
+// Ein reiner Ordner: die ganze Zeile blättert.
+.man-nav__row {
+  @include -bare-button;
+  @include man-outshine-host {
+    display: flex !important;
+    flex: 1 1 auto;
+    gap: man("space-2");
+    align-items: center;
+    justify-content: space-between;
+    width: 100% !important;
+    min-height: 44px !important;
+    padding: man("space-2") 12px man("space-2") man("space-2") !important;
+  }
+}
+
+.man-nav__status {
+  margin: 0;
+  padding: man("space-2");
+  color: man("text-muted");
+}
+
+.man-nav__message {
+  margin: 0 0 man("space-2");
+}
+
+.man-nav__retry {
+  @include man-outshine-host {
+    @include man-button("s", "secondary", $important: true, $wrap: true);
+  }
+}
+
+.man-nav__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  // Blättern: die neue Ebene schiebt von der Seite herein, aus der sie kommt.
+  .man-nav__panel--forward {
+    animation: man-nav-from-right man("duration-slow") man("ease-move");
+  }
+
+  .man-nav__panel--back {
+    animation: man-nav-from-left man("duration-slow") man("ease-move");
+  }
+
+  // Losgelassen, ohne weit genug zu wischen: die Ebene gleitet zurück.
+  .man-nav__panel {
+    transition: transform man("duration-slow") man("ease-move");
+  }
+
+  // Erst nach einem Augenblick: kommt die Ebene schneller, blitzt nichts auf.
+  .man-nav__status--loading {
+    animation: man-nav-appear 0s 300ms both;
+  }
+}
+
+// Unter dem Finger folgt die Ebene ohne Verzögerung.
+.man-nav--dragging .man-nav__panel {
+  transition: none;
+  animation: none;
+}
+
+@keyframes man-nav-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(32%);
+  }
+}
+
+@keyframes man-nav-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-32%);
+  }
+}
+
+@keyframes man-nav-appear {
+  from {
+    visibility: hidden;
+  }
+}
