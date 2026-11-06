@@ -23,26 +23,23 @@ import { BlockAttributes, BlockFactory, BlockDefinition, ExternalBlockDefinition
 import { startWidget } from "@shared/dev-mode/start-widget";
 import { startEntityPickerInjector } from "@shared/entity-picker/entity-picker-injector";
 import { readMenuId } from "@shared/staffbase/menu";
-import { getTranslationRegistry } from "@shared/translation/registry";
-import { HEADING_ATTRIBUTE, MENU_ID_ATTRIBUTE, configurationSchema, uiSchema } from "./configuration-schema";
+import { MENU_ID_ATTRIBUTE, NAVIGATION_WIDGET_TAG, configurationSchema, uiSchema } from "./configuration-schema";
 import { NavigationMenu } from "./navigation-menu";
 import { fetchStartPointOptions } from "./start-point-catalog";
-import { NAVIGATION_WIDGET_TAG, navigationTranslationProvider, readHeading } from "./translation-provider";
 import icon from "../resources/navigation-widget.svg";
 import pkg from "../package.json";
 
 /** Attribute kommen immer als Zeichenkette an; die Namen tragen Bindestriche wie im Schema. */
 export type NavigationWidgetProps = BlockAttributes & {
   [MENU_ID_ATTRIBUTE]?: string;
-  [HEADING_ATTRIBUTE]?: string;
 };
 
 export const NavigationWidget = (props: NavigationWidgetProps): ReactElement => (
-  <NavigationMenu startId={readMenuId(props[MENU_ID_ATTRIBUTE])} heading={readHeading(props[HEADING_ATTRIBUTE])} />
+  <NavigationMenu startId={readMenuId(props[MENU_ID_ATTRIBUTE])} />
 );
 
 /** Aus denselben Konstanten wie das Schema — ein Tippfehler wäre sonst ein stumm leeres Attribut. */
-const widgetAttributes: string[] = [MENU_ID_ATTRIBUTE, HEADING_ATTRIBUTE];
+const widgetAttributes: string[] = [MENU_ID_ATTRIBUTE];
 
 const START_POINT_LABELS = {
   placeholder: "Startpunkt auswählen …",
@@ -95,8 +92,8 @@ const externalBlockDefinition: ExternalBlockDefinition = {
 
 /**
  * Meldet den Baustein bei der Wirtsseite an — über `startWidget`, das zuerst
- * fragt, ob ein lokaler Entwicklungsserver übernimmt. Auswahlliste und
- * Übersetzung hängen am Anmelden, nicht am Laden: sonst belegte das
+ * fragt, ob ein lokaler Entwicklungsserver übernimmt. Die Auswahlliste
+ * hängt am Anmelden, nicht am Laden: sonst belegte das
  * installierte Bundle das Feld, bevor feststeht, welches Bundle gilt (siehe
  * `hotspot-image-widget`).
  *
@@ -112,7 +109,6 @@ if (typeof window.defineBlock === "function") {
         fetchOptions: () => fetchStartPointOptions(),
         labels: START_POINT_LABELS,
       });
-      getTranslationRegistry().register(navigationTranslationProvider);
       window.defineBlock(externalBlockDefinition);
     },
   });

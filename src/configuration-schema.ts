@@ -14,20 +14,18 @@
 import { UiSchema } from "@rjsf/utils";
 import { JSONSchema7 } from "json-schema";
 
+/** Muss dem Tag entsprechen, unter dem `index.tsx` das Widget anmeldet. */
+export const NAVIGATION_WIDGET_TAG = "navigation-widget";
+
 /**
- * Der Menüeintrag, ab dem die Navigation blättert.
+ * Der Menüeintrag, den die Navigation links zeigt; rechts daneben stehen
+ * seine Unterpunkte.
  *
  * Drei Stellen müssen sich über den Namen einig sein: der Schlüssel im Schema,
  * weil der Host einen Wert wörtlich unter ihm speichert; das beim Host
  * angemeldete Attribut, weil er ein unbekanntes verwirft; und `widgets.json`.
  */
 export const MENU_ID_ATTRIBUTE = "menu-id";
-
-/**
- * Die Überschrift über der ersten Ebene. Nicht `title`: das ist ein globales
- * HTML-Attribut, und der Browser zeigte es als Tooltip über dem ganzen Widget.
- */
-export const HEADING_ATTRIBUTE = "heading";
 
 /**
  * @see https://rjsf-team.github.io/react-jsonschema-form/docs/
@@ -37,10 +35,6 @@ export const configurationSchema: JSONSchema7 = {
     [MENU_ID_ATTRIBUTE]: {
       type: "string",
       title: "Startpunkt im Menü",
-    },
-    [HEADING_ATTRIBUTE]: {
-      type: "string",
-      title: "Überschrift",
     },
   },
 };
@@ -53,8 +47,5 @@ export const uiSchema: UiSchema = {
     "ui:help":
       "Den Menüpunkt wählen, dessen Unterpunkte die Navigation zeigt. Fehlt er in der Liste, " +
       "„Andere Menü-ID eingeben …“ wählen und die Adresse der Seite einfügen.",
-  },
-  [HEADING_ATTRIBUTE]: {
-    "ui:help": "Steht über der ersten Ebene. Leer lassen, um den Titel des Startpunkts zu zeigen.",
   },
 };

@@ -18,13 +18,16 @@ import userEvent from "@testing-library/user-event";
 import { MenuEntry, MenuLevel } from "@shared/staffbase/menu";
 
 import { MESSAGES, NavigationMenu } from "./navigation-menu";
-import { SWIPE_THRESHOLD } from "./use-swipe-back";
+import { SCROLL_SHARE } from "./use-overflow";
 
+const WURZEL = "6891d4e0aec53f55e3a819ac";
 const FAHRERHAUS = "6a58dd4eefeacc1239d9fd09";
+const AUFBAU = "6a58dd4eefeacc1239d9fd10";
 const ARBEITSPLATZ = "6a73580860fe1414378d4660";
 const RUHE = "6a7358b8340cb013d7f29611";
 const ORDNER = "69a142424125962a49b62566";
 const LENKRAD = "6aa0161549d51f0f57864771";
+const SITZE = "6a7357aca8480d7e2b6b9db2";
 
 const entry = (id: string, title: string, extra: Partial<MenuEntry> = {}): MenuEntry => ({
   id,
@@ -36,10 +39,20 @@ const entry = (id: string, title: string, extra: Partial<MenuEntry> = {}): MenuE
   ...extra,
 });
 
-/** Die Vorlage: „Fahrerhaus“ mit „Fahrerarbeitsplatz“ und dessen Unterseiten. */
+/** Die Vorlage: „Fahrerhaus“ unter der Wurzel, darin „Fahrerarbeitsplatz“ mit Unterseiten. */
 const menu: Record<string, MenuLevel> = {
+  [WURZEL]: {
+    entry: entry(WURZEL, "Hauptmenü", { href: null, hasChildren: true }),
+    parentId: null,
+    children: [
+      entry(FAHRERHAUS, "Fahrerhaus", { hasChildren: true }),
+      entry(AUFBAU, "Aufbau"),
+      entry("6a58dd4eefeacc1239d9fd11", "Geheim", { hidden: true }),
+    ],
+  },
   [FAHRERHAUS]: {
     entry: entry(FAHRERHAUS, "Fahrerhaus", { hasChildren: true }),
+    parentId: WURZEL,
     children: [
       entry(ARBEITSPLATZ, "Fahrerarbeitsplatz", { hasChildren: true }),
       entry(RUHE, "Ruhebereich"),
@@ -49,125 +62,118 @@ const menu: Record<string, MenuLevel> = {
   },
   [ARBEITSPLATZ]: {
     entry: entry(ARBEITSPLATZ, "Fahrerarbeitsplatz", { hasChildren: true }),
-    children: [entry(LENKRAD, "Lenkrad"), entry("6a7357aca8480d7e2b6b9db2", "Sitze")],
+    parentId: FAHRERHAUS,
+    children: [
+      entry(LENKRAD, "Lenkrad"),
+      entry(SITZE, "Sitze", { hasChildren: true }),
+      entry("6a7357aca8480d7e2b6b9db3", "Unterordner", { href: null, hasChildren: true }),
+    ],
   },
   [ORDNER]: {
     entry: entry(ORDNER, "Argumentation", { href: null, hasChildren: true }),
+    parentId: FAHRERHAUS,
     children: [],
   },
 };
 
-const loaderFor = (levels: Record<string, MenuLevel | null>) =>
-  jest.fn(async (id: string) => levels[id] ?? null);
+const loaderFor = (levels: Record<string, MenuLevel | null>) => jest.fn(async (id: string) => levels[id] ?? null);
 
 const renderMenu = (props: Partial<React.ComponentProps<typeof NavigationMenu>> = {}) => {
   const loadLevel = (props.loadLevel ?? loaderFor(menu)) as jest.Mock<Promise<MenuLevel | null>, [string]>;
-  const view = render(<NavigationMenu startId={FAHRERHAUS} heading={null} loadLevel={loadLevel} {...props} />);
+  const view = render(<NavigationMenu startId={FAHRERHAUS} currentId={null} loadLevel={loadLevel} {...props} />);
   return { ...view, loadLevel };
 };
 
-const touch = (x: number, y = 100) => ({ touches: [{ clientX: x, clientY: y }], changedTouches: [{ clientX: x, clientY: y }] });
+const arrow = (title: string): Promise<HTMLElement> =>
+  screen.findByRole("button", { name: MESSAGES.openChildren(title) });
+
+const dropdownOf = (title: string): Promise<HTMLElement> =>
+  screen.findByRole("list", { name: MESSAGES.openChildren(title) });
 
 describe("NavigationMenu", () => {
-  it("zeigt die Unterpunkte des Startpunkts unter dessen Titel", async () => {
+  it("zeigt links den Startpunkt als Verweis und rechts seine Unterpunkte", async () => {
     renderMenu();
 
-    expect(await screen.findByRole("link", { name: "Fahrerarbeitsplatz" })).toHaveAttribute(
+    expect(await screen.findByRole("link", { name: "Fahrerhaus" })).toHaveAttribute(
       "href",
-      `/openlink/content/page/${ARBEITSPLATZ}`,
+      `/openlink/content/page/${FAHRERHAUS}`,
     );
-    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent("Fahrerhaus");
-    expect(screen.getByRole("navigation", { name: "Fahrerhaus" })).toBeInTheDocument();
+    const nav = screen.getByRole("navigation", { name: "Fahrerhaus" });
+    const bar = within(nav).getAllByRole("list")[0];
+    expect(within(bar).getAllByRole("listitem").map((item) => item.textContent)).toEqual([
+      "Fahrerarbeitsplatz",
+      "Ruhebereich",
+      "Argumentation",
+    ]);
+    expect(nav.querySelector(".man-nav__divider")).toHaveAttribute("aria-hidden", "true");
   });
 
-  it("nimmt die eingetragene Überschrift statt des Titels", async () => {
-    renderMenu({ heading: "Weiterführende Links" });
+  it("zeigt einen Startpunkt ohne eigene Seite als Text", async () => {
+    renderMenu({ startId: ORDNER, loadLevel: loaderFor({ ...menu, [ORDNER]: { ...menu[ORDNER], children: [entry(RUHE, "Ruhebereich")] } }) });
 
     await screen.findByRole("link", { name: "Ruhebereich" });
-    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent("Weiterführende Links");
+    expect(screen.getByText("Argumentation")).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "Argumentation" })).not.toBeInTheDocument();
   });
 
-  it("zeigt verborgene Einträge nicht", async () => {
+  it("öffnet am Startpunkt die Geschwister und markiert ihn darin", async () => {
+    const user = userEvent.setup();
+    renderMenu();
+
+    const button = await screen.findByRole("button", { name: MESSAGES.openSiblings("Fahrerhaus") });
+    expect(button).toHaveAttribute("aria-expanded", "false");
+    await user.click(button);
+
+    expect(button).toHaveAttribute("aria-expanded", "true");
+    const dropdown = await screen.findByRole("list", { name: MESSAGES.openSiblings("Fahrerhaus") });
+    expect(button).toHaveAttribute("aria-controls", dropdown.parentElement!.id);
+    expect(within(dropdown).getAllByRole("link").map((link) => link.textContent)).toEqual(["Fahrerhaus", "Aufbau"]);
+    expect(within(dropdown).getByRole("link", { name: "Fahrerhaus" })).toHaveAttribute("aria-current", "true");
+  });
+
+  it("gibt der Wurzel keinen Pfeil", async () => {
+    const { loadLevel } = renderMenu({ startId: WURZEL });
+
+    await screen.findByRole("link", { name: "Fahrerhaus" });
+    expect(screen.queryByRole("button", { name: MESSAGES.openSiblings("Hauptmenü") })).not.toBeInTheDocument();
+    expect(loadLevel).toHaveBeenCalledTimes(1);
+  });
+
+  it("gibt dem Startpunkt keinen Pfeil, wenn neben ihm nichts Sichtbares steht", async () => {
+    renderMenu({
+      loadLevel: loaderFor({
+        ...menu,
+        [WURZEL]: { ...menu[WURZEL], children: [menu[WURZEL].children[0], menu[WURZEL].children[2]] },
+      }),
+    });
+
+    await screen.findByRole("link", { name: "Ruhebereich" });
+    await act(async () => undefined);
+    expect(screen.queryByRole("button", { name: MESSAGES.openSiblings("Fahrerhaus") })).not.toBeInTheDocument();
+  });
+
+  it("zeigt verborgene Unterpunkte nicht", async () => {
     renderMenu();
 
     await screen.findByRole("link", { name: "Ruhebereich" });
     expect(screen.queryByText("Verborgen")).not.toBeInTheDocument();
   });
 
-  it("gibt nur Einträgen mit Unterpunkten einen Pfeil", async () => {
-    renderMenu();
-
-    await screen.findByRole("link", { name: "Ruhebereich" });
-    expect(screen.getByRole("button", { name: MESSAGES.openChildren("Fahrerarbeitsplatz") })).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: MESSAGES.openChildren("Ruhebereich") })).not.toBeInTheDocument();
-  });
-
-  it("blättert per Pfeil eine Ebene tiefer und per Kopfzeile zurück", async () => {
-    const user = userEvent.setup();
-    renderMenu({ heading: "Weiterführende Links" });
-
-    await user.click(await screen.findByRole("button", { name: MESSAGES.openChildren("Fahrerarbeitsplatz") }));
-
-    expect(await screen.findByRole("link", { name: "Lenkrad" })).toBeInTheDocument();
-    const back = screen.getByRole("button", { name: `${MESSAGES.back}Fahrerarbeitsplatz` });
-    expect(back).toHaveFocus();
-    expect(screen.queryByRole("link", { name: "Ruhebereich" })).not.toBeInTheDocument();
-
-    await user.click(back);
-
-    expect(await screen.findByRole("link", { name: "Ruhebereich" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent("Weiterführende Links");
-    // Der Fokus steht wieder dort, wo der Weg hinein begann.
-    expect(screen.getByRole("button", { name: MESSAGES.openChildren("Fahrerarbeitsplatz") })).toHaveFocus();
-  });
-
-  it("lädt eine besuchte Ebene beim Zurückblättern nicht neu", async () => {
-    const user = userEvent.setup();
-    const { loadLevel } = renderMenu();
-
-    await user.click(await screen.findByRole("button", { name: MESSAGES.openChildren("Fahrerarbeitsplatz") }));
-    await screen.findByRole("link", { name: "Lenkrad" });
-    await user.click(screen.getByRole("button", { name: `${MESSAGES.back}Fahrerarbeitsplatz` }));
-
-    expect(screen.getByRole("link", { name: "Ruhebereich" })).toBeInTheDocument();
-    expect(loadLevel.mock.calls.map(([id]) => id).filter((id) => id === FAHRERHAUS)).toHaveLength(1);
-  });
-
-  it("blättert bei einem reinen Ordner mit der ganzen Zeile", async () => {
-    const user = userEvent.setup();
-    renderMenu();
-
-    await user.click(await screen.findByRole("button", { name: "Argumentation" }));
-
-    expect(await screen.findByText(MESSAGES.empty)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: `${MESSAGES.back}Argumentation` })).toBeInTheDocument();
-  });
-
-  it("hinterlegt die Seite, auf der das Widget steht", async () => {
+  it("unterstreicht die Seite, auf der das Widget steht", async () => {
     renderMenu({ currentId: RUHE });
 
     const current = await screen.findByRole("link", { name: "Ruhebereich" });
     expect(current).toHaveAttribute("aria-current", "page");
     expect(current.closest("li")).toHaveClass("man-nav__item--current");
-    expect(screen.getByRole("link", { name: "Fahrerarbeitsplatz" })).not.toHaveAttribute("aria-current");
-    expect(screen.getByRole("link", { name: "Fahrerarbeitsplatz" }).closest("li")).not.toHaveClass(
-      "man-nav__item--current",
-    );
-  });
-
-  it("findet die aktuelle Seite auch eine Ebene tiefer", async () => {
-    const user = userEvent.setup();
-    renderMenu({ currentId: LENKRAD });
-
-    await user.click(await screen.findByRole("button", { name: MESSAGES.openChildren("Fahrerarbeitsplatz") }));
-
-    expect(await screen.findByRole("link", { name: "Lenkrad" })).toHaveAttribute("aria-current", "page");
+    const other = screen.getByRole("link", { name: "Fahrerarbeitsplatz" });
+    expect(other).not.toHaveAttribute("aria-current");
+    expect(other.closest("li")).not.toHaveClass("man-nav__item--current");
   });
 
   it("liest die aktuelle Seite aus der Adresse", async () => {
     window.history.pushState({}, "", `/content/page/${RUHE}`);
     try {
-      renderMenu();
+      render(<NavigationMenu startId={FAHRERHAUS} loadLevel={loaderFor(menu)} />);
 
       expect(await screen.findByRole("link", { name: "Ruhebereich" })).toHaveAttribute("aria-current", "page");
     } finally {
@@ -175,9 +181,160 @@ describe("NavigationMenu", () => {
     }
   });
 
+  it("teilt einen Unterpunkt: der Titel führt zur Seite, der Pfeil öffnet eine Ebene", async () => {
+    const user = userEvent.setup();
+    renderMenu({ currentId: LENKRAD });
+
+    expect(await screen.findByRole("link", { name: "Fahrerarbeitsplatz" })).toHaveAttribute(
+      "href",
+      `/openlink/content/page/${ARBEITSPLATZ}`,
+    );
+    expect(screen.queryByRole("button", { name: MESSAGES.openChildren("Ruhebereich") })).not.toBeInTheDocument();
+    await user.click(await arrow("Fahrerarbeitsplatz"));
+
+    const dropdown = await dropdownOf("Fahrerarbeitsplatz");
+    // Eine Ebene: „Sitze“ hat selbst Kinder und bleibt ein einfacher Verweis; der Ordner fehlt.
+    expect(within(dropdown).getAllByRole("link").map((link) => link.textContent)).toEqual(["Lenkrad", "Sitze"]);
+    expect(within(dropdown).queryByRole("button")).not.toBeInTheDocument();
+    expect(within(dropdown).getByRole("link", { name: "Lenkrad" })).toHaveAttribute("aria-current", "page");
+  });
+
+  it("öffnet bei einem reinen Ordner das Dropdown mit dem ganzen Eintrag", async () => {
+    const user = userEvent.setup();
+    renderMenu();
+
+    const folder = await screen.findByRole("button", { name: "Argumentation" });
+    await user.click(folder);
+
+    expect(folder).toHaveAttribute("aria-expanded", "true");
+    expect(await screen.findByText(MESSAGES.empty)).toBeInTheDocument();
+  });
+
+  it("lädt ein Dropdown beim ersten Öffnen, danach aus der Ablage", async () => {
+    const user = userEvent.setup();
+    let resolve: (level: MenuLevel) => void = () => undefined;
+    const base = loaderFor(menu);
+    const loadLevel = jest.fn((id: string) =>
+      id === ARBEITSPLATZ ? new Promise<MenuLevel | null>((done) => (resolve = done)) : base(id),
+    );
+    renderMenu({ loadLevel });
+
+    const button = await arrow("Fahrerarbeitsplatz");
+    await user.click(button);
+    expect(screen.getByRole("status")).toHaveTextContent(MESSAGES.loading);
+
+    await act(async () => resolve(menu[ARBEITSPLATZ]));
+    await dropdownOf("Fahrerarbeitsplatz");
+
+    await user.click(button);
+    await user.click(button);
+    expect(await dropdownOf("Fahrerarbeitsplatz")).toBeInTheDocument();
+    expect(loadLevel.mock.calls.filter(([id]) => id === ARBEITSPLATZ)).toHaveLength(1);
+  });
+
+  it("meldet im Dropdown einen Fehler und fragt auf Wunsch neu", async () => {
+    const user = userEvent.setup();
+    let fail = true;
+    const loadLevel = jest.fn(async (id: string) => (id === ARBEITSPLATZ && fail ? null : (menu[id] ?? null)));
+    renderMenu({ loadLevel });
+
+    await user.click(await arrow("Fahrerarbeitsplatz"));
+    expect(await screen.findByRole("alert")).toHaveTextContent(MESSAGES.failed);
+
+    fail = false;
+    await user.click(screen.getByRole("button", { name: MESSAGES.retry }));
+
+    expect(await dropdownOf("Fahrerarbeitsplatz")).toBeInTheDocument();
+  });
+
+  it("schließt bei Escape und gibt den Fokus an den Pfeil zurück", async () => {
+    const user = userEvent.setup();
+    renderMenu();
+
+    const button = await arrow("Fahrerarbeitsplatz");
+    await user.click(button);
+    await dropdownOf("Fahrerarbeitsplatz");
+    await user.tab();
+    expect(screen.getByRole("link", { name: "Lenkrad" })).toHaveFocus();
+
+    await user.keyboard("{Escape}");
+
+    expect(screen.queryByRole("list", { name: MESSAGES.openChildren("Fahrerarbeitsplatz") })).not.toBeInTheDocument();
+    expect(button).toHaveFocus();
+    expect(button).toHaveAttribute("aria-expanded", "false");
+  });
+
+  it("führt per Tab durch das Dropdown und danach zum nächsten Eintrag der Leiste", async () => {
+    const user = userEvent.setup();
+    renderMenu();
+
+    const button = await arrow("Fahrerarbeitsplatz");
+    await user.click(button);
+    await dropdownOf("Fahrerarbeitsplatz");
+
+    await user.tab();
+    expect(screen.getByRole("link", { name: "Lenkrad" })).toHaveFocus();
+    await user.tab({ shift: true });
+    expect(button).toHaveFocus();
+    await user.tab();
+    await user.tab();
+    expect(screen.getByRole("link", { name: "Sitze" })).toHaveFocus();
+    await user.tab();
+
+    expect(screen.getByRole("link", { name: "Ruhebereich" })).toHaveFocus();
+    expect(screen.queryByRole("list", { name: MESSAGES.openChildren("Fahrerarbeitsplatz") })).not.toBeInTheDocument();
+  });
+
+  it("hält höchstens ein Dropdown offen", async () => {
+    const user = userEvent.setup();
+    renderMenu();
+
+    await user.click(await arrow("Fahrerarbeitsplatz"));
+    await dropdownOf("Fahrerarbeitsplatz");
+    await user.click(screen.getByRole("button", { name: MESSAGES.openSiblings("Fahrerhaus") }));
+
+    await screen.findByRole("list", { name: MESSAGES.openSiblings("Fahrerhaus") });
+    expect(screen.queryByRole("list", { name: MESSAGES.openChildren("Fahrerarbeitsplatz") })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: MESSAGES.openChildren("Fahrerarbeitsplatz") })).toHaveAttribute(
+      "aria-expanded",
+      "false",
+    );
+  });
+
+  it("schließt bei einem Klick daneben, beim Scrollen der Leiste und bei neuer Fenstergröße", async () => {
+    const user = userEvent.setup();
+    const { container } = renderMenu();
+    const button = await arrow("Fahrerarbeitsplatz");
+    const isOpen = (): boolean => button.getAttribute("aria-expanded") === "true";
+
+    await user.click(button);
+    await user.click(document.body);
+    expect(isOpen()).toBe(false);
+
+    // Ein Scroll-Ereignis ohne Bewegung (Scroll-Anker, Fokus) lässt es offen.
+    await user.click(button);
+    const scroller = container.querySelector(".man-nav__scroller")!;
+    fireEvent.scroll(scroller);
+    expect(isOpen()).toBe(true);
+    Object.defineProperty(scroller, "scrollLeft", { configurable: true, value: 50 });
+    fireEvent.scroll(scroller);
+    expect(isOpen()).toBe(false);
+
+    await user.click(button);
+    const width = window.innerWidth;
+    try {
+      Object.defineProperty(window, "innerWidth", { configurable: true, value: width - 100 });
+      fireEvent(window, new Event("resize"));
+      expect(isOpen()).toBe(false);
+    } finally {
+      Object.defineProperty(window, "innerWidth", { configurable: true, value: width });
+    }
+  });
+
   it("öffnet eine fremde Adresse in einem neuen Tab", async () => {
     renderMenu({
       loadLevel: loaderFor({
+        ...menu,
         [FAHRERHAUS]: { ...menu[FAHRERHAUS], children: [entry(RUHE, "MAN", { href: "https://www.man.eu/", external: true })] },
       }),
     });
@@ -187,52 +344,27 @@ describe("NavigationMenu", () => {
     expect(link).toHaveAttribute("rel", "noopener noreferrer");
   });
 
-  it("meldet einen Fehler und fragt auf Wunsch neu", async () => {
+  it("zeigt einen Startpunkt ohne sichtbare Unterpunkte allein, ohne Trennstrich", async () => {
+    const { container } = renderMenu({
+      loadLevel: loaderFor({ ...menu, [FAHRERHAUS]: { ...menu[FAHRERHAUS], children: [] } }),
+    });
+
+    await screen.findByRole("link", { name: "Fahrerhaus" });
+    expect(container.querySelector(".man-nav__divider")).toBeNull();
+    expect(container.querySelector(".man-nav__scroller")).toBeNull();
+  });
+
+  it("meldet einen Fehler beim Startpunkt und fragt auf Wunsch neu", async () => {
     const user = userEvent.setup();
-    const loadLevel = jest.fn().mockResolvedValueOnce(null).mockResolvedValue(menu[FAHRERHAUS]);
+    const base = loaderFor(menu);
+    const loadLevel = jest.fn().mockResolvedValueOnce(null).mockImplementation(base);
     renderMenu({ loadLevel });
 
     expect(await screen.findByRole("alert")).toHaveTextContent(MESSAGES.failed);
+    expect(screen.getByRole("navigation", { name: MESSAGES.fallbackLabel })).toBeInTheDocument();
     await user.click(screen.getByRole("button", { name: MESSAGES.retry }));
 
     expect(await screen.findByRole("link", { name: "Ruhebereich" })).toBeInTheDocument();
-  });
-
-  it("macht die Kopfzeile tieferer Ebenen nicht zur Überschrift", async () => {
-    const user = userEvent.setup();
-    renderMenu();
-
-    await user.click(await screen.findByRole("button", { name: MESSAGES.openChildren("Fahrerarbeitsplatz") }));
-    await screen.findByRole("link", { name: "Lenkrad" });
-
-    expect(screen.queryByRole("heading")).not.toBeInTheDocument();
-  });
-
-  it("zeigt keine leere Überschrift, solange der Titel noch fehlt", () => {
-    renderMenu({ loadLevel: jest.fn(() => new Promise<MenuLevel | null>(() => undefined)) });
-
-    expect(screen.queryByRole("heading")).not.toBeInTheDocument();
-    expect(screen.getByRole("navigation", { name: MESSAGES.fallbackLabel })).toBeInTheDocument();
-  });
-
-  it("öffnet nach einem Fehler beim erneuten Besuch nicht gleich wieder den alten Fehler", async () => {
-    const user = userEvent.setup();
-    let failArbeitsplatz = true;
-    const loadLevel = jest.fn(async (id: string) => {
-      if (id === ARBEITSPLATZ && failArbeitsplatz) return null;
-      return menu[id] ?? null;
-    });
-    renderMenu({ loadLevel });
-
-    await user.click(await screen.findByRole("button", { name: MESSAGES.openChildren("Fahrerarbeitsplatz") }));
-    expect(await screen.findByRole("alert")).toBeInTheDocument();
-    await user.click(screen.getByRole("button", { name: `${MESSAGES.back}Fahrerarbeitsplatz` }));
-
-    failArbeitsplatz = false;
-    await user.click(await screen.findByRole("button", { name: MESSAGES.openChildren("Fahrerarbeitsplatz") }));
-
-    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
-    expect(await screen.findByRole("link", { name: "Lenkrad" })).toBeInTheDocument();
   });
 
   it("zeigt ohne Startpunkt einen Hinweis statt einer Anfrage", () => {
@@ -242,104 +374,178 @@ describe("NavigationMenu", () => {
     expect(loadLevel).not.toHaveBeenCalled();
   });
 
-  it("beginnt wieder oben, wenn die Redaktion den Startpunkt wechselt", async () => {
+  it("schließt das Dropdown, wenn die Redaktion den Startpunkt wechselt", async () => {
     const user = userEvent.setup();
     const loadLevel = loaderFor(menu);
     const { rerender } = renderMenu({ loadLevel });
 
-    await user.click(await screen.findByRole("button", { name: MESSAGES.openChildren("Fahrerarbeitsplatz") }));
-    await screen.findByRole("link", { name: "Lenkrad" });
+    await user.click(await arrow("Fahrerarbeitsplatz"));
+    await dropdownOf("Fahrerarbeitsplatz");
 
-    rerender(<NavigationMenu startId={ARBEITSPLATZ} heading={null} loadLevel={loadLevel} />);
+    rerender(<NavigationMenu startId={ARBEITSPLATZ} currentId={null} loadLevel={loadLevel} />);
 
     expect(await screen.findByRole("link", { name: "Lenkrad" })).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: /^Zurück/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole("list", { name: MESSAGES.openChildren("Fahrerarbeitsplatz") })).not.toBeInTheDocument();
   });
 
-  describe("Wischen", () => {
-    const openArbeitsplatz = async (): Promise<HTMLElement> => {
+  // Der Content Designer setzt jeden Block in einen eigenen Shadow Root; am
+  // `document` kommt jedes Ereignis von dort mit dem Wirt als Ziel an.
+  it("bedient das Dropdown auch in einem Shadow Root", async () => {
+    const user = userEvent.setup();
+    const host = document.createElement("div");
+    document.body.append(host);
+    const container = host.attachShadow({ mode: "open" }).appendChild(document.createElement("div"));
+    try {
+      render(<NavigationMenu startId={FAHRERHAUS} currentId={null} loadLevel={loaderFor(menu)} />, { container });
+      const view = within(container);
+      const button = await view.findByRole("button", { name: MESSAGES.openChildren("Fahrerarbeitsplatz") });
+
+      await user.click(button);
+      const dropdown = await view.findByRole("list", { name: MESSAGES.openChildren("Fahrerarbeitsplatz") });
+      await user.click(within(dropdown).getByRole("link", { name: "Lenkrad" }).querySelector("span")!);
+      expect(button).toHaveAttribute("aria-expanded", "true");
+
+      await user.click(button);
+      expect(button).toHaveAttribute("aria-expanded", "false");
+
+      await user.click(button);
+      button.focus();
+      await user.tab();
+      expect(host.shadowRoot!.activeElement).toBe(view.getByRole("link", { name: "Lenkrad" }));
+    } finally {
+      host.remove();
+    }
+  });
+
+  it("nennt den Pfeil am Startpunkt nach den Geschwistern, nicht nach Unterpunkten", async () => {
+    renderMenu();
+
+    expect(await screen.findByRole("button", { name: MESSAGES.openSiblings("Fahrerhaus") })).toBeInTheDocument();
+  });
+
+  it("gibt dem Startpunkt keinen Pfeil, wenn neben ihm nur reine Ordner stehen", async () => {
+    renderMenu({
+      loadLevel: loaderFor({
+        ...menu,
+        [WURZEL]: { ...menu[WURZEL], children: [menu[WURZEL].children[0], entry(AUFBAU, "Aufbau", { href: null, hasChildren: true })] },
+      }),
+    });
+
+    await screen.findByRole("link", { name: "Ruhebereich" });
+    await act(async () => undefined);
+    expect(screen.queryByRole("button", { name: MESSAGES.openSiblings("Fahrerhaus") })).not.toBeInTheDocument();
+  });
+
+  it("verweist nur bei offenem Dropdown per aria-controls darauf", async () => {
+    const user = userEvent.setup();
+    renderMenu();
+
+    const button = await arrow("Fahrerarbeitsplatz");
+    expect(button).not.toHaveAttribute("aria-controls");
+    await user.click(button);
+
+    expect(document.getElementById(button.getAttribute("aria-controls")!)).not.toBeNull();
+  });
+
+  it("bleibt offen, wenn sich nur die Höhe des Fensters ändert", async () => {
+    const user = userEvent.setup();
+    renderMenu();
+    const button = await arrow("Fahrerarbeitsplatz");
+    await user.click(button);
+
+    fireEvent(window, new Event("resize"));
+    expect(button).toHaveAttribute("aria-expanded", "true");
+
+    const width = window.innerWidth;
+    try {
+      Object.defineProperty(window, "innerWidth", { configurable: true, value: width + 100 });
+      fireEvent(window, new Event("resize"));
+      expect(button).toHaveAttribute("aria-expanded", "false");
+    } finally {
+      Object.defineProperty(window, "innerWidth", { configurable: true, value: width });
+    }
+  });
+
+  describe("Overflow", () => {
+    const geometry = { scrollWidth: 0, clientWidth: 400 };
+    const scrollLeft = new WeakMap<Element, number>();
+    const originals = (["scrollWidth", "clientWidth", "scrollLeft"] as const).map(
+      (name) => [name, Object.getOwnPropertyDescriptor(Element.prototype, name)] as const,
+    );
+    const scrollBy = jest.fn();
+
+    const isScroller = (element: Element): boolean => element.classList.contains("man-nav__scroller");
+
+    beforeEach(() => {
+      scrollBy.mockReset();
+      Object.defineProperty(Element.prototype, "scrollWidth", {
+        configurable: true,
+        get(this: Element) {
+          return isScroller(this) ? geometry.scrollWidth : 0;
+        },
+      });
+      Object.defineProperty(Element.prototype, "clientWidth", {
+        configurable: true,
+        get(this: Element) {
+          return isScroller(this) ? geometry.clientWidth : 0;
+        },
+      });
+      Object.defineProperty(Element.prototype, "scrollLeft", {
+        configurable: true,
+        get(this: Element) {
+          return scrollLeft.get(this) ?? 0;
+        },
+        set(this: Element, value: number) {
+          scrollLeft.set(this, value);
+        },
+      });
+      (Element.prototype as unknown as { scrollBy: unknown }).scrollBy = scrollBy;
+    });
+
+    afterEach(() => {
+      for (const [name, descriptor] of originals) {
+        if (descriptor === undefined) delete (Element.prototype as unknown as Record<string, unknown>)[name];
+        else Object.defineProperty(Element.prototype, name, descriptor);
+      }
+      delete (Element.prototype as unknown as { scrollBy?: unknown }).scrollBy;
+    });
+
+    it("zeigt keine Knöpfe, solange alles hineinpasst", async () => {
+      geometry.scrollWidth = 400;
       renderMenu();
-      fireEvent.click(await screen.findByRole("button", { name: MESSAGES.openChildren("Fahrerarbeitsplatz") }));
-      await screen.findByRole("link", { name: "Lenkrad" });
-      return screen.getByRole("navigation");
-    };
 
-    it("blättert nach einem Wisch nach rechts zurück", async () => {
-      const nav = await openArbeitsplatz();
-
-      act(() => {
-        fireEvent.touchStart(nav, touch(20));
-        fireEvent.touchMove(nav, touch(40));
-        fireEvent.touchMove(nav, touch(20 + SWIPE_THRESHOLD + 10));
-        fireEvent.touchEnd(nav, touch(20 + SWIPE_THRESHOLD + 10));
-      });
-
-      expect(await screen.findByRole("link", { name: "Ruhebereich" })).toBeInTheDocument();
-    });
-
-    it("bleibt bei einem kurzen Wisch, einem nach links und beim Scrollen", async () => {
-      const nav = await openArbeitsplatz();
-
-      act(() => {
-        fireEvent.touchStart(nav, touch(20));
-        fireEvent.touchMove(nav, touch(40));
-        fireEvent.touchEnd(nav, touch(20 + SWIPE_THRESHOLD - 10));
-
-        fireEvent.touchStart(nav, touch(200));
-        fireEvent.touchMove(nav, touch(100));
-        fireEvent.touchEnd(nav, touch(100));
-
-        fireEvent.touchStart(nav, touch(20, 100));
-        fireEvent.touchMove(nav, touch(30, 300));
-        fireEvent.touchMove(nav, touch(20 + SWIPE_THRESHOLD + 10, 320));
-        fireEvent.touchEnd(nav, touch(20 + SWIPE_THRESHOLD + 10, 320));
-      });
-
-      expect(screen.getByRole("link", { name: "Lenkrad" })).toBeInTheDocument();
-    });
-
-    it("lässt die Ebene dem Finger folgen und gibt sie danach frei", async () => {
-      const nav = await openArbeitsplatz();
-
-      act(() => {
-        fireEvent.touchStart(nav, touch(20));
-        fireEvent.touchMove(nav, touch(50));
-      });
-      expect(nav.style.getPropertyValue("--man-nav-drag")).toBe("30px");
-      expect(nav).toHaveClass("man-nav--dragging");
-
-      act(() => {
-        fireEvent.touchEnd(nav, touch(50));
-      });
-      expect(nav.style.getPropertyValue("--man-nav-drag")).toBe("");
-      expect(nav).not.toHaveClass("man-nav--dragging");
-    });
-
-    it("gibt die Ebene frei, sobald ein zweiter Finger dazukommt", async () => {
-      const nav = await openArbeitsplatz();
-
-      act(() => {
-        fireEvent.touchStart(nav, touch(20));
-        fireEvent.touchMove(nav, touch(60));
-        fireEvent.touchStart(nav, { touches: [{ clientX: 60, clientY: 100 }, { clientX: 200, clientY: 100 }] });
-      });
-
-      expect(nav.style.getPropertyValue("--man-nav-drag")).toBe("");
-      expect(nav).not.toHaveClass("man-nav--dragging");
-    });
-
-    it("tut auf der ersten Ebene nichts", async () => {
-      renderMenu();
-      const nav = await screen.findByRole("navigation");
       await screen.findByRole("link", { name: "Ruhebereich" });
+      expect(screen.queryByRole("button", { name: MESSAGES.scrollForward })).not.toBeInTheDocument();
+    });
 
-      act(() => {
-        fireEvent.touchStart(nav, touch(20));
-        fireEvent.touchMove(nav, touch(50));
-      });
+    it("zeigt ‹ ›, wenn die Unterpunkte breiter sind, und sperrt sie am Rand", async () => {
+      geometry.scrollWidth = 1000;
+      const user = userEvent.setup();
+      const { container } = renderMenu();
 
-      expect(nav).not.toHaveClass("man-nav--dragging");
-      expect(within(nav).getByRole("link", { name: "Ruhebereich" })).toBeInTheDocument();
+      const forward = await screen.findByRole("button", { name: MESSAGES.scrollForward });
+      const back = screen.getByRole("button", { name: MESSAGES.scrollBack });
+      expect(back).toHaveAttribute("aria-disabled", "true");
+      expect(forward).toHaveAttribute("aria-disabled", "false");
+
+      await user.click(forward);
+      expect(scrollBy).toHaveBeenCalledWith({ left: 400 * SCROLL_SHARE, behavior: "smooth" });
+
+      const scroller = container.querySelector(".man-nav__scroller")!;
+      scroller.scrollLeft = 600;
+      fireEvent.scroll(scroller);
+
+      expect(back).toHaveAttribute("aria-disabled", "false");
+      // Gesperrt, aber fokussierbar: wer per Tastatur bis zum Rand drückt, behält seinen Platz.
+      expect(forward).toHaveAttribute("aria-disabled", "true");
+      forward.focus();
+      scrollBy.mockClear();
+      await user.click(forward);
+      expect(scrollBy).not.toHaveBeenCalled();
+      expect(forward).toHaveFocus();
+
+      await user.click(back);
+      expect(scrollBy).toHaveBeenLastCalledWith({ left: -400 * SCROLL_SHARE, behavior: "smooth" });
     });
   });
 });

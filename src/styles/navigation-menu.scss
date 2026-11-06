@@ -14,41 +14,23 @@
 @use "@shared/stylings/man-tokens" as *;
 @use "@shared/stylings/man-craft" as *;
 
-// Ein Kasten wie in der Vorlage: helle Fläche, Craft-Haarlinie, keine Rundung.
-// `overflow: hidden`, weil die Ebenen beim Blättern seitlich hereinschieben
-// und beim Wischen dem Finger folgen — über den Rand hinaus wäre das Unruhe
-// in der Nachbarspalte.
+// Eine Leiste: helle Fläche, Craft-Haarlinie, keine Rundung. Kein
+// `overflow: hidden` — die Dropdowns ragen unten aus der Leiste heraus.
+// `position: relative`, weil sie relativ zur Leiste stehen.
 .man-nav {
+  position: relative;
   box-sizing: border-box;
-  overflow: hidden;
-  padding: man("space-4") man("space-3") man("space-3");
   border: man("border-width") solid man("border");
   border-radius: man("radius");
   background: man("surface-sunken");
   color: man("text");
   @include man-type("body");
-
-  // Längs gehört der Finger der Seite, quer dem Widget; Zoomen bleibt erlaubt.
-  touch-action: pan-y pinch-zoom;
 }
 
-.man-nav__panel {
-  // Während des Wischens setzt `use-swipe-back.ts` den Weg des Fingers.
-  transform: translateX(var(--man-nav-drag, 0px));
-}
-
-.man-nav__header {
+.man-nav__bar {
   display: flex;
-  align-items: center;
-  min-height: 40px;
-  margin: 0 0 man("space-2");
-  padding: 0 man("space-2");
-}
-
-.man-nav__heading {
-  @include man-type("h4");
-
-  overflow-wrap: anywhere;
+  align-items: stretch;
+  min-width: 0;
 }
 
 // Der Pfeil folgt der Schrift; die Linie ist kräftig wie in der Vorlage.
@@ -63,11 +45,12 @@
 }
 
 // Jeder blanke `button` im Inhaltsbereich bekommt von man-theme den Grundriss
-// eines Handlungsknopfs über die volle Breite. Diese hier sind Zeilen und
+// eines Handlungsknopfs über die volle Breite. Diese hier sind Einträge und
 // Pfeile, keine Handlungen — also gegen die Wirtsseite durchgesetzt.
 @mixin -bare-button {
   @include man-outshine-host {
     box-sizing: border-box !important;
+    width: auto !important;
     min-width: 0 !important;
     height: auto !important;
     margin: 0 !important;
@@ -80,6 +63,7 @@
     text-align: left !important;
     text-transform: none !important;
     letter-spacing: normal !important;
+    white-space: nowrap !important;
     cursor: pointer;
 
     &:focus-visible {
@@ -88,19 +72,64 @@
   }
 }
 
-.man-nav__back {
-  @include -bare-button;
-  @include man-outshine-host {
-    display: flex !important;
-    gap: man("space-2");
-    align-items: center;
-    width: 100% !important;
-    padding: man("space-1") 0 !important;
+// Ein Eintrag der Leiste — der Startpunkt wie jeder Unterpunkt: Titel und
+// Pfeil nebeneinander, die rote Linie der aktuellen Seite darunter.
+@mixin -bar-entry {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: stretch;
+}
+
+.man-nav__start {
+  @include -bar-entry;
+
+  font-weight: man("weight-body-bold");
+}
+
+.man-nav__start-title {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 man("space-3");
+  white-space: nowrap;
+}
+
+// Senkrechter Strich zwischen Startpunkt und Unterpunkten, nur Zierde.
+.man-nav__divider {
+  flex: none;
+  align-self: center;
+  width: man("border-width");
+  height: 24px;
+  margin: 0 man("space-1");
+  background: man("border");
+}
+
+// Der Streifen scrollt waagerecht, ohne sichtbaren Balken und ohne Umbruch;
+// geblättert wird mit ‹ › oder dem Finger.
+.man-nav__scroller {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+
+  &::-webkit-scrollbar {
+    display: none;
   }
+}
+
+// Der Streifen schneidet alles über seinem Rand ab — auch einen Fokusring mit
+// Abstand. Darin liegt der Ring deshalb innen.
+.man-nav__scroller :focus-visible {
+  outline-offset: calc(-1 * #{man("focus-width")}) !important;
 }
 
 .man-nav__list {
   @include man-outshine-host {
+    display: flex !important;
+    flex-wrap: nowrap !important;
     margin: 0 !important;
     padding: 0 !important;
     list-style: none !important;
@@ -109,8 +138,8 @@
 
 .man-nav__item {
   @include man-outshine-host {
-    display: flex;
-    align-items: stretch;
+    @include -bar-entry;
+
     margin: 0 !important;
     padding: 0 !important;
     list-style: none !important;
@@ -122,29 +151,35 @@
   }
 }
 
-// Die Seite, auf der das Widget steht: immer hinterlegt, wie unter dem Zeiger
-// (Vorgabe 06.10.2026).
-.man-nav__item--current {
-  background: man("border-subtle");
+// Die Seite, auf der das Widget steht: rot unterstrichen. Eine Linie unter
+// dem ganzen Eintrag, kein `text-decoration` — unterstrichen wird Text nie.
+.man-nav__item--current::after {
+  position: absolute;
+  right: man("space-2");
+  bottom: 0;
+  left: man("space-2");
+  height: man("border-width-strong");
+  background: man("red");
+  content: "";
 }
 
 // Nur mit echtem Zeiger: auf dem Telefon bliebe die Fläche nach dem Tippen
-// an der Zeile hängen, die nach dem Blättern unter dem Finger liegt. Die
-// Fläche ist der einzige Hinweis — unterstrichen wird nie (Vorgabe 06.10.2026).
+// am Eintrag hängen.
 @media (hover: hover) {
-  .man-nav__item:hover {
+  .man-nav__item:hover,
+  .man-nav__start:hover,
+  .man-nav__menu-item:hover {
     background: man("border-subtle");
   }
 }
 
-.man-nav__link {
+@mixin -link {
   @include man-outshine-host {
     display: flex;
-    flex: 1 1 auto;
     align-items: center;
     min-width: 0;
     min-height: 44px;
-    padding: man("space-2") !important;
+    padding: 0 man("space-3") !important;
     color: inherit !important;
     font: inherit !important;
     text-decoration: none !important;
@@ -162,42 +197,128 @@
   }
 }
 
+.man-nav__link {
+  @include -link;
+  @include man-outshine-host {
+    white-space: nowrap;
+  }
+}
+
 .man-nav__title {
-  overflow-wrap: anywhere;
   text-decoration: none !important;
 }
 
-// Der Pfeil: ein ganzes Tippziel, nicht nur das Zeichen.
+// Der Pfeil neben einem Titel: ein ganzes Tippziel, nicht nur das Zeichen.
+// Rückt an den Titel heran, damit beide als ein Eintrag lesen.
 .man-nav__open {
   @include -bare-button;
   @include man-outshine-host {
     display: grid !important;
     flex: none;
     place-items: center;
-    width: 44px !important;
+    width: 32px !important;
     min-height: 44px !important;
+    margin-left: calc(-1 * #{man("space-2")}) !important;
     padding: 0 !important;
   }
 }
 
-// Ein reiner Ordner: die ganze Zeile blättert.
-.man-nav__row {
+// Ein reiner Ordner: der ganze Eintrag öffnet das Dropdown.
+.man-nav__folder {
   @include -bare-button;
   @include man-outshine-host {
     display: flex !important;
-    flex: 1 1 auto;
-    gap: man("space-2");
+    gap: man("space-1");
     align-items: center;
-    justify-content: space-between;
-    width: 100% !important;
     min-height: 44px !important;
-    padding: man("space-2") 12px man("space-2") man("space-2") !important;
+    padding: 0 man("space-2") 0 man("space-3") !important;
+  }
+}
+
+// Offen zeigt der Pfeil nach oben.
+.man-nav__open[aria-expanded="true"] .man-nav__chevron,
+.man-nav__folder[aria-expanded="true"] .man-nav__chevron {
+  transform: rotate(180deg);
+}
+
+.man-nav__scroll {
+  display: flex;
+  flex: none;
+  align-items: center;
+  padding: 0 man("space-1");
+  border-left: man("border-width") solid man("border");
+}
+
+.man-nav__scroll-button {
+  @include -bare-button;
+  @include man-outshine-host {
+    display: grid !important;
+    place-items: center;
+    width: 36px !important;
+    min-height: 44px !important;
+    padding: 0 !important;
+
+    // `aria-disabled` statt `disabled`: ein gesperrter Knopf verlöre den
+    // Fokus, und wer per Tastatur bis zum Rand drückt, stünde im Nichts.
+    &[aria-disabled="true"] {
+      color: man("text-disabled") !important;
+      cursor: default;
+    }
+  }
+}
+
+// Außerhalb des Streifens, sonst schnitte `overflow-x` es ab; Lage setzt
+// `menu-dropdown.tsx` unter den auslösenden Eintrag.
+.man-nav__dropdown {
+  @include man-overlay;
+
+  position: absolute;
+  z-index: 10;
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: min(320px, 100%);
+  padding: man("space-1") 0;
+}
+
+.man-nav__menu {
+  @include man-outshine-host {
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+}
+
+.man-nav__menu-item {
+  @include man-outshine-host {
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+
+    &::before {
+      content: none !important;
+    }
+  }
+}
+
+.man-nav__menu-link {
+  @include -link;
+  @include man-outshine-host {
+    overflow-wrap: anywhere;
+
+    // Hier ist es der Startpunkt unter seinen Geschwistern: fett statt rot.
+    &[aria-current="true"] {
+      font-weight: man("weight-body-bold") !important;
+    }
+
+    &[aria-current="page"] {
+      color: man("red") !important;
+    }
   }
 }
 
 .man-nav__status {
   margin: 0;
-  padding: man("space-2");
+  padding: man("space-2") man("space-3");
   color: man("text-muted");
 }
 
@@ -221,43 +342,13 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  // Blättern: die neue Ebene schiebt von der Seite herein, aus der sie kommt.
-  .man-nav__panel--forward {
-    animation: man-nav-from-right man("duration-slow") man("ease-move");
+  .man-nav__chevron {
+    transition: transform man("duration") man("ease");
   }
 
-  .man-nav__panel--back {
-    animation: man-nav-from-left man("duration-slow") man("ease-move");
-  }
-
-  // Losgelassen, ohne weit genug zu wischen: die Ebene gleitet zurück.
-  .man-nav__panel {
-    transition: transform man("duration-slow") man("ease-move");
-  }
-
-  // Erst nach einem Augenblick: kommt die Ebene schneller, blitzt nichts auf.
+  // Erst nach einem Augenblick: kommt die Antwort schneller, blitzt nichts auf.
   .man-nav__status--loading {
     animation: man-nav-appear 0s 300ms both;
-  }
-}
-
-// Unter dem Finger folgt die Ebene ohne Verzögerung.
-.man-nav--dragging .man-nav__panel {
-  transition: none;
-  animation: none;
-}
-
-@keyframes man-nav-from-right {
-  from {
-    opacity: 0;
-    transform: translateX(32%);
-  }
-}
-
-@keyframes man-nav-from-left {
-  from {
-    opacity: 0;
-    transform: translateX(-32%);
   }
 }
 

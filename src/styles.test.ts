@@ -26,12 +26,17 @@ function outshineRule(className: string): RegExp {
 }
 
 describe("Stylesheet", () => {
-  it.each(["man-nav__back", "man-nav__open", "man-nav__row", "man-nav__link", "man-nav__list", "man-nav__item"])(
-    "setzt %s gegen die Regeln der Wirtsseite durch",
-    (className) => {
-      expect(css).toMatch(outshineRule(className));
-    },
-  );
+  it.each([
+    "man-nav__open",
+    "man-nav__folder",
+    "man-nav__scroll-button",
+    "man-nav__link",
+    "man-nav__list",
+    "man-nav__item",
+    "man-nav__menu-link",
+  ])("setzt %s gegen die Regeln der Wirtsseite durch", (className) => {
+    expect(css).toMatch(outshineRule(className));
+  });
 
   it("rundet nur nach den MAN-Tokens", () => {
     const invented = [...css.matchAll(/border-radius:\s*([^;}]+)/g)]
@@ -41,40 +46,42 @@ describe("Stylesheet", () => {
     expect(invented).toEqual([]);
   });
 
-  it("blättert nur, wenn niemand weniger Bewegung eingestellt hat", () => {
-    const [beforeQuery] = css.split("prefers-reduced-motion");
-    expect(beforeQuery).not.toMatch(/animation:\s*man-nav-from/);
-    expect(css).toMatch(/prefers-reduced-motion:\s*no-preference[\s\S]*animation:\s*man-nav-from-right/);
+  it("scrollt die Unterpunkte waagerecht, ohne Balken und ohne Umbruch", () => {
+    expect(css).toMatch(/\.man-nav__scroller\s*\{[^}]*overflow-x:\s*auto[^}]*scrollbar-width:\s*none/);
+    expect(css).toMatch(/\.man-nav__scroller::-webkit-scrollbar\s*\{\s*display:\s*none/);
+    expect(css).toMatch(/flex-wrap:\s*nowrap\s*!important/);
   });
 
-  it("lässt die Ebene dem Finger über dieselbe Variable folgen, die die Geste setzt", () => {
-    expect(css).toContain("translateX(var(--man-nav-drag, 0px))");
-    expect(css).toMatch(/\.man-nav--dragging \.man-nav__panel\s*\{[^}]*transition:\s*none/);
+  // Die Dropdowns ragen unten aus der Leiste heraus und stehen relativ zu ihr.
+  it("schneidet die Dropdowns nicht ab", () => {
+    const [navRule] = css.match(/\.man-nav\s*\{[^}]*\}/) ?? [""];
+    expect(navRule).toMatch(/position:\s*relative/);
+    expect(navRule).not.toMatch(/overflow/);
+    expect(css).toMatch(/\.man-nav__dropdown\s*\{[^}]*position:\s*absolute/);
   });
 
-  // Live gesehen am 06.10.2026: nach dem Blättern per Tipp blieb die Zeile
-  // unter dem Finger grau hinterlegt.
-  it("hebt Zeilen nur unter einem echten Zeiger hervor", () => {
+  // Live gesehen am 06.10.2026: nach dem Tippen blieb der Eintrag unter dem
+  // Finger grau hinterlegt.
+  it("hebt Einträge nur unter einem echten Zeiger hervor", () => {
     const [outsideHoverQuery] = css.split("@media (hover: hover)");
-    expect(outsideHoverQuery).not.toMatch(/:hover/);
+    expect(outsideHoverQuery).not.toMatch(/:hover\s*[,{]/);
     expect(css).toMatch(/@media \(hover: hover\)\s*\{\s*\.man-nav__item:hover/);
   });
 
-  // Vorgabe 06.10.2026: die aktuelle Seite ist immer hinterlegt, nicht nur
-  // unter dem Zeiger — also ausserhalb der Hover-Abfrage, mit derselben Fläche.
-  it("hinterlegt die aktuelle Seite immer wie unter dem Zeiger", () => {
-    const [outsideHoverQuery] = css.split("@media (hover: hover)");
-    expect(outsideHoverQuery).toMatch(/\.man-nav__item--current\s*\{\s*background:\s*var\(--man-border-subtle, #eaedf3\)/);
-    expect(css).toMatch(/\.man-nav__item:hover\s*\{\s*background:\s*var\(--man-border-subtle, #eaedf3\)/);
+  // Vorgabe 06.11.2026: die aktuelle Seite ist rot unterstrichen.
+  it("unterstreicht die aktuelle Seite rot, mit einer Linie statt Textunterstrich", () => {
+    expect(css).toMatch(/\.man-nav__item--current::after\s*\{[^}]*background:\s*var\(--man-red, #e40045\)/);
   });
 
   // Vorgabe 06.10.2026: kein Unterstrich im Hover, auch nicht von der Wirtsseite.
-  it("unterstreicht die Einträge nie", () => {
+  it("unterstreicht den Text der Einträge nie", () => {
     expect(css).not.toMatch(/text-decoration:\s*underline/);
     expect(css).toMatch(/\.man-nav__link:hover\s*,?[^{]*\{[^}]*text-decoration:\s*none\s*!important/);
   });
 
-  it("überlässt das Scrollen längs dem Browser", () => {
-    expect(css).toMatch(/touch-action:\s*pan-y pinch-zoom/);
+  it("bewegt den Pfeil nur, wenn niemand weniger Bewegung eingestellt hat", () => {
+    const [beforeQuery] = css.split("prefers-reduced-motion");
+    expect(beforeQuery).not.toMatch(/transition:\s*transform/);
+    expect(css).toMatch(/prefers-reduced-motion:\s*no-preference[\s\S]*\.man-nav__chevron\s*\{\s*transition:\s*transform/);
   });
 });

@@ -17,20 +17,16 @@ export {};
 
 const mockStartWidget = jest.fn().mockResolvedValue(undefined);
 const mockStartPicker = jest.fn(() => () => undefined);
-const mockRegisterTranslation = jest.fn(() => () => undefined);
 
 jest.mock("@shared/dev-mode/start-widget", () => ({ startWidget: mockStartWidget }));
 jest.mock("@shared/entity-picker/entity-picker-injector", () => ({ startEntityPickerInjector: mockStartPicker }));
-jest.mock("@shared/translation/registry", () => ({
-  getTranslationRegistry: () => ({ register: mockRegisterTranslation }),
-}));
 
 interface Host {
   defineBlock: jest.Mock;
 }
 
 describe("Anmeldung des Widgets", () => {
-  it("startet Auswahlliste und Übersetzung erst beim Anmelden, nicht schon beim Laden", async () => {
+  it("startet die Auswahlliste erst beim Anmelden, nicht schon beim Laden", async () => {
     const host = window as unknown as Host;
     host.defineBlock = jest.fn();
 
@@ -38,17 +34,15 @@ describe("Anmeldung des Widgets", () => {
     await import("./index");
 
     expect(mockStartPicker).not.toHaveBeenCalled();
-    expect(mockRegisterTranslation).not.toHaveBeenCalled();
 
     const options = mockStartWidget.mock.calls[0][0] as { name: string; register: () => void };
     expect(options.name).toBe("navigation-widget");
     options.register();
 
     expect(mockStartPicker).toHaveBeenCalledWith(expect.objectContaining({ fieldKey: "menu-id" }));
-    expect(mockRegisterTranslation).toHaveBeenCalled();
     expect(host.defineBlock).toHaveBeenCalledWith(
       expect.objectContaining({
-        blockDefinition: expect.objectContaining({ name: "navigation-widget", attributes: ["menu-id", "heading"] }),
+        blockDefinition: expect.objectContaining({ name: "navigation-widget", attributes: ["menu-id"] }),
       }),
     );
   });

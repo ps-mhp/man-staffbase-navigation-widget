@@ -35,6 +35,7 @@ const entry = (id: string, title: string, extra: Partial<MenuEntry> = {}): MenuE
 const tree: Record<string, MenuLevel> = {
   "": {
     entry: entry("root", "Hauptmenü"),
+    parentId: null,
     children: [
       entry("home", "Home"),
       entry("technik", "Technik im Detail", { hasChildren: true }),
@@ -43,18 +44,22 @@ const tree: Record<string, MenuLevel> = {
   },
   technik: {
     entry: entry("technik", "Technik im Detail", { hasChildren: true }),
+    parentId: null,
     children: [entry("fahrerhaus", "Fahrerhaus", { hasChildren: true })],
   },
   fahrerhaus: {
     entry: entry("fahrerhaus", "Fahrerhaus", { hasChildren: true }),
+    parentId: null,
     children: [entry("arbeitsplatz", "Fahrerarbeitsplatz", { hasChildren: true }), entry("ruhe", "Ruhebereich")],
   },
   arbeitsplatz: {
     entry: entry("arbeitsplatz", "Fahrerarbeitsplatz", { hasChildren: true }),
+    parentId: null,
     children: [entry("lenkrad", "Lenkrad")],
   },
   ungenutzt: {
     entry: entry("ungenutzt", "Ungenutzt", { hasChildren: true, hidden: true }),
+    parentId: null,
     children: [entry("chat", "Chat")],
   },
 };
@@ -112,6 +117,7 @@ describe("fetchStartPointOptions", () => {
     const wide: Record<string, MenuLevel> = {
       "": {
         entry: entry("root", "Hauptmenü"),
+        parentId: null,
         children: Array.from({ length: 20 }, (_, index) => entry(`f${index}`, `Ordner ${index}`, { hasChildren: true })),
       },
     };
@@ -136,6 +142,7 @@ describe("fetchStartPointOptions", () => {
     const wide: Record<string, MenuLevel> = {
       "": {
         entry: entry("root", "Hauptmenü"),
+        parentId: null,
         children: Array.from({ length: MAX_LEVEL_REQUESTS * 2 }, (_, index) =>
           entry(`f${index}`, `Ordner ${index}`, { hasChildren: true }),
         ),
@@ -150,8 +157,8 @@ describe("fetchStartPointOptions", () => {
 
   it("läuft in einem Menü, das sich selbst enthält, nicht im Kreis", async () => {
     const loop: Record<string, MenuLevel> = {
-      "": { entry: entry("root", "Hauptmenü"), children: [entry("a", "A", { hasChildren: true })] },
-      a: { entry: entry("a", "A", { hasChildren: true }), children: [entry("a", "A", { hasChildren: true })] },
+      "": { entry: entry("root", "Hauptmenü"), parentId: null, children: [entry("a", "A", { hasChildren: true })] },
+      a: { entry: entry("a", "A", { hasChildren: true }), parentId: null, children: [entry("a", "A", { hasChildren: true })] },
     };
 
     await expect(fetchStartPointOptions(loader(loop))).resolves.toEqual([

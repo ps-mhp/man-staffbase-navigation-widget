@@ -15,9 +15,8 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 
 import { clearMenuCache } from "@shared/staffbase/menu";
-import { encodePayload } from "@shared/payload";
 
-import { HEADING_ATTRIBUTE, MENU_ID_ATTRIBUTE, configurationSchema, uiSchema } from "./configuration-schema";
+import { MENU_ID_ATTRIBUTE, configurationSchema, uiSchema } from "./configuration-schema";
 import { NavigationWidget } from "./index";
 import { MESSAGES } from "./navigation-menu";
 
@@ -25,8 +24,8 @@ const ARBEITSPLATZ = "6a73580860fe1414378d4660";
 
 describe("Namen der Attribute", () => {
   it("sind genau die Schlüssel, unter denen der Dialog speichert, und klein geschrieben", () => {
-    expect(Object.keys(configurationSchema.properties!)).toEqual([MENU_ID_ATTRIBUTE, HEADING_ATTRIBUTE]);
-    for (const name of [MENU_ID_ATTRIBUTE, HEADING_ATTRIBUTE]) expect(name).toBe(name.toLowerCase());
+    expect(Object.keys(configurationSchema.properties!)).toEqual([MENU_ID_ATTRIBUTE]);
+    for (const name of [MENU_ID_ATTRIBUTE]) expect(name).toBe(name.toLowerCase());
   });
 
   it("tragen auch die Hinweise des Dialogs", () => {
@@ -40,7 +39,7 @@ describe("NavigationWidget", () => {
   beforeEach(() => clearMenuCache());
   afterEach(() => jest.restoreAllMocks());
 
-  it("liest Startpunkt und übersetzte Überschrift aus den Attributen", async () => {
+  it("liest den Startpunkt aus den Attributen", async () => {
     const fetchMock = jest.fn().mockResolvedValue({
       ok: true,
       json: async () => ({
@@ -70,12 +69,11 @@ describe("NavigationWidget", () => {
       <NavigationWidget
         contentLanguage="de_DE"
         {...{ [MENU_ID_ATTRIBUTE]: `https://www.mti.man/content/page/${ARBEITSPLATZ}` }}
-        {...{ [HEADING_ATTRIBUTE]: encodePayload("Further links") }}
       />,
     );
 
     expect(await screen.findByRole("link", { name: "Lenkrad" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent("Further links");
+    expect(screen.getByRole("navigation", { name: "Fahrerarbeitsplatz" })).toBeInTheDocument();
     expect(fetchMock).toHaveBeenCalledWith(`/api/menu/${ARBEITSPLATZ}`, expect.anything());
   });
 

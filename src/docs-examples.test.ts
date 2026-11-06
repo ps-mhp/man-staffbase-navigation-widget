@@ -19,6 +19,7 @@ import { resolveExampleStartPoint } from "./docs-examples";
 
 const level = (children: MenuLevel["children"]): MenuLevel => ({
   entry: { id: "6891d4e0aec53f55e3a819ac", title: "Hauptmenü", href: "/", external: false, hasChildren: true, hidden: false },
+  parentId: null,
   children,
 });
 

@@ -11,46 +11,26 @@
  * limitations under the License.
  */
 
-import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
+import React, { useId, useRef, useState } from "react";
 
 import { useHotStyle } from "@shared/hot-style";
 import { MenuEntry, MenuLevel, fetchMenuLevel, readMenuId } from "@shared/staffbase/menu";
 
+import { MenuDropdown } from "./menu-dropdown";
+import { Chevron, EntryLink, MESSAGES, StatusMessage } from "./menu-parts";
 import navigationCss from "./styles/navigation-menu.scss";
+import { DropdownRequest, useDropdown } from "./use-dropdown";
 import { LevelLoader, LevelState, useMenuLevel } from "./use-menu-level";
-import { useSwipeBack } from "./use-swipe-back";
+import { useOverflow } from "./use-overflow";
 
-export const MESSAGES = {
-  noStartPoint: "Bitte in den Einstellungen einen Startpunkt im Menü wählen.",
-  loading: "Wird geladen …",
-  failed: "Das Menü konnte nicht geladen werden.",
-  retry: "Erneut versuchen",
-  empty: "Hier gibt es keine weiteren Einträge.",
-  back: "Zurück: ",
-  newTab: " (öffnet in neuem Tab)",
-  openChildren: (title: string): string => `Unterpunkte von ${title}`,
-  fallbackLabel: "Navigation",
-} as const;
-
-/** Eine Ebene, in die geblättert wurde. Der Titel steht schon da, bevor sie geladen ist. */
-interface Crumb {
-  id: string;
-  title: string;
-}
-
-type Direction = "none" | "forward" | "back";
-
-/** Wohin der Fokus nach dem Blättern gehört — nur, wenn jemand geblättert hat. */
-type FocusTarget = { kind: "back" } | { kind: "entry"; id: string };
+export { MESSAGES } from "./menu-parts";
 
 export interface NavigationMenuProps {
   /** `null`, solange kein Startpunkt gewählt ist. */
   startId: string | null;
-  /** Steht über der ersten Ebene; ohne sie der Titel des Startpunkts. */
-  heading: string | null;
   /**
-   * Der Menüeintrag der Seite, auf der das Widget steht — seine Zeile ist
-   * hinterlegt. Ohne Angabe aus der Adresse gelesen (`/content/page/{id}`).
+   * Der Menüeintrag der Seite, auf der das Widget steht — er ist rot
+   * unterstrichen. Ohne Angabe aus der Adresse gelesen (`/content/page/{id}`).
    */
   currentId?: string | null;
   /** Nur für Tests. */
@@ -63,104 +43,110 @@ export interface NavigationMenuProps {
  */
 const currentMenuId = (): string | null => readMenuId(window.location.pathname);
 
-const Chevron = ({ direction }: { direction: "left" | "right" }): React.JSX.Element => (
-  <svg className="man-nav__chevron" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
-    <path d={direction === "right" ? "M9 5l7 7-7 7" : "M15 5l-7 7 7 7"} />
-  </svg>
-);
-
-interface MenuRowProps {
-  entry: MenuEntry;
-  /** Die Seite, auf der das Widget steht. */
-  current: boolean;
-  onOpen: (entry: MenuEntry) => void;
+/** Was ein Auslöser über sein Dropdown wissen muss. */
+interface TriggerProps {
+  expanded: boolean;
+  controls: string;
+  onToggle: (trigger: HTMLElement) => void;
 }
 
 /**
- * Eine Zeile: der Titel führt auf die Seite, der Pfeil eine Ebene tiefer.
- * Ein reiner Ordner hat keine Seite — bei ihm blättert die ganze Zeile.
+ * `aria-controls` nur, solange das Dropdown da ist — ein Verweis auf ein
+ * fehlendes Element wäre für Screenreader ein Loch.
  */
-function MenuRow({ entry, current, onOpen }: MenuRowProps): React.JSX.Element {
+const controlsWhileOpen = ({ expanded, controls }: TriggerProps): string | undefined => (expanded ? controls : undefined);
+
+/** Der Pfeil neben einem Titel, der eine Seite hat. */
+function ArrowButton({ label, ...trigger }: TriggerProps & { label: string }): React.JSX.Element {
+  return (
+    <button
+      type="button"
+      className="man-nav__open"
+      aria-label={label}
+      aria-expanded={trigger.expanded}
+      aria-controls={controlsWhileOpen(trigger)}
+      onClick={(event) => trigger.onToggle(event.currentTarget)}
+    >
+      <Chevron direction="down" />
+    </button>
+  );
+}
+
+interface BarItemProps {
+  entry: MenuEntry;
+  current: boolean;
+  trigger: TriggerProps;
+}
+
+/**
+ * Ein Unterpunkt: der Titel führt auf die Seite, der Pfeil öffnet die
+ * Unterpunkte. Ein reiner Ordner hat keine Seite — bei ihm öffnet der ganze
+ * Eintrag das Dropdown.
+ */
+function BarItem({ entry, current, trigger }: BarItemProps): React.JSX.Element {
   const itemClass = current ? "man-nav__item man-nav__item--current" : "man-nav__item";
   if (entry.href === null) {
     return (
       <li className={itemClass}>
-        <button type="button" className="man-nav__row" data-entry-id={entry.id} onClick={() => onOpen(entry)}>
+        <button
+          type="button"
+          className="man-nav__folder"
+          aria-expanded={trigger.expanded}
+          aria-controls={controlsWhileOpen(trigger)}
+          onClick={(event) => trigger.onToggle(event.currentTarget)}
+        >
           <span className="man-nav__title">{entry.title}</span>
-          <Chevron direction="right" />
+          <Chevron direction="down" />
         </button>
       </li>
     );
   }
   return (
     <li className={itemClass}>
-      <a
-        className="man-nav__link"
-        href={entry.href}
-        aria-current={current ? "page" : undefined}
-        target={entry.external ? "_blank" : undefined}
-        rel={entry.external ? "noopener noreferrer" : undefined}
-      >
-        <span className="man-nav__title">{entry.title}</span>
-        {entry.external && <span className="man-nav__sr-only">{MESSAGES.newTab}</span>}
-      </a>
-      {entry.hasChildren && (
-        <button
-          type="button"
-          className="man-nav__open"
-          data-entry-id={entry.id}
-          aria-label={MESSAGES.openChildren(entry.title)}
-          onClick={() => onOpen(entry)}
-        >
-          <Chevron direction="right" />
-        </button>
-      )}
+      <EntryLink entry={entry} className="man-nav__link" current={current ? "page" : undefined} />
+      {entry.hasChildren && <ArrowButton label={MESSAGES.openChildren(entry.title)} {...trigger} />}
     </li>
   );
 }
 
-interface LevelBodyProps {
-  state: LevelState;
-  currentId: string | null;
-  onOpen: (entry: MenuEntry) => void;
+interface StartPointProps {
+  entry: MenuEntry;
+  current: boolean;
+  /** Ohne weitere sichtbare Geschwister: `null`, kein Pfeil. */
+  trigger: TriggerProps | null;
 }
 
-function LevelBody({ state, currentId, onOpen }: LevelBodyProps): React.JSX.Element {
-  if (state.status === "loading") {
-    return (
-      <p className="man-nav__status man-nav__status--loading" role="status">
-        {MESSAGES.loading}
-      </p>
-    );
-  }
-  if (state.status === "error") {
-    return (
-      <div className="man-nav__status" role="alert">
-        <p className="man-nav__message">{MESSAGES.failed}</p>
-        <button type="button" className="man-nav__retry" onClick={state.retry}>
-          {MESSAGES.retry}
-        </button>
-      </div>
-    );
-  }
-  const visible = state.level.children.filter((child) => !child.hidden);
-  if (visible.length === 0) return <p className="man-nav__status">{MESSAGES.empty}</p>;
+function StartPoint({ entry, current, trigger }: StartPointProps): React.JSX.Element {
+  const startClass = current ? "man-nav__start man-nav__item--current" : "man-nav__start";
   return (
-    <ul className="man-nav__list">
-      {visible.map((entry) => (
-        <MenuRow key={entry.id} entry={entry} current={entry.id === currentId} onOpen={onOpen} />
-      ))}
-    </ul>
+    <div className={startClass}>
+      {entry.href === null ? (
+        <span className="man-nav__start-title">
+          <span className="man-nav__title">{entry.title}</span>
+        </span>
+      ) : (
+        <EntryLink entry={entry} className="man-nav__link" current={current ? "page" : undefined} />
+      )}
+      {trigger !== null && <ArrowButton label={MESSAGES.openSiblings(entry.title)} {...trigger} />}
+    </div>
   );
 }
 
 /**
- * Das blätternde Menü: eine Ebene zur Zeit, vor per Pfeil, zurück per Knopf
- * in der Kopfzeile oder — auf dem Telefon — per Wischen nach rechts.
+ * Der Startpunkt bekommt einen Pfeil, wenn es neben ihm noch etwas zu sehen
+ * gibt — mit denselben Maßstäben wie das Dropdown, das reine Ordner auslässt.
+ */
+const hasSiblings = (parent: LevelState, startId: string): boolean =>
+  parent.status === "ready" &&
+  parent.level.children.some((child) => !child.hidden && child.href !== null && child.id !== startId);
+
+/**
+ * Die horizontale Leiste: links der Startpunkt, rechts davon seine
+ * Unterpunkte in einem waagerecht scrollenden Streifen, am Ende ‹ › für den
+ * Fall, dass der Streifen nicht reicht.
  */
 export function NavigationMenu({
   startId,
-  heading,
   currentId = currentMenuId(),
   loadLevel = fetchMenuLevel,
 }: NavigationMenuProps): React.JSX.Element {
@@ -174,105 +160,118 @@ export function NavigationMenu({
       </div>
     );
   }
-  // Der Schlüssel setzt das Blättern zurück, wenn die Redaktion einen anderen Startpunkt wählt.
-  return (
-    <NavigationLevels
-      key={startId}
-      css={liveCss}
-      startId={startId}
-      heading={heading}
-      currentId={currentId}
-      loadLevel={loadLevel}
-    />
-  );
+  // Der Schlüssel schließt Dropdowns und vergisst Geladenes, wenn die Redaktion
+  // einen anderen Startpunkt wählt.
+  return <NavigationBar key={startId} css={liveCss} startId={startId} currentId={currentId} loadLevel={loadLevel} />;
 }
 
-interface NavigationLevelsProps {
+interface NavigationBarProps {
   css: string;
   startId: string;
-  heading: string | null;
   currentId: string | null;
   loadLevel: LevelLoader;
 }
 
-function NavigationLevels({ css, startId, heading, currentId, loadLevel }: NavigationLevelsProps): React.JSX.Element {
-  const [trail, setTrail] = useState<Crumb[]>([]);
-  const [direction, setDirection] = useState<Direction>("none");
-  const rootRef = useRef<HTMLElement>(null);
-  const focusTarget = useRef<FocusTarget | null>(null);
-
+function NavigationBar({ css, startId, currentId, loadLevel }: NavigationBarProps): React.JSX.Element {
   const [loaded] = useState(() => new Map<string, MenuLevel>());
+  const rootRef = useRef<HTMLElement>(null);
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const baseId = useId();
 
-  const current = trail.length > 0 ? trail[trail.length - 1] : null;
-  const state = useMenuLevel(current?.id ?? startId, loadLevel, loaded);
-  // Tiefer als die erste Ebene kommt niemand, ohne dass sie geladen war.
-  const startTitle = loaded.get(startId)?.entry.title ?? null;
+  const start = useMenuLevel(startId, loadLevel, loaded);
+  const startLevel = start.status === "ready" ? start.level : null;
+  // Das Elternteil gleich mitladen: erst seine Kinder sagen, ob der Startpunkt
+  // einen Pfeil bekommt.
+  const parent = useMenuLevel(startLevel?.parentId ?? null, loadLevel, loaded);
 
-  const open = useCallback((entry: MenuEntry) => {
-    focusTarget.current = { kind: "back" };
-    setDirection("forward");
-    setTrail((previous) => [...previous, { id: entry.id, title: entry.title }]);
-  }, []);
+  const children = startLevel?.children.filter((child) => !child.hidden) ?? [];
+  const [overflow, scroll] = useOverflow(scrollerRef, children.length);
+  const dropdown = useDropdown(rootRef, scrollerRef);
 
-  const back = useCallback(() => {
-    if (current === null) return;
-    focusTarget.current = { kind: "entry", id: current.id };
-    setDirection("back");
-    setTrail((previous) => previous.slice(0, -1));
-  }, [current]);
-
-  useSwipeBack(rootRef, current !== null, back);
-
-  // Wer blättert, landet mit dem Fokus auf der neuen Ebene — vorwärts auf dem
-  // Zurück-Knopf, zurück auf dem Pfeil, über den er gekommen ist. Sonst stünde
-  // der Fokus auf einem Element, das es nicht mehr gibt, und begänne wieder
-  // oben auf der Seite.
-  useLayoutEffect(() => {
-    const target = focusTarget.current;
-    const root = rootRef.current;
-    if (target === null || root === null) return;
-    // Die ID ist eine geprüfte Staffbase-ID (`fetchMenuLevel`), im Selektor also harmlos.
-    const selector = target.kind === "back" ? ".man-nav__back" : `[data-entry-id="${target.id}"]`;
-    const element = root.querySelector<HTMLElement>(selector);
-    if (element === null) return;
-    element.focus();
-    focusTarget.current = null;
+  const controlsId = (entryId: string): string => `${baseId}-${entryId}`;
+  const triggerFor = (forId: string, request: Omit<DropdownRequest, "forId" | "trigger">): TriggerProps => ({
+    expanded: dropdown.open?.forId === forId,
+    controls: controlsId(forId),
+    onToggle: (trigger) => dropdown.toggle({ ...request, forId, trigger }),
   });
 
-  const headingText = heading ?? startTitle;
-  // Ohne Startpunkt-Titel und ohne Überschrift bliebe die Navigation namenlos.
-  const label = headingText ?? MESSAGES.fallbackLabel;
-
   return (
-    <nav className="man-nav" aria-label={label} ref={rootRef}>
+    <nav className="man-nav" aria-label={startLevel?.entry.title ?? MESSAGES.fallbackLabel} ref={rootRef}>
       <style>{css}</style>
-      <div key={`${trail.length}:${current?.id ?? startId}`} className={`man-nav__panel man-nav__panel--${direction}`}>
-        {/* Überschrift nur, wo es eine gibt: eine leere wäre für Screenreader ein
-            Loch. Tiefer ist die Kopfzeile ein Knopf, keine Überschrift — sonst
-            landete die Überschriften-Navigation auf einem Knopf. */}
-        <div className="man-nav__header">
-          {current === null ? (
-            headingText === null ? (
-              <span className="man-nav__heading" aria-hidden="true">
-                {"\u00a0"}
-              </span>
-            ) : (
-              <span className="man-nav__heading" role="heading" aria-level={2}>
-                {headingText}
-              </span>
-            )
-          ) : (
-            <button type="button" className="man-nav__back" onClick={back}>
-              <Chevron direction="left" />
-              <span className="man-nav__heading">
-                <span className="man-nav__sr-only">{MESSAGES.back}</span>
-                {current.title}
-              </span>
-            </button>
+      {startLevel === null ? (
+        <StatusMessage state={start} />
+      ) : (
+        <div className="man-nav__bar">
+          <StartPoint
+            entry={startLevel.entry}
+            current={startId === currentId}
+            trigger={
+              startLevel.parentId !== null && hasSiblings(parent, startId)
+                ? triggerFor(startId, {
+                    levelId: startLevel.parentId,
+                    markId: startId,
+                    label: MESSAGES.openSiblings(startLevel.entry.title),
+                  })
+                : null
+            }
+          />
+          {children.length > 0 && (
+            <>
+              <span className="man-nav__divider" aria-hidden="true" />
+              <div className="man-nav__scroller" ref={scrollerRef}>
+                <ul className="man-nav__list">
+                  {children.map((entry) => (
+                    <BarItem
+                      key={entry.id}
+                      entry={entry}
+                      current={entry.id === currentId}
+                      trigger={triggerFor(entry.id, {
+                        levelId: entry.id,
+                        markId: null,
+                        label: MESSAGES.openChildren(entry.title),
+                      })}
+                    />
+                  ))}
+                </ul>
+              </div>
+              {overflow.overflowing && (
+                <div className="man-nav__scroll">
+                  <button
+                    type="button"
+                    className="man-nav__scroll-button"
+                    aria-label={MESSAGES.scrollBack}
+                    aria-disabled={overflow.atStart}
+                    onClick={() => !overflow.atStart && scroll(-1)}
+                  >
+                    <Chevron direction="left" />
+                  </button>
+                  <button
+                    type="button"
+                    className="man-nav__scroll-button"
+                    aria-label={MESSAGES.scrollForward}
+                    aria-disabled={overflow.atEnd}
+                    onClick={() => !overflow.atEnd && scroll(1)}
+                  >
+                    <Chevron direction="right" />
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </div>
-        <LevelBody state={state} currentId={currentId} onOpen={open} />
-      </div>
+      )}
+      {dropdown.open !== null && (
+        <MenuDropdown
+          key={dropdown.open.forId}
+          id={controlsId(dropdown.open.forId)}
+          request={dropdown.open}
+          currentId={currentId}
+          loadLevel={loadLevel}
+          loaded={loaded}
+          rootRef={rootRef}
+          panelRef={dropdown.panelRef}
+        />
+      )}
     </nav>
   );
 }
