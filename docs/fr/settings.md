@@ -1,9 +1,8 @@
-# Décors
+# Paramètres
 
-| Cadre | Description |
+| Paramètre | Description |
 | --- | --- |
-| Point de départ dans le menu | L’élément du menu dont la navigation affiche les sous-éléments. Champ requis. Sélectionnez **Sélectionnez point de départ ...** dans la liste — il affiche le menu comme un arbre en indentation, seuls les éléments du menu avec des sous-éléments. Les éléments du menu cachés dans le menu ont l’ajout « (caché dans le menu) ». Si l’élément du menu manque dans la liste, sélectionnez **Entrer un autre ID de menu ...** et insérez l’adresse de sa page ou l’ID à 24 chiffres. |
-| Titre | Se situe au-dessus du premier niveau. Optionnel ; le titre du point de départ apparaît vide. Traduit lors de la traduction de la page. |
+| Point de départ dans le menu | L'élément de menu affiché dans la barre de gauche ; ses sous-éléments apparaissent à droite. Champ obligatoire. Sélectionnez **Point de départ…** dans la liste — celle-ci affiche le menu sous forme d’arborescence en retrait, avec uniquement les éléments comportant des sous-éléments. Les éléments masqués dans le menu sont signalés par la mention « (masqué dans le menu) ». Si l'élément de menu ne figure pas dans la liste, sélectionnez **Saisir un autre ID de menu…** et saisissez l'adresse de sa page ou son ID à 24 caractères. |
 
-L’ordre, le titre et la visibilité des entrées proviennent du menu de l’application
-et sont maintenus là, pas dans le widget.
+L'ordre, le titre et la visibilité des entrées proviennent du menu de l'application
+et y sont gérés, et non dans le widget.

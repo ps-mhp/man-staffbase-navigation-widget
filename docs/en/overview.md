@@ -1,44 +1,56 @@
 # Navigation
 
-The navigation brings an excerpt of the Staffbase menu to a page:
-select a menu item as the starting point, and the widget shows its
-Sub-items as a list. If a sub-item has sub-items itself, it is on the right
-an arrow — this allows you to scroll down one level without turning the page.
-. 
+Navigation brings a section of the Staffbase menu onto a page: You
+select a menu item as the starting point, and the widget displays it as
+a horizontal bar—with the starting point on the left and its subitems to the right.
+If an entry has subitems of its own, an arrow opens them as a dropdown without
+leaving the page.
 
-Typical occasions: "Further links" next to an article, a
-topic overview on an entry page, a table of contents for a
-Area with many subpages. 
+Typical uses: section navigation at the top of pages within a topic,
+a topic overview on a landing page, or jumping between
+adjacent sections.
 
-## What readers see
+## What Readers See
 
-- At the top, the **heading** — the registered or, without an entry, the title
-  of the starting point. 
-- Below the **sub-items** of the starting point, in the order of the menu. 
-- The **page you are currently on** is grayed out — also a
-  level lower if you scroll there. 
-- Clicking on a **title** opens the page itself. 
-- Clicking on the **arrow** on the right will scroll to the sub-items of this
-  entry. At the top there is then an arrow to the left with the title of the level; a
-  Click on it to scroll back. 
-- On the **phone**, a swipe to the right also scrolls back. 
+```
+[Starting Point ⌄] | [Subitem 1 ⌄] [Subitem 2] [Subitem 3 ⌄] …   [‹ ›]
+```
 
-A folder that contains only other entries and does not have its own page, 
-scrolls when clicking on the whole line. 
+- On the left is the **starting point**. Clicking its title opens its page.
+  The **arrow** next to it opens its siblings—the other menu items
+  on the same level; the starting point itself is highlighted within it. If
+  the starting point is at the very top of the menu or there is nothing visible next to it, there is
+  no arrow.
+- A vertical **line** separates the starting point from its subitems.
+- On the right are the **subitems** of the starting point, arranged in a single row and in the
+  order of the menu.
+- The **page you are currently on** is underlined in red.
+- Clicking a **title** opens the page itself; clicking the
+  **arrow** next to it opens a dropdown menu with the subitems for that entry. The
+  dropdown shows exactly one level; deeper entries appear there as
+  simple links.
+- If not all subitems fit within the width, two buttons
+  **‹ ›** appear on the right, which can be used to scroll the bar. On a phone,
+  you can also do this with your finger.
+- A dropdown closes with **Escape**, by clicking next to it, or as soon as
+  the bar is scrolled.
 
-## Important to know
+A folder that contains only other entries and does not have its own page
+opens its dropdown when you click on the entire entry.
 
-- The widget **doesn't copy anything**. It reads the menu every time it is called: 
-  If the menu changes, so does the navigation. 
-- **Permissions will remain.** Each person will only see the
-  Menu items that she also sees in the app's menu. 
-- Menu items that are set to **"Not visible"** in the menu will show the
-  Neither does navigation. 
-- The **titles** of the menu items appear in the language of the person reading, 
-  just like in the app's menu. 
+## Important to Know
 
-## What you see in the CMS editor
+- The widget **does not copy anything**. It reloads the menu each time it is called:
+  If the menu changes, the navigation changes as well.
+- **Permissions remain in effect.** Each person sees only the
+  menu items that they also see in the app’s menu.
+- Menu items marked as **“Not visible”** in the menu are
+  also not displayed in the navigation.
+- The **titles** of the menu items appear in the reader’s language,
+  just as they do in the app’s menu.
 
-In the editor, the widget appears as it does on the published page and
-can also be browsed there. Clicking on a title leaves
-the editor — better use the preview to try it out.
+## What You See in the CMS Editor
+
+In the editor, the widget appears exactly as it does on the published page; the
+dropdown menus can also be opened there. Clicking on a title will take you out of
+the editor—it’s better to use the preview to test things out.

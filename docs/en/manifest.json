@@ -1,6 +1,6 @@
 {
   "title": "Navigation",
-  "summary": "Displays an excerpt of the menu as a scrolling menu on the page.",
+  "summary": "Displays a section of the menu as a horizontal bar on the page.",
   "icon": "🧭",
   "pages": [
     {
@@ -26,10 +26,8 @@
   ],
   "examples": [
     {
-      "title": "Scrolling menu",
-      "attributes": {
-        "heading": "Weiterführende Links"
-      },
+      "title": "Line starting from a starting point",
+      "attributes": {},
       "resolve": [
         "menu-id"
       ]

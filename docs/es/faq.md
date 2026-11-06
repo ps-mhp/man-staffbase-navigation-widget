@@ -1,44 +1,52 @@
 # Preguntas frecuentes
 
-**Pregunta:** "Por favor, establece un punto de inicio en el menú de la configuración
-." 
+**Pregunta:** Aparece el mensaje «Selecciona un punto de inicio en el menú
+en la configuración».
 
-Respuesta: En **Punto de inicio en el menú** no se selecciona nada — ni el
-no es ni un ID de menú ni una dirección con uno. 
-Selecciona el punto de inicio de la lista y guarda. La nota también aparecerá
-en la página publicada, es decir, nunca publiques sin un punto de partida. 
+Respuesta: No hay nada seleccionado en **Punto de inicio en el menú**, o bien el
+valor introducido no es ni un ID de menú ni una dirección que contenga dicho ID.
+Selecciona el punto de inicio de la lista y guárdalo. El aviso también aparece
+en la página publicada, así que nunca publiques sin un punto de inicio.
 
-**Pregunta:** Dice "No se pudo cargar el menú." 
+**Pregunta:** Aparece el mensaje «No se ha podido cargar el menú».
 
-Respuesta: El widget no llega al elemento del menú. Causas comunes: el
-El elemento del menú ha sido eliminado, el lector no puede verlo, ni el
-La conexión se perdió por un corto tiempo. **Inténtalo de nuevo** pregunta de nuevo; sigue siendo el
-mensaje, vuelve a seleccionar el punto de inicio. 
+Respuesta: El widget no accede a la opción del menú. Causas habituales: la
+elemento del menú se ha eliminado, el lector no tiene permiso para verlo o la
+conexión se ha interrumpido brevemente. **Inténtalo de nuevo** para volver a intentarlo; si el
+mensaje persiste, selecciona otro punto de inicio.
 
-**Pregunta:** Dice "Aquí no hay más entradas." 
+**Pregunta:** En la barra solo aparece el punto de inicio.
 
-Respuesta: El elemento del menú no tiene subelementos visibles — ni siquiera
-ninguno, o todos están configurados en "No visibles" en el menú o no están disponibles para el
-Persona lectora bloqueada. 
+Respuesta: El punto de inicio no tiene subelementos visibles: o bien no tiene
+ninguno, o bien todos están configurados en el menú como «No visible» o están bloqueados para el
+usuario.
 
-**Pregunta:** ¿Por qué una entrada no tiene flecha? 
+**Pregunta:** En un menú desplegable aparece «No hay más entradas aquí».
 
-Respuesta: La flecha solo aparece si la entrada en el menú tiene sub-elementos. 
-Haz clic en el título y simplemente abre la página. 
+Respuesta: Aunque la entrada tiene subelementos, ninguno de ellos es
+visible para el lector ni conduce a ninguna página.
 
-**Pregunta:** Falta una entrada en la navegación aunque esté en el menú. 
+**Pregunta:** ¿Por qué una entrada no tiene flecha?
 
-Respuesta: Si está configurado como "No visible" en el menú, el
-la navegación no. Además, cada persona solo ve los elementos del menú para los que
-— como editor, puede que veas más que tu
-Lectores. 
+Respuesta: La flecha solo aparece si la entrada del menú tiene subelementos.
+Al hacer clic en el título, simplemente se abre la página. El elemento inicial no tiene
+flecha si se encuentra en la parte superior del menú o si no hay
+elementos de menú visibles a su lado.
 
-**Pregunta:** ¿Cómo hago para volver a desplazarme en el móvil? 
+**Pregunta:** Falta una entrada en la navegación, aunque aparece en el menú.
 
-Respuesta: Toca la flecha superior izquierda en la navegación — o toca
-de la lista a la derecha. 
+Respuesta: Si en el menú está configurada la opción «No visible», tampoco aparecerá en la
+navegación. Además, cada persona solo ve las opciones del menú para las que tiene
+autorización; como editor o editora, es posible que veas más opciones que tus
+lectores y lectoras.
 
-**Pregunta:** ¿Puedo renombrar o reordenar las entradas solo para este widget? 
+**Pregunta:** No caben todas las subopciones en la barra.
 
-Respuesta: No. El título y el pedido vienen del menú de la app; Cambios
-Trabajan en todas partes, incluso en la navegación.
+Respuesta: En ese caso, aparecerán a la derecha los botones **‹ ›**; estos permiten desplazar la barra
+hacia adelante. En el móvil, también se puede desplazar lateralmente
+con el dedo. Al principio y al final, el botón correspondiente aparece atenuado.
+
+**Pregunta:** ¿Puedo renombrar u ordenar las entradas solo para este widget?
+
+Respuesta: No. Los títulos y el orden provienen del menú de la aplicación; los cambios
+que se realicen allí se aplican en todas partes, también en la navegación.

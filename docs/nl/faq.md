@@ -1,44 +1,52 @@
-# FAQ
+# Veelgestelde vragen
 
-**Vraag:** "Stel alstublieft een startpunt in in het menu in de instellingen
-." 
+**Vraag:** Er verschijnt de melding „Kies een startpunt in het menu in de instellingen
+.”
 
-Antwoord: Onder **Startpunt in het menu** wordt niets geselecteerd — of de
-is noch een menu-ID noch een adres met zo'n nummer. 
-Selecteer het startpunt uit de lijst en sla op. De notitie zal ook verschijnen
-op de gepubliceerde pagina, dat wil zeggen nooit publiceren zonder een beginpunt. 
+Antwoord: Onder **Startpunt in het menu** is niets geselecteerd — of de
+ingevoerde waarde is noch een menu-ID, noch een adres met een dergelijke ID.
+Kies het startpunt uit de lijst en sla het op. De melding verschijnt ook
+op de gepubliceerde pagina, dus publiceer nooit zonder startpunt.
 
-**Vraag:** Er staat "Het menu kon niet worden geladen." 
+**Vraag:** Er verschijnt „Het menu kon niet worden geladen.“
 
-Antwoord: De widget bereikt het menuitem niet. Veelvoorkomende oorzaken: de
-Het menu-item is verwijderd, de lezer mag het niet zien, of de
-De verbinding was even weg. **Probeer het nog eens** vraagt opnieuw; blijft de
-Bericht, selecteer het startpunt opnieuw. 
+Antwoord: De widget kan het menu-item niet bereiken. Veelvoorkomende oorzaken: het
+menu-item is verwijderd, de lezer heeft geen toestemming om het te zien, of de
+verbinding was even verbroken. **Opnieuw proberen** vraagt het nogmaals; blijft de
+melding staan, kies dan een nieuw startpunt.
 
-**Vraag:** Er staat "Er zijn hier geen nieuwe vermeldingen meer." 
+**Vraag:** In de balk staat alleen het startpunt.
 
-Antwoord: Het menu-item heeft helemaal geen zichtbare sub-items — ook helemaal niet
-geen, of allemaal, zijn in het menu op "Niet zichtbaar" gezet of zijn niet beschikbaar voor de
-Lezende persoon geblokkeerd. 
+Antwoord: Het startpunt heeft geen zichtbare subitems — ofwel helemaal
+geen, ofwel staan ze allemaal in het menu op „Niet zichtbaar“ of zijn ze geblokkeerd voor de
+lezer.
 
-**Vraag:** Waarom heeft een inschrijving geen pijl? 
+**Vraag:** In een dropdown staat „Hier zijn geen verdere items.“
 
-Antwoord: De pijl verschijnt alleen als het menu sub-items bevat. 
-Door op de titel te klikken opent je simpelweg de pagina. 
+Antwoord: Het item heeft weliswaar subitems, maar geen daarvan is zichtbaar voor de
+lezer of leidt naar een pagina.
 
-**Vraag:** Er ontbreekt een vermelding in de navigatie, ook al staat die in het menu. 
+**Vraag:** Waarom heeft een item geen pijltje?
 
-Antwoord: Als het in het menu op "Niet zichtbaar" staat, dan
-navigatie niet. Bovendien ziet iedereen alleen de menu-items waarvoor hij of zij
-— als redacteur kun je meer zien dan alleen je
-Lezers. 
+Antwoord: Het pijltje verschijnt alleen als het item in het menu subitems heeft.
+Een klik op de titel opent dan gewoon de pagina. Het startpunt heeft
+geen pijl als het helemaal bovenaan in het menu staat of als er naast het startpunt geen
+zichtbare menu-items zijn.
 
-**Vraag:** Hoe scroll ik terug op mijn telefoon? 
+**Vraag:** Een item ontbreekt in de navigatie, hoewel het in het menu staat.
 
-Antwoord: Tik op de pijltje linksboven in de navigatie — of tik
-van de lijst rechts. 
+Antwoord: Als het in het menu op „Niet zichtbaar“ staat, wordt het ook niet
+weergegeven in de navigatie. Bovendien ziet elke persoon alleen de menu-items waarvoor hij of zij
+toegang heeft — als redacteur ziet u mogelijk meer dan uw
+lezers.
 
-**Vraag:** Kan ik alleen deze widget hernoemen of herschikken van vermeldingen? 
+**Vraag:** Niet alle subitems passen in de balk.
 
-Antwoord: Nee. Titel en volgorde komen uit het menu van de app; Wijzigingen
-Er werken overal, zelfs in de navigatie.
+Antwoord: Dan verschijnen rechts de knoppen **‹ ›**; deze schuiven de balk
+verder. Op de telefoon kun je de balk ook met je vinger zijdelings
+verschuiven. Aan het begin en einde is de betreffende knop grijs weergegeven.
+
+**Vraag:** Kan ik items alleen voor deze widget hernoemen of herschikken?
+
+Antwoord: Nee. Titels en volgorde komen uit het menu van de app; wijzigingen
+daar zijn overal van kracht, ook in de navigatie.

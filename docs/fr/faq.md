@@ -1,44 +1,52 @@
 # FAQ
 
-**Question :** « Veuillez définir un point de départ dans le menu des paramètres
-." 
+**Question :** Le message « Veuillez sélectionner un point de départ dans le menu
+dans les paramètres. » s'affiche.
 
-Réponse : Sous **Point de départ dans le menu**, rien n’est sélectionné — ni le
-n’est ni un identifiant de menu ni une adresse avec un identité. 
-Sélectionnez le point de départ dans la liste et enregistrez. La note apparaîtra également
-sur la page publiée, c’est-à-dire ne jamais publier sans point de départ. 
+Réponse : Aucune option n'est sélectionnée sous **Point de départ dans le menu** — ou la
+valeur saisie n'est ni un identifiant de menu ni une adresse comportant un tel identifiant.
+Sélectionnez le point de départ dans la liste et enregistrez-le. Ce message s'affiche également
+sur la page publiée ; ne publiez donc jamais sans point de départ.
 
-**Question :** Il est écrit « Le menu n’a pas pu être chargé. » 
+**Question :** Le message « Impossible de charger le menu. » s'affiche.
 
-Réponse : Le widget n’atteint pas l’élément du menu. Causes courantes : le
-L’élément du menu a été supprimé, le lecteur n’est pas autorisé à le voir, ou le
-La connexion a été coupée pendant un court moment. **Réessaie** demande à nouveau ; reste le
-Message, resélectionnez le point de départ. 
+Réponse : Le widget ne parvient pas à accéder à l'élément de menu. Causes courantes : l'
+rubrique du menu a été supprimée, le lecteur n’est pas autorisé à la voir, ou la
+connexion a été brièvement interrompue. **Réessayer** effectue une nouvelle tentative ; si le
+message persiste, sélectionnez un nouveau point de départ.
 
-**Question :** Il est écrit « Il n’y a plus d’entrées ici. » 
+**Question :** Seul le point de départ apparaît dans la barre.
 
-Réponse : L’élément du menu ne comporte aucun sous-élément visible — ni du tout
-aucun, ou tous sont réglés sur « Non visible » dans le menu ou ne sont pas disponibles pour le
-Personne de lecture bloquée. 
+Réponse : Le point de départ ne comporte aucun sous-élément visible — soit il n’y en a
+pas du tout, soit tous sont marqués « Non visible » dans le menu ou sont bloqués pour l’
+utilisateur.
 
-**Question :** Pourquoi une entrée n’a-t-elle pas de flèche ? 
+**Question :** Dans un menu déroulant, le message « Il n’y a pas d’autres entrées ici. » s’affiche.
 
-Réponse : La flèche n’apparaît que si l’entrée dans le menu contient des sous-éléments. 
-Cliquer sur le titre ouvre simplement la page. 
+Réponse : L’entrée comporte certes des sous-rubriques, mais aucune d’entre elles n’est
+visible pour le lecteur ni ne mène à une page.
 
-**Question :** Une entrée manque dans la navigation même si elle est dans le menu. 
+**Question :** Pourquoi une entrée n’a-t-elle pas de flèche ?
 
-Réponse : Si elle est réglée sur « Non visible » dans le menu, le
-la navigation ne le fait pas. De plus, chaque personne ne voit que les éléments du menu pour lesquels elle
-— en tant qu’éditeur, vous pouvez voir plus que votre
-Lecteurs. 
+Réponse : La flèche n’apparaît que si l’entrée du menu comporte des sous-rubriques.
+Un clic sur le titre ouvre alors simplement la page. L’élément de départ n’a
+pas de flèche s’il se trouve tout en haut du menu ou s’il n’y a pas d’
+éléments de menu visibles à côté de lui.
 
-**Question :** Comment puis-je faire défiler le téléphone en arrière ? 
+**Question :** Une entrée manque dans la navigation, bien qu’elle figure dans le menu.
 
-Réponse : Appuyez sur la flèche en haut à gauche dans la navigation — ou appuyez
-de la liste à droite. 
+Réponse : S’il est défini sur « Non visible » dans le menu, la
+navigation ne l’affiche pas non plus. De plus, chaque utilisateur ne voit que les éléments de menu auxquels il
+a accès — en tant que rédacteur ou rédactrice, vous pouvez voir davantage d’éléments que vos
+lecteurs et lectrices.
 
-**Question :** Puis-je renommer ou réordonner les entrées uniquement pour ce widget ? 
+**Question :** Tous les sous-éléments ne tiennent pas dans la barre.
 
-Réponse : Non. Le titre et l’ordre proviennent du menu de l’application ; Modifications
-Il y a des travaux partout, même en navigation.
+Réponse : Dans ce cas, les boutons **‹ ›** apparaissent à droite ; ils permettent de faire défiler la barre
+plus loin. Sur un téléphone, vous pouvez également la faire glisser latéralement
+avec le doigt. Au début et à la fin, le bouton correspondant est grisé.
+
+**Question :** Puis-je renommer ou réorganiser les éléments uniquement pour ce widget ?
+
+Réponse : Non. Les titres et l’ordre proviennent du menu de l’application ; les modifications
+effectuées à cet endroit s’appliquent partout, y compris dans la navigation.

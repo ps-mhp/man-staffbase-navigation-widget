@@ -1,6 +1,6 @@
 {
   "title": "Navegação",
-  "summary": "Exibe um trecho do menu como um menu rolante na página.",
+  "summary": "Apresenta uma parte do menu sob a forma de uma barra horizontal na página.",
   "icon": "🧭",
   "pages": [
     {
@@ -15,21 +15,19 @@
     },
     {
       "id": "settings",
-      "title": "Configurações",
+      "title": "Definições",
       "file": "settings.md"
     },
     {
       "id": "faq",
-      "title": "FAQ",
+      "title": "Perguntas frequentes",
       "file": "faq.md"
     }
   ],
   "examples": [
     {
-      "title": "Menu rolante",
-      "attributes": {
-        "heading": "Weiterführende Links"
-      },
+      "title": "Barra a partir de um ponto inicial",
+      "attributes": {},
       "resolve": [
         "menu-id"
       ]

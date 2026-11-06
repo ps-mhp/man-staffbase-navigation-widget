@@ -1,6 +1,6 @@
 {
   "title": "Navigazione",
-  "summary": "Mostra un estratto del menu come un menu a scorrimento sulla pagina.",
+  "summary": "Visualizza una parte del menu sotto forma di barra orizzontale sulla pagina.",
   "icon": "🧭",
   "pages": [
     {
@@ -26,10 +26,8 @@
   ],
   "examples": [
     {
-      "title": "Menu a scorrimento",
-      "attributes": {
-        "heading": "Weiterführende Links"
-      },
+      "title": "Barra a partire da un punto iniziale",
+      "attributes": {},
       "resolve": [
         "menu-id"
       ]

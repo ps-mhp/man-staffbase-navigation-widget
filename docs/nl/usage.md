@@ -2,47 +2,46 @@
 
 ## Navigatie invoegen
 
-1. Controleer het menu van de app om te zien welk menuitem de gewenste pagina's bevat als
-   sub-items. De navigatie toont altijd de sub-items **één** 
-   menu-item; dus de pagina's moeten er al onder hangen in het menu. 
-2. Open de pagina voor bewerking en voeg de **Navigatie**-widget toe aan de
-   , bijvoorbeeld in een smalle kolom naast de tekst. 
-3. In de instellingen onder **Startpunt in het menu** de lijst
-   **Selecteer startpunt...** open. Het toont het menu als een inspringing
-   boom; alleen menu-items met sub-items worden aangeboden. 
-4. Selecteer het menu-item waarvan de sub-items moeten verschijnen. 
-5. Vul optioneel je eigen titel in onder **Kop**, bijvoorbeeld. 
-   "Verdere links". De titel van het startpunt blijft leeg. 
-6. Opslaan en controleren in de preview: Door op de titel te klikken opent de pagina, 
-   De pijl schuift één niveau lager. 
+1. Kijk in het menu van de app welk menu-item de gewenste pagina’s als
+   subitems bevat. De navigatie toont altijd de subitems van **één**
+   menu-item; de pagina’s moeten dus al onder dat item in het menu staan.
+2. Open de pagina om deze te bewerken en plaats de widget **Navigatie** op de
+   gewenste plek, bij voorkeur over de volledige breedte — de balk
+   heeft ruimte nodig naast elkaar.
+3. Open in de instellingen onder **Startpunt in het menu** de lijst
+   **Startpunt selecteren …**. Deze toont het menu als een ingesprongen
+   boomstructuur; er worden alleen menu-items aangeboden die subitems hebben.
+4. Selecteer het menu-item waarvan de subitems moeten worden weergegeven.
+5. Sla op en controleer in het voorbeeld: als je op de titel klikt, wordt de pagina geopend,
+   en met de pijl open je de subitems als een dropdown.
 
-Als het menu-item niet in de lijst staat: 
+Als het menu-item niet in de lijst staat:
 
-1. Open de pagina van het menu-item in Staffbase en voer het **volledige adres** in 
-   Uit de adresbalk. 
-2. Selecteer in de lijst **Voer een ander menu-ID in...**. 
-3. Plak het adres in het veld. De widget leest de ID zelf
-   . 
+1. Open de pagina van het menu-item in Staffbase en kopieer het **volledige adres**
+   uit de adresbalk kopiëren.
+2. Kies in de lijst **Andere menu-ID invoeren …**.
+3. Plak het adres in het veld. De widget haalt de ID zelf
+   op.
 
-## Verander startpunt of koers
+## Startpunt wijzigen
 
-1. Open de instellingen van de widget. 
-2. Selecteer onder **Startitem in het menu** een ander menuitem of onder
-   **Kop** verander de tekst. 
-3. Opslaan. De navigatie begint dan opnieuw op het eerste niveau. 
+1. Open de instellingen van de widget.
+2. Kies onder **Startpunt in het menu** een ander menu-item.
+3. Sla op. De balk toont daarna het nieuwe startpunt en de
+   subitems.
 
-## Voeg toevoegen, verwijder of herschik vermeldingen
+## Items toevoegen, verwijderen of herschikken
 
-Dit gebeurt niet in de widget, maar in het **menu** van de app: 
+Dit gebeurt niet in de widget, maar in het **menu** van de app:
 
-1. Open het menubeheer in Staffbase. 
-2. Sleep, verwijder of herschik pagina's onder het beginpunt. 
-3. Herlaad de pagina met de navigatie — de wijziging is direct zichtbaar. 
+1. Open in Staffbase het menubeheer.
+2. Sleep pagina’s onder het startpunt, verwijder ze of herschik ze.
+3. Laad de pagina met de navigatie opnieuw — de wijziging is direct zichtbaar.
 
 ## Als iets niet werkt
 
-1. Als "Het menu kon niet geladen worden" verschijnt, klik dan
-   **Probeer opnieuw**-knop. Als dat niet helpt, controleer dan of het startpunt is
-   Er staat nog steeds in het menu, en indien nodig, selecteer het opnieuw. 
-2. Als een vermelding ontbreekt, controleer dan het menu om te zien of deze op "Niet zichtbaar" is gezet of
-   of de persoon die het leest het mag zien.
+1. Als „Het menu kon niet worden geladen.“ verschijnt, klik dan op
+   **Opnieuw proberen** — in de balk of in een dropdown. Als dat niet helpt, controleer dan of het startpunt
+   nog in het menu staat en selecteer het indien nodig opnieuw.
+2. Ontbreekt er een item, controleer dan in het menu of het op „Niet zichtbaar“ staat of
+   of de lezer het mag zien.

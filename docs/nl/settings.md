@@ -1,9 +1,8 @@
 # Instellingen
 
-| Setting | Beschrijving |
+| Instelling | Beschrijving |
 | --- | --- |
-| Startpunt in het menu | Het menu-item waarvan de sub-items door de navigatie worden weergegeven. Vereist veld. Selecteer **Selecteer startpunt ...** uit de lijst — het toont het menu als een ingesprongen boom, alleen menu-items met sub-items. Menu-items die in het menu verborgen zijn, hebben de toevoeging "(verborgen in het menu)". Als het menu-item ontbreekt in de lijst, selecteer **Voer een andere menu-ID in ...** en vul het adres van de pagina of de 24-cijferige ID in. |
-| Kop | Staat boven het eerste niveau. Optioneel; de titel van het beginpunt verschijnt leeg. Vertaald bij het vertalen van de pagina. |
+| Startpunt in het menu | Het menu-item dat links in de balk wordt weergegeven; rechts daarvan staan de subitems. Verplicht veld. Kies uit de lijst **Startpunt selecteren …** — deze toont het menu als een ingesprongen boomstructuur, met alleen menu-items die subitems hebben. Menu-items die in het menu verborgen zijn, hebben de toevoeging „(verborgen in het menu)“. Als het menu-item ontbreekt in de lijst, kies dan **Andere menu-ID invoeren …** en voer het adres van de pagina of de 24-cijferige ID in. |
 
-De volgorde, titel en zichtbaarheid van de vermeldingen komen uit het menu van de app
-en worden daar onderhouden, niet in de widget.
+De volgorde, titel en zichtbaarheid van de items komen uit het menu van de app
+en worden daar beheerd, niet in de widget.

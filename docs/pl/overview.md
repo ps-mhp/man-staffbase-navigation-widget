@@ -1,44 +1,56 @@
 # Nawigacja
 
-Nawigacja przenosi fragment menu Staffbase na stronę:
-Wybierz element menu jako punkt początkowy, a widżet pokazuje jego
-Podelementy jako lista. Jeśli podpozycja ma same podpozycje, znajduje się po prawej stronie
-Strzałka — pozwala przewijać jeden poziom w dół bez przewracania strony.
-. 
+Nawigacja wyświetla na stronie fragment menu Staffbase:
+wybierasz pozycję menu jako punkt początkowy, a widżet pokazuje ją w postaci
+poziomego paska — po lewej stronie znajduje się punkt początkowy, a po prawej jego podpunkty.
+Jeśli dana pozycja ma podpunkty, strzałka otwiera je w postaci rozwijanego menu bez
+opuszczania strony.
 
-Typowe przypadki: "Dalsze linki" obok artykułu,
-Przegląd tematu na stronie wpisowej, spis treści
-Obszar z wieloma podstronami. 
+Typowe zastosowania: nawigacja po sekcjach u góry stron danego tematu,
+przegląd tematów na stronie startowej, przechodzenie między
+sąsiednimi sekcjami.
 
 ## Co widzą czytelnicy
 
-- Na górze **nagłówek** — zarejestrowany lub bez wpisu tytuł
-  punktu wyjścia. 
-- Pod **podpozycjami** punktu startowego, w kolejności menu. 
-- **Strona, na której obecnie jesteś** jest wyszarzona — również
-  niżej się wynij, jeśli tam przewiniesz. 
-- Kliknięcie na **tytuł** otwiera samą stronę. 
-- Kliknięcie na **strzałkę** po prawej przewinie do podelementów tego
-  wpis. Na górze znajduje się strzałka po lewej stronie z tytułem poziomu; a
-  Kliknij na nią, aby przewinąć do tyłu. 
-- Na **telefonie** przesunięcie w prawo również przewija w tył. 
+```
+[Punkt początkowy ⌄] | [Podpunkt 1 ⌄] [Podpunkt 2] [Podpunkt 3 ⌄] …   [‹ ›]
+```
 
-Folder, który zawiera tylko inne wpisy i nie ma własnej strony, 
-Przewija się po kliknięciu całej linii. 
+- Po lewej stronie znajduje się **punkt początkowy**. Kliknięcie jego tytułu otwiera odpowiednią stronę.
+  **Strzałka** obok niego otwiera jego „rodzeństwo” — pozostałe pozycje menu
+  na tym samym poziomie, przy czym sam punkt początkowy jest w nim wyróżniony. Jeśli
+  punkt początkowy znajduje się na samym szczycie menu lub obok niego nie ma nic widocznego, nie ma
+  strzałki.
+- Pionowa **kreska** oddziela punkt początkowy od jego podpunktów.
+- Po prawej stronie znajdują się **podpunkty** punktu początkowego, ułożone w jednym wierszu i w
+  kolejności zgodnej z menu.
+- **Strona, na której aktualnie się znajdujesz**, jest podkreślona na czerwono.
+- Kliknięcie **tytułu** otwiera samą stronę, a kliknięcie
+  **strzałki** obok niego powoduje wyświetlenie menu rozwijanego z podpunktami tej pozycji. To
+  menu rozwijane pokazuje dokładnie jeden poziom; pozycje z niższych poziomów pojawiają się tam jako
+  zwykłe odnośniki.
+- Jeśli nie wszystkie podpunkty mieszczą się w szerokości, po prawej stronie pojawiają się dwa przyciski
+  **‹ ›**, za pomocą których można przesuwać pasek. Na telefonie
+  można to również zrobić palcem.
+- Menu rozwijane zamyka się klawiszem **Esc**, kliknięciem obok niego oraz w momencie
+  przewijania paska.
 
-## Ważne do wiedzy
+Folder, który zawiera wyłącznie inne pozycje i nie ma własnej strony,
+otwiera swoje menu rozwijane po kliknięciu całej pozycji.
 
-- Widget **nie kopiuje niczego**. Czyta menu za każdym razem, gdy jest wywołany: 
-  Jeśli menu się zmieni, zmienia się też nawigacja. 
-- **Zezwolenia pozostaną.** Każda osoba zobaczy tylko
-  To także pozycje w menu, które widzi w menu aplikacji. 
-- Elementy menu ustawione na **"Niewidoczne"** w menu pokażą
-  Nawigacja też nie. 
-- **Tytuły** pozycji menu pojawiają się w języku osoby czytającej, 
-  Tak jak w menu aplikacji. 
+## Ważne informacje
 
-## Co widzisz w edytorze CMS
+- Widżet **nic nie kopiuje**. Przy każdym wywołaniu odczytuje menu od nowa:
+  jeśli menu ulegnie zmianie, zmienia się również nawigacja.
+- **Uprawnienia pozostają niezmienne.** Każda osoba widzi tylko te
+  pozycje menu, które widzi również w menu aplikacji.
+- Pozycje menu, które w menu mają oznaczenie **„Niewidoczne”**, nie są
+  również wyświetlane w nawigacji.
+- **Tytuły** pozycji menu pojawiają się w języku osoby czytającej,
+  tak samo jak w menu aplikacji.
 
-W edytorze widżet pojawia się tak, jak na opublikowanej stronie, oraz
-można też tam przeglądać. Kliknięcie na tytuł zostawia
-Edytor — lepiej użyj podglądu, żeby to wypróbować.
+## Co widać w edytorze CMS
+
+W edytorze widżet wygląda tak samo jak na opublikowanej stronie; można tam również
+otwierać menu rozwijane. Kliknięcie tytułu powoduje opuszczenie
+edytora — aby wypróbować funkcje, lepiej skorzystać z podglądu.

@@ -1,44 +1,56 @@
 # Navegación
 
-La navegación muestra un extracto del menú de Staffbase a una página:
-Selecciona un elemento del menú como punto de inicio, y el widget muestra su
-Subítems como lista. Si un subíteme tiene subítems en sí mismo, está a la derecha
-una flecha — esto te permite desplazarte un nivel hacia abajo sin pasar página.
-. 
+La navegación muestra una sección del menú de Staffbase en una página:
+seleccionas una opción del menú como punto de partida y el widget la muestra como
+una barra horizontal: a la izquierda, el punto de partida; a la derecha, sus subopciones.
+Si una entrada tiene a su vez subapartados, una flecha los abre en un menú desplegable sin
+salir de la página.
 
-Ocasiones típicas: "Enlaces adicionales" junto a un artículo, un
-Resumen del tema en una página de entrada, una tabla de contenidos para una
-Zona con muchas subpáginas. 
+Usos habituales: una navegación por secciones en la parte superior de las páginas de un tema,
+un resumen de temas en una página de inicio, el salto entre
+secciones adyacentes.
 
 ## Lo que ven los lectores
 
-- En la parte superior, el **encabezado** — el registro o, sin entrada, el título
-  del punto de partida. 
-- Debajo de los **sub-elementos** del punto de inicio, en el orden del menú. 
-- La **página en la que estás actual** está deshabilitada — también una
-  De nivel inferior si desplazas hasta allí. 
-- Al hacer clic en un **título** se abre la página en sí. 
-- Al hacer clic en la **flecha** de la derecha se desplazará hasta los subelementos de este
-  entrada. En la parte superior hay una flecha a la izquierda con el título del nivel; a
-  Haz clic para desplazarte hacia atrás. 
-- En el **teléfono**, un deslizamiento a la derecha también se desplaza hacia atrás. 
+```
+[Punto de partida ⌄] | [Subpunto 1 ⌄] [Subpunto 2] [Subpunto 3 ⌄] …   [‹ ›]
+```
 
-Una carpeta que contiene solo otras entradas y no tiene página propia, 
-Se desplaza al hacer clic en toda la línea. 
+- A la izquierda, el **punto de partida**. Al hacer clic en su título, se abre su página.
+  La **flecha** situada junto a él abre sus elementos hermanos —las demás opciones del menú
+  del mismo nivel—, y el propio punto de partida aparece resaltado en ellas. Si
+  el punto de partida se encuentra en la parte superior del menú o no hay nada visible junto a él, no hay
+  ninguna flecha.
+- Una **línea** vertical separa el punto de partida de sus subapartados.
+- A la derecha, los **subapartados** del punto de partida, en una sola línea y en el
+  orden del menú.
+- La **página en la que te encuentras** aparece subrayada en rojo.
+- Al hacer clic en un **título** se abre la propia página; al hacer clic en la
+  **flecha** situada junto a él, se abre un menú desplegable con los subpuntos de esa entrada. El
+  menú desplegable muestra exactamente un nivel; las entradas de niveles inferiores aparecen allí como
+  simples enlaces.
+- Si no caben todos los subapartados en el ancho de la pantalla, aparecen a la derecha dos botones
+  **‹ ›** con los que se puede desplazar la barra. En el móvil,
+  también se puede hacer con el dedo.
+- Un menú desplegable se cierra con **Esc**, haciendo clic junto a él o en cuanto
+  se desplaza la barra.
 
-## Importante saberlo
+Una carpeta que solo contiene otras entradas y no tiene página propia
+abre su menú desplegable al hacer clic en toda la entrada.
 
-- El widget **no copia nada**. Lee el menú cada vez que se llama: 
-  Si el menú cambia, también cambia la navegación. 
-- **Los permisos permanecerán.** Cada persona solo verá el
-  Platos del menú que también ve en el menú de la app. 
-- Los elementos del menú que estén configurados en **"No visibles"** en el menú mostrarán el
-  Tampoco la navegación. 
-- Los **títulos** de los platos del menú aparecen en el idioma de la persona que lee, 
-  Igual que en el menú de la app. 
+## Es importante saber
 
-## Lo que ves en el editor CMS
+- El widget **no copia nada**. Vuelve a leer el menú cada vez que se abre:
+  si el menú cambia, también cambia la navegación.
+- **Los permisos se mantienen.** Cada persona solo ve las
+  opciones de menú que también ve en el menú de la aplicación.
+- Las opciones del menú que aparecen como **«No visibles»** en el menú,
+  tampoco se muestran en la navegación.
+- Los **títulos** de las opciones del menú aparecen en el idioma de la persona que los lee,
+  al igual que en el menú de la aplicación.
 
-En el editor, el widget aparece tal como en la página publicada y
-También se puede navegar allí. Al hacer clic en un título queda
-El editor — mejor usa la vista previa para probarlo.
+## Lo que ves en el editor del CMS
+
+En el editor, el widget aparece tal y como se ve en la página publicada; los
+menús desplegables también se pueden abrir allí. Al hacer clic en un título, se sale
+del editor; para probarlo, es mejor utilizar la vista previa.

@@ -1,44 +1,56 @@
 # Navegação
 
-A navegação traz um trecho do menu da Staffbase para uma página:
-selecione um item de menu como ponto de partida, e o widget mostra seu
-Subitens como uma lista. Se um subitem tiver subitens próprio, ele está à direita
-uma seta — Isso permite rolar um nível para baixo sem virar a página.
-. 
+A navegação apresenta uma secção do menu do Staffbase numa página:
+escolhe-se um item do menu como ponto de partida e o widget apresenta-o como
+uma barra horizontal — à esquerda, o ponto de partida; à direita, os seus subitens.
+Se uma entrada tiver subitens, uma seta abre-os num menu suspenso, sem
+sair da página.
 
-Ocasiões típicas: "Links adicionais" ao lado de um artigo, um
-Visão geral do tópico em uma página de entrada, um sumário para um
-Área com muitas subpáginas. 
+Casos típicos: uma navegação por secções na parte superior das páginas de um tema,
+uma visão geral dos temas numa página inicial, a transição entre
+secções adjacentes.
 
 ## O que os leitores veem
 
-- No topo, o **cabeçalho** — o registro ou, sem entrada, o título
-  do ponto de partida. 
-- Abaixo dos **subitens** do ponto de partida, na ordem do menu. 
-- A **página em que você está atual** está acinzentada — também um
-  Nível inferior se você rolar até lá. 
-- Clicar em um **título** abre a própria página. 
-- Clicar na **seta** à direita será direcionado para os subitens deste
-  entrada. No topo há então uma seta à esquerda com o título do nível; a
-  Clique nele para voltar a página. 
-- No **telefone**, um deslize para a direita também faz o movimento de volta. 
+```
+[Ponto de partida ⌄] | [Subopção 1 ⌄] [Subopção 2] [Subopção 3 ⌄] …   [‹ ›]
+```
 
-Uma pasta que contém apenas outras entradas e não tem sua própria página, 
-rola ao clicar em toda a linha. 
+- À esquerda, o **ponto de partida**. Um clique no seu título abre a respetiva página.
+  A **seta** ao lado abre os seus «irmãos» — os outros itens do menu
+  no mesmo nível; o próprio ponto de partida fica destacado nesse menu. Se
+  o ponto de partida estiver no topo do menu ou não houver nada visível ao seu lado, não há
+  seta.
+- Uma **linha** vertical separa o ponto de partida dos seus subitens.
+- À direita, os **subitens** do ponto de partida, numa única linha e na
+  ordem do menu.
+- A **página em que se encontra** está sublinhada a vermelho.
+- Um clique num **título** abre a própria página; um clique na
+  **seta** ao lado abre um menu suspenso com os subitens dessa entrada. O
+  menu suspenso mostra exatamente um nível; as entradas de níveis inferiores aparecem ali como
+  simples referências.
+- Se nem todos os subitens couberem na largura, aparecem à direita dois botões
+  **‹ ›**, com os quais é possível deslocar a barra. No telemóvel,
+  isso também pode ser feito com o dedo.
+- Um menu suspenso fecha-se com a tecla **Esc**, com um clique ao lado do mesmo e assim que
+  a barra for percorrida.
+
+Uma pasta que contenha apenas outras entradas e não tenha uma página própria
+abre o seu menu suspenso ao clicar na entrada completa.
 
 ## Importante saber
 
-- O widget **não copia nada**. Ele lê o menu toda vez que é chamado: 
-  Se o menu muda, a navegação também muda. 
-- **As permissões permanecerão.** Cada pessoa verá apenas o
-  Itens do cardápio que ela também vê no menu do app. 
-- Itens do menu definidos como **"Não visíveis"** no menu mostrarão o
-  A navegação também não. 
-- Os **títulos** dos itens do menu aparecem no idioma da pessoa que está lendo, 
-  Assim como no menu do app. 
+- O widget **não copia nada**. Ele recarrega o menu sempre que é acedido:
+  se o menu mudar, a navegação também muda.
+- **As autorizações mantêm-se.** Cada pessoa vê apenas os
+  itens de menu que também vê no menu da aplicação.
+- As opções de menu que estão marcadas como **«Não visíveis»** no menu
+  também não são apresentadas na navegação.
+- Os **títulos** das opções de menu aparecem no idioma da pessoa que está a ler,
+  tal como no menu da aplicação.
 
-## O que você vê no editor CMS
+## O que vê no editor do CMS
 
-No editor, o widget aparece como aparece na página publicada e
-Também pode ser navegado lá. Clicar em um título deixa
-O editor — melhor usar a prévia para testar.
+No editor, o widget aparece tal como na página publicada; os
+menus suspensos também podem ser abertos nesse local. Ao clicar num título, sai-se
+do editor — para experimentar, é melhor utilizar a pré-visualização.

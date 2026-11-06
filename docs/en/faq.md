@@ -1,44 +1,52 @@
 # FAQ
 
-**Question:** "Please set a starting point in the menu in the settings
-." 
+**Question:** The message “Please select a starting point in the menu
+in the settings” appears.
 
-Answer: Under **Start point in the menu** nothing is selected — or the
-is neither a menu ID nor an address with one. 
-Select the starting point from the list and save. The note will also appear
-on the published page, i.e. never publish without a starting point. 
+Answer: Nothing is selected under **Starting Point in the Menu**—or the
+entered value is neither a menu ID nor an address containing one.
+Select the starting point from the list and save it. This message also appears
+on the published page, so never publish without a starting point.
 
-**Question:** It says "The menu could not be loaded." 
+**Question:** The message “The menu could not be loaded” appears.
 
-Answer: The widget does not reach the menu item. Common causes: the
-Menu item has been deleted, the reader is not allowed to see it, or the
-Connection was gone for a short time. **Try again** asks again; remains the
-message, reselect the starting point. 
+Answer: The widget cannot access the menu item. Common causes: the
+menu item has been deleted, the reader is not authorized to view it, or the
+connection was briefly lost. **Try again** will attempt the request once more; if the
+message persists, select a new starting point.
 
-**Question:** It says "There are no more entries here." 
+**Question:** Only the starting point appears in the bar.
 
-Answer: The menu item has no visible sub-items — either at all
-none, or all of them are set to "Not visible" in the menu or are not available for the
-reading person blocked. 
+Answer: The starting point has no visible subitems—either none
+at all, or all of them are set to “Not visible” in the menu or are
+restricted for the user.
 
-**Question:** Why doesn't an entry have an arrow? 
+**Question:** A dropdown says “There are no further entries here.”
 
-Answer: The arrow only appears if the entry in the menu has sub-items. 
-Clicking on the title then simply opens the page. 
+Answer: The entry does have subitems, but none of them are visible to the
+reader or lead to a page.
 
-**Question:** An entry is missing from the navigation even though it is in the menu. 
+**Question:** Why doesn’t an entry have an arrow?
 
-Answer: If it is set to "Not visible" in the menu, the
-navigation does not. In addition, each person only sees the menu items for which they
-— as an editor, you may see more than your
-Readers. 
+Answer: The arrow only appears if the entry has subitems in the menu.
+Clicking the title simply opens the page. The root item has
+no arrow if it’s at the very top of the menu or if there are no
+visible menu items next to it.
 
-**Question:** How do I scroll back on the phone? 
+**Question:** An entry is missing from the navigation, even though it’s in the menu.
 
-Answer: Tap the top-left arrow in the navigation — or tap
-of the list to the right. 
+Answer: If it’s set to “Hidden” in the menu, the
+navigation bar won’t display it either. Additionally, each user only sees the menu items they’re
+authorized to view—as an editor, you may see more than your
+readers.
 
-**Question:** Can I rename or reorder entries for this widget only? 
+**Question:** Not all subitems fit in the bar.
 
-Answer: No. Title and order come from the app's menu; Changes
-there work everywhere, even in navigation.
+Answer: In that case, the **‹ ›** buttons appear on the right; they allow you to scroll
+through the bar. On a phone, you can also swipe sideways with your finger
+to scroll through it. At the beginning and end, the respective button is grayed out.
+
+**Question:** Can I rename or reorder items just for this widget?
+
+Answer: No. Titles and order come from the app’s menu; changes
+made there apply everywhere, including in the navigation.

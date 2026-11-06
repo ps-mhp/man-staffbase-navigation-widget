@@ -1,44 +1,52 @@
-# FAQ
+# Perguntas Frequentes
 
-**Pergunta:** "Por favor, defina um ponto de partida no menu das configurações
-." 
+**Pergunta:** Aparece a mensagem «Por favor, selecione um ponto de partida no menu
+nas definições.»
 
-Resposta: Em **Ponto de Início no menu**, nada é selecionado — ou o
-não é nem um ID de menu nem um endereço com um. 
-Selecione o ponto de partida na lista e salve. A nota também aparecerá
-na página publicada, ou seja, nunca publique sem um ponto de partida. 
+Resposta: Não está selecionado nada em **Ponto de partida no menu** — ou o
+valor introduzido não é nem um ID de menu nem um endereço que contenha um.
+Selecione o ponto de partida da lista e guarde. A mensagem também aparece
+na página publicada, por isso nunca publique sem um ponto de partida.
 
-**Pergunta:** Diz "O cardápio não pôde ser carregado." 
+**Pergunta:** Aparece a mensagem «Não foi possível carregar o menu.»
 
-Resposta: O widget não alcança o item do menu. Causas comuns: o
-Item do menu foi excluído, o leitor não pode vê-lo, ou o
-A conexão ficou fora por um curto período. **Tente novamente** pergunta novamente; permanece o
-Mensagem, reselecione o ponto de partida. 
+Resposta: O widget não consegue aceder ao item do menu. Causas habituais: o
+opção do menu foi eliminada, o leitor não tem permissão para a ver ou a
+ligação foi interrompida momentaneamente. **Tentar novamente** faz uma nova tentativa; se a
+mensagem persistir, selecione um novo ponto de partida.
 
-**Pergunta:** Diz "Não há mais entradas aqui." 
+**Pergunta:** Na barra, aparece apenas o ponto de partida.
 
-Resposta: O item do menu não possui subitens visíveis — nem um
-nenhum, ou todos eles estão configurados como "Não visíveis" no menu ou não estão disponíveis para o
-Pessoa de leitura bloqueada. 
+Resposta: O ponto de partida não tem subitens visíveis — ou não tem
+nenhum, ou todos estão definidos no menu como «Não visível» ou estão bloqueados para o
+leitor.
 
-**Pergunta:** Por que uma entrada não tem uma seta? 
+**Pergunta:** Num menu suspenso aparece «Não existem mais entradas aqui.»
 
-Resposta: A seta só aparece se a entrada no menu tiver sub-itens. 
-Clicando no título, a página simplesmente se abre. 
+Resposta: A entrada tem, de facto, subitens, mas nenhum deles é visível para o
+leitor nem conduz a uma página.
 
-**Pergunta:** Uma entrada está faltando na navegação, mesmo estando no menu. 
+**Pergunta:** Por que razão uma entrada não tem uma seta?
 
-Resposta: Se estiver configurado para "Não visível" no menu, o
-A navegação não tem. Além disso, cada pessoa vê apenas os itens do menu para os quais ela
-— como editor, você pode ver mais do que seu
-Leitores. 
+Resposta: A seta só aparece se a entrada no menu tiver subitens.
+Um clique no título abre simplesmente a página. O item inicial não tem
+seta se estiver no topo do menu ou se não houver
+itens de menu visíveis ao seu lado.
 
-**Pergunta:** Como faço para rolar a tela de volta no celular? 
+**Pergunta:** Falta uma entrada na navegação, apesar de estar no menu.
 
-Resposta: Toque na seta superior esquerda na navegação — ou toque
-da lista à direita. 
+Resposta: Se estiver definido como «Não visível» no menu, a
+navegação também não o mostra. Além disso, cada pessoa vê apenas os itens do menu para os quais tem
+autorização — como editor(a), poderá ver mais do que os seus
+leitores e leitoras.
 
-**Pergunta:** Posso renomear ou reordenar entradas apenas para este widget? 
+**Pergunta:** Nem todos os subitens cabem na barra.
 
-Resposta: Não. Título e ordem vêm do menu do app; Mudanças
-Há trabalho em todo lugar, até na navegação.
+Resposta: Nesse caso, aparecem à direita os botões **‹ ›**; estes permitem deslocar a barra
+para a direita. No telemóvel, também é possível deslocá-la lateralmente
+com o dedo. No início ou no fim, o botão correspondente fica a cinzento.
+
+**Pergunta:** Posso renomear ou reorganizar as entradas apenas para este widget?
+
+Resposta: Não. Os títulos e a ordem provêm do menu da aplicação; as alterações
+efetuadas aí aplicam-se em todo o lado, inclusive na navegação.

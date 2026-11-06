@@ -1,44 +1,52 @@
 # FAQ
 
-**Pytanie:** "Proszę ustawić punkt startowy w menu w ustawieniach
-." 
+**Pytanie:** Pojawia się komunikat „Proszę wybrać punkt początkowy w menu
+w ustawieniach”.
 
-Odpowiedź: W **Punkt startowy w menu** nic nie jest zaznaczone — ani
-nie jest ani identyfikatorem menu, ani adresem z nim. 
-Wybierz punkt startowy z listy i zapisz. Notatka również się pojawi
-na stronie opublikowanej, czyli nigdy nie publikuj bez punktu wyjścia. 
+Odpowiedź: W polu **Punkt początkowy w menu** nie wybrano żadnej opcji — lub
+wprowadzona wartość nie jest ani identyfikatorem menu, ani adresem zawierającym taki identyfikator.
+Wybierz punkt początkowy z listy i zapisz. Komunikat ten pojawia się również
+na opublikowanej stronie, dlatego nigdy nie publikuj bez punktu początkowego.
 
-**Pytanie:** Jest napisane "Menu nie dało się załadować." 
+**Pytanie:** Pojawia się komunikat „Nie udało się załadować menu.”
 
-Odpowiedź: Widget nie dociera do pozycji menu. Typowe przyczyny:
-Pozycja menu została usunięta, czytelnik nie może jej zobaczyć, ani
-Połączenie zniknęło na krótko. **Spróbuj ponownie** pyta ponownie; pozostaje
-Wiadomości, wybierz ponownie punkt startowy. 
+Odpowiedź: Widżet nie ma dostępu do pozycji menu. Typowe przyczyny:
+pozycja menu została usunięta, osoba czytająca nie ma uprawnień do jej wyświetlania lub
+na chwilę zanikło połączenie. Opcja **„Spróbuj ponownie”** wysyła zapytanie jeszcze raz; jeśli
+komunikat nadal się pojawia, należy wybrać nowy punkt początkowy.
 
-**Pytanie:** Jest napisane: "Nie ma tu już żadnych wpisów." 
+**Pytanie:** Na pasku widoczny jest tylko punkt początkowy.
 
-Odpowiedź: Pozycja w menu nie ma widocznych podpozycji — ani w ogóle
-żadnych, lub wszystkie są ustawione na "Niewidoczne" w menu lub są niedostępne dla
-Osoba czytająca zablokowana. 
+Odpowiedź: Punkt startowy nie ma widocznych podpunktów — albo nie ma ich
+w ogóle, albo wszystkie w menu mają ustawioną opcję „Niewidoczne” lub są zablokowane dla
+osoby czytającej.
 
-**Pytanie:** Dlaczego wpis nie ma strzałki? 
+**Pytanie:** W rozwijanym menu pojawia się komunikat „Nie ma tutaj żadnych innych wpisów”.
 
-Odpowiedź: Strzałka pojawia się tylko wtedy, gdy wpis w menu zawiera podpozycje. 
-Kliknięcie na tytuł po prostu otwiera stronę. 
+Odpowiedź: Pozycja ta ma wprawdzie podpunkty, ale żaden z nich nie jest widoczny dla
+osoby przeglądającej ani nie prowadzi do żadnej strony.
 
-**Pytanie:** Brakuje wpisu w nawigacji, mimo że jest w menu. 
+**Pytanie:** Dlaczego pozycja nie ma strzałki?
 
-Odpowiedź: Jeśli w menu jest ustawione na "Niewidoczne",
-Nawigacja nie. Ponadto każda osoba widzi tylko te pozycje menu, dla których
-— jako redaktor możesz zobaczyć więcej niż tylko
-Czytelnicy. 
+Odpowiedź: Strzałka pojawia się tylko wtedy, gdy pozycja w menu ma podpunkty.
+Kliknięcie tytułu po prostu otwiera stronę. Pozycja początkowa nie ma
+strzałki, jeśli znajduje się na samym szczycie menu lub obok niej nie ma
+żadnych widocznych pozycji menu.
 
-**Pytanie:** Jak przewinąć telefon z powrotem? 
+**Pytanie:** W nawigacji brakuje pozycji, mimo że znajduje się ona w menu.
 
-Odpowiedź: Stuknij w lewy górny róg w nawigacji — lub kliknij
-z listy po prawej. 
+Odpowiedź: Jeśli w menu jest ustawiony na „Niewidoczny”, nie wyświetla go również
+pasek nawigacyjny. Ponadto każda osoba widzi tylko te pozycje menu, do których ma
+uprawnienia — jako redaktor/redaktorka mogą Państwo w niektórych przypadkach widzieć więcej niż Państwa
+czytelnicy.
 
-**Pytanie:** Czy mogę zmienić nazwę lub uporządkować wpisy tylko dla tego widżetu? 
+**Pytanie:** Nie wszystkie podpozycje mieszczą się w pasku.
 
-Odpowiedź: Nie. Tytuł i kolejność pochodzą z menu aplikacji; Zmiany
-Praca jest wszędzie, nawet w nawigacji.
+Odpowiedź: W takim przypadku po prawej stronie pojawiają się przyciski **‹ ›**; służą one do przesuwania paska
+w dalszą część. Na telefonie można go również przesuwać palcem w bok
+. Na początku lub na końcu odpowiedni przycisk jest wyszarzony.
+
+**Pytanie:** Czy mogę zmieniać nazwy lub porządek pozycji tylko dla tego widżetu?
+
+Odpowiedź: Nie. Tytuły i kolejność pochodzą z menu aplikacji; zmiany
+wprowadzone tam mają wpływ na wszystkie elementy, w tym na nawigację.

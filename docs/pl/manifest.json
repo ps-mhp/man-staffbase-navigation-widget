@@ -1,6 +1,6 @@
 {
   "title": "Nawigacja",
-  "summary": "Na stronie wyświetlany jest fragment menu jako przewijane menu.",
+  "summary": "Wyświetla fragment menu w postaci poziomego paska na stronie.",
   "icon": "🧭",
   "pages": [
     {
@@ -20,16 +20,14 @@
     },
     {
       "id": "faq",
-      "title": "FAQ",
+      "title": "Najczęściej zadawane pytania",
       "file": "faq.md"
     }
   ],
   "examples": [
     {
-      "title": "Menu przewijane",
-      "attributes": {
-        "heading": "Weiterführende Links"
-      },
+      "title": "Linia od punktu początkowego",
+      "attributes": {},
       "resolve": [
         "menu-id"
       ]

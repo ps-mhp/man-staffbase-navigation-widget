@@ -1,48 +1,47 @@
 # Passo dopo passo
 
-## Inserisci navigazione
+## Inserire la navigazione
 
-1. Controlla il menu dell'app per vedere quale elemento contiene le pagine desiderate come
-   Sotto-elementi. La navigazione mostra sempre i sotto-elementi **uno** 
-   elemento del menu; quindi le pagine devono già essere appese sotto nel menu. 
-2. Apri la pagina per la modifica e allega il widget **Navigazione** al
-   , ad esempio in una colonna stretta accanto al testo. 
-3. Nelle impostazioni sotto **Punto Start nel menu** la lista
-   **Seleziona punto di partenza...** apro. Mostra il menu come un rientro
-   albero; vengono offerti solo i menu con sotto-elementi. 
-4. Seleziona l'elemento del menu i cui sotto-elementi dovrebbero comparire. 
-5. Opzionalmente, inserisci il tuo titolo sotto **Heading**, ad esempio 
-   "Ulteriori collegamenti". Il titolo del punto di partenza rimane vuoto. 
-6. Salva e verifica in anteprima: cliccando sul titolo si apre la pagina, 
-   La freccia scorre un livello più in basso. 
+1. Controllare nel menu dell’app quale voce di menu contiene le pagine desiderate come
+   sottovoci. La navigazione mostra sempre le sottovoci **di una**
+   voce di menu; le pagine devono quindi essere già presenti nel menu sotto quella voce.
+2. Aprire la pagina da modificare e posizionare il widget **Navigazione** nel
+   punto desiderato, preferibilmente a tutta larghezza: la barra
+   necessita di spazio per le voci affiancate.
+3. Nelle impostazioni, alla voce **Punto di partenza nel menu**, aprire l’elenco
+   **Seleziona punto di partenza …**. Questo mostra il menu come un albero
+   indentato; vengono proposti solo i punti del menu che hanno sottopunti.
+4. Selezionare il punto del menu i cui sottopunti devono essere visualizzati.
+5. Salvare e verificare nell’anteprima: cliccando sul titolo si apre la pagina,
+   mentre la freccia apre le voci secondarie in un menu a tendina.
 
-Se l'elemento del menu non è nella lista: 
+Se la voce di menu non è presente nell’elenco:
 
-1. Apri la pagina dell'elemento del menu in Staffbase e inserisci l'**indirizzo completo** 
-   dalla barra degli indirizzi. 
-2. Nella lista seleziona **Inserisci un ID menu diverso...**. 
-3. Incolla l'indirizzo nel campo. Il widget legge l'ID stesso
-   . 
+1. Aprire la pagina della voce di menu in Staffbase e **copiare l’indirizzo completo**
+   dalla barra degli indirizzi.
+2. Selezionare **Inserisci altro ID menu …** dall’elenco.
+3. Incollare l’indirizzo nel campo. Il widget rileva automaticamente
+   l’ID.
 
-## Cambia punto di partenza o direzione
+## Modificare il punto di partenza
 
-1. Apri le impostazioni del widget. 
-2. Sotto **Inizia elemento nel menu** seleziona un altro elemento del menu o sotto
-   **Intestazione** cambia il testo. 
-3. Salva. La navigazione ricomincerà quindi al primo livello. 
+1. Aprire le impostazioni del widget.
+2. Sotto **Punto di partenza nel menu**, selezionare una voce di menu diversa.
+3. Salvare. La barra mostrerà quindi il nuovo punto di partenza e le sue
+   voci secondarie.
 
 ## Aggiungere, rimuovere o riordinare le voci
 
-Questo non viene fatto nel widget, ma nel **menu** dell'app: 
+Questa operazione non viene eseguita nel widget, ma nel **menu** dell’app:
 
-1. Apri la gestione del menu in Staffbase. 
-2. Trascina, rimuovi o riordina le pagine sotto il punto di partenza. 
-3. Ricarica la pagina con la navigazione — la modifica sarà immediatamente visibile. 
+1. In Staffbase, aprire la gestione del menu.
+2. Trascinare le pagine sotto il punto di partenza, rimuoverle o riordinarle.
+3. Ricaricare la pagina con la navigazione: la modifica sarà immediatamente visibile.
 
-## Quando qualcosa non funziona
+## Se qualcosa non funziona
 
-1. Se appare "Il menu non poteva essere caricato", clicca
-   **Riprova**. Se non aiuta, controlla se il punto di partenza è
-   esiste ancora nel menu e, se necessario, selezionalo di nuovo. 
-2. Se manca una voce, controlla il menu per vedere se è impostata su "Non visibile" oppure
-   se la persona che legge è autorizzata a vederla.
+1. Se compare il messaggio «Impossibile caricare il menu», cliccare su
+   **Riprova** — nella barra come in un menu a tendina. Se ciò non risolve il problema, verificare se il punto di partenza
+   esiste ancora nel menu e, se necessario, selezionarlo nuovamente.
+2. Se manca una voce, controllare nel menu se è impostata su “Non visibile” o
+   se l’utente che sta visualizzando il menu è autorizzato a vederla.

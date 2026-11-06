@@ -2,47 +2,46 @@
 
 ## Insertar navegación
 
-1. Revisa el menú de la app para ver qué elemento contiene las páginas deseadas como
-   Sub-ítems. La navegación siempre muestra los sub-ítems **uno** 
-   elemento del menú; así que las páginas ya deben estar colgando debajo en el menú. 
-2. Abrir la página para editar y adjuntar el widget **Navegación** al
-   , por ejemplo, en una columna estrecha junto al texto. 
-3. En la configuración bajo **Punto de inicio en el menú** la lista
-   **Seleccionar punto de inicio...** abierto. Muestra el menú como una sangría
-   árbol; solo se ofrecen elementos del menú que tienen sub-elementos. 
-4. Seleccione el elemento del menú cuyos subelementos deben aparecer. 
-5. Opcionalmente, introduce tu propio título bajo **Encabezado**, por ejemplo, 
-   "Enlaces adicionales". El título del punto de inicio sigue vacío. 
-6. Guardar y comprobar en la vista previa: Al hacer clic en el título se abre la página, 
-   La flecha se desplaza un nivel más abajo. 
+1. Busca en el menú de la aplicación qué opción del menú contiene las páginas deseadas como
+   subopciones. La navegación siempre muestra las subopciones **de una**
+   opción del menú; por lo tanto, las páginas ya deben aparecer debajo de ella en el menú.
+2. Abre la página para editarla y coloca el widget **Navegación** en el
+   lugar deseado, preferiblemente a lo ancho completo; la barra
+   necesita espacio para que los elementos quepan uno al lado del otro.
+3. En la configuración, en **Punto de inicio en el menú**, abre la lista
+   **Seleccionar punto de inicio…**. Muestra el menú como un árbol
+   sangrado; solo se ofrecen las opciones de menú que tienen subopciones.
+4. Selecciona la opción de menú cuyas subopciones deban aparecer.
+5. Guarda los cambios y comprueba la vista previa: al hacer clic en el título se abre la página,
+   y al hacer clic en la flecha se abren los subelementos en un menú desplegable.
 
-Si el elemento del menú no está en la lista: 
+Si el elemento del menú no aparece en la lista:
 
-1. Abre la página del elemento del menú en Staffbase e introduce la **dirección completa** 
-   De la barra de direcciones. 
-2. En la lista selecciona **Introduce ID de menú diferente...**. 
-3. Pega la dirección en el campo. El widget lee el propio ID
-   . 
+1. Abre la página del elemento del menú en Staffbase y **copia la dirección completa**
+   de la barra de direcciones.
+2. En la lista, selecciona **Introducir otro ID de menú…**.
+3. Pega la dirección en el campo. El widget extrae el ID
+   por sí mismo.
 
-## Cambia el punto de inicio o el rumbo
+## Cambiar el punto de inicio
 
-1. Abre la configuración del widget. 
-2. En **Elemento Inicio en el menú**, selecciona otro elemento del menú o debajo
-   **Encabezado** cambia el texto. 
-3. Guardar. La navegación volverá a empezar en el primer nivel. 
+1. Abre la configuración del widget.
+2. En **Punto de inicio en el menú**, selecciona otra opción del menú.
+3. Guarda los cambios. A continuación, la barra mostrará el nuevo punto de inicio y sus
+   subopciones.
 
 ## Añadir, eliminar o reordenar entradas
 
-Esto no se hace en el widget, sino en el **menú** de la app: 
+Esto no se hace en el widget, sino en el **menú** de la aplicación:
 
-1. Abre la gestión de menús en Staffbase. 
-2. Arrastra, elimina o reordena las páginas por debajo del punto de inicio. 
-3. Recarga la página con la navegación — el cambio será visible de inmediato. 
+1. Abre la gestión de menús en Staffbase.
+2. Arrastra, elimina o reordena las páginas bajo el punto de inicio.
+3. Vuelve a cargar la página con la navegación; el cambio se verá al instante.
 
-## Cuando algo no funciona
+## Si algo no funciona
 
-1. Si aparece "No se pudo cargar el menú", haz clic
-   **Inténtalo de nuevo**. Si eso no ayuda, comprueba si el punto de partida es
-   Sigue existiendo en el menú y, si es necesario, seleccionarlo de nuevo. 
-2. Si falta una entrada, revisa el menú para ver si está configurada como "No visible" o
-   si la persona que lee puede verlo.
+1. Si aparece «No se ha podido cargar el menú», haz clic en
+   **Intentarlo de nuevo**, tanto en la barra como en el menú desplegable. Si esto no funciona, comprueba si el punto de inicio
+   sigue existiendo en el menú y, si es necesario, selecciónalo de nuevo.
+2. Si falta una entrada, comprueba en el menú si está marcada como «No visible» o
+   si la persona que la está leyendo tiene permiso para verla.

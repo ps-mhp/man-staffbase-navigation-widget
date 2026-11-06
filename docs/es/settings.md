@@ -1,9 +1,8 @@
-# Escenarios
+# Configuración
 
-| Ambientación | Descripción |
+| Opción | Descripción |
 | --- | --- |
-| Punto de inicio en el menú | El elemento del menú cuyos subelementos muestra la navegación. Campo requerido. Selecciona **Seleccionar punto de inicio ...** de la lista — muestra el menú como un árbol sangrento, solo los elementos del menú con sub-ítems. Los elementos del menú ocultos en el menú tienen la adición "(oculto en el menú)". Si falta el elemento del menú en la lista, selecciona **Introduce otro ID de menú ...** e inserta la dirección de su página o el ID de 24 dígitos. |
-| Encabezado | Se sitúa por encima del primer nivel. Opcional; el título del punto de inicio aparece vacío. Traducido al traducir la página. |
+| Punto de inicio en el menú | La opción del menú que muestra la barra de la izquierda; a su derecha aparecen sus subopciones. Campo obligatorio. Selecciona **Punto de inicio…** de la lista; esta muestra el menú como un árbol sangrado, solo con las opciones que tienen subopciones. Las opciones ocultas en el menú llevan la indicación «(oculto en el menú)». Si la opción de menú no aparece en la lista, selecciona **Introducir otro ID de menú…** e introduce la dirección de su página o el ID de 24 dígitos. |
 
-El orden, el título y la visibilidad de las entradas provienen del menú de la app
-y se mantienen ahí, no en el widget.
+El orden, el título y la visibilidad de las entradas provienen del menú de la aplicación
+y se gestionan allí, no en el widget.

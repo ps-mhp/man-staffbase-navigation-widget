@@ -1,6 +1,6 @@
 {
   "title": "Navegación",
-  "summary": "Muestra un extracto del menú como un menú de desplazamiento en la página.",
+  "summary": "Muestra una parte del menú en forma de barra horizontal en la página.",
   "icon": "🧭",
   "pages": [
     {
@@ -15,7 +15,7 @@
     },
     {
       "id": "settings",
-      "title": "Escenarios",
+      "title": "Configuración",
       "file": "settings.md"
     },
     {
@@ -26,10 +26,8 @@
   ],
   "examples": [
     {
-      "title": "Menú de desplazamiento",
-      "attributes": {
-        "heading": "Weiterführende Links"
-      },
+      "title": "Barra a partir de un punto de partida",
+      "attributes": {},
       "resolve": [
         "menu-id"
       ]
