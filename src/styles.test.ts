@@ -61,11 +61,38 @@ describe("Stylesheet", () => {
   });
 
   // Live gesehen am 06.10.2026: nach dem Tippen blieb der Eintrag unter dem
-  // Finger grau hinterlegt.
+  // Finger hervorgehoben.
   it("hebt Einträge nur unter einem echten Zeiger hervor", () => {
     const [outsideHoverQuery] = css.split("@media (hover: hover)");
     expect(outsideHoverQuery).not.toMatch(/:hover\s*[,{]/);
-    expect(css).toMatch(/@media \(hover: hover\)\s*\{\s*\.man-nav__item:hover/);
+  });
+
+  // Vorgabe 06.11.2026: unter dem Zeiger wird der Text rot, keine Fläche.
+  it.each(["man-nav__link", "man-nav__menu-link", "man-nav__open", "man-nav__folder"])(
+    "färbt %s unter dem Zeiger MAN-rot, gegen die Wirtsseite durchgesetzt",
+    (className) => {
+      const selector = `\\.${className.replace(/-/g, "\\-")}`.repeat(5);
+      expect(css).toMatch(
+        new RegExp(`@media \\(hover: hover\\)\\s*\\{\\s*${selector}:hover\\s*\\{\\s*color:\\s*var\\(--man-red, #e40045\\) !important`),
+      );
+    },
+  );
+
+  // Der Knopf „Erneut versuchen“ ist ein Craft-Knopf und behält seinen Hover.
+  it("hinterlegt die Einträge unter dem Zeiger nicht", () => {
+    expect(css).not.toMatch(/\.man-nav__(?!retry)[\w-]+(?:\.man-nav__[\w-]+)*:hover[^{]*\{[^}]*background/);
+  });
+
+  // Vorgabe 06.11.2026: die Seite, auf der man ist, steht rot und fett da.
+  it.each(["man-nav__link", "man-nav__menu-link"])("zeigt die aktuelle Seite in %s rot und fett", (className) => {
+    const selector = `\\.${className.replace(/-/g, "\\-")}`.repeat(5);
+    const rule = new RegExp(`${selector}\\[aria-current=page\\]\\s*\\{([^}]*)\\}`).exec(css)?.[1] ?? "";
+    expect(rule).toMatch(/color:\s*var\(--man-red, #e40045\) !important/);
+    expect(rule).toMatch(/font-weight:\s*var\(--man-weight-body-bold, 700\) !important/);
+  });
+
+  it("färbt einen gesperrten Scroll-Knopf unter dem Zeiger nicht", () => {
+    expect(css).toMatch(/man-nav__scroll-button:hover:not\(\[aria-disabled=true\]\)\s*\{\s*color:/);
   });
 
   // Vorgabe 06.11.2026: wie die Vorlage ohne Rahmen, ohne Fläche und ohne

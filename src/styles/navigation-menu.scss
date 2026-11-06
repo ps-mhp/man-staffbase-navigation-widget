@@ -148,13 +148,40 @@
   }
 }
 
-// Nur mit echtem Zeiger: auf dem Telefon bliebe die Fläche nach dem Tippen
-// am Eintrag hängen.
+// Unter dem Zeiger wird das Ziel MAN-rot, keine Fläche (Vorgabe 06.11.2026).
+// Titel und Pfeil je für sich: bei einem geteilten Eintrag zeigt die Farbe,
+// welches der beiden Ziele greift. Nur mit echtem Zeiger — auf dem Telefon
+// bliebe die Farbe nach dem Tippen am Eintrag hängen. Gegen die Wirtsseite
+// durchgesetzt, weil Links und Knöpfe dort sonst `color: inherit` erben.
+@each $name in ("link", "menu-link", "open", "folder") {
+  @media (hover: hover) {
+    .man-nav__#{$name} {
+      @include man-outshine-host {
+        &:hover {
+          color: man("red") !important;
+        }
+      }
+    }
+  }
+}
+
 @media (hover: hover) {
-  .man-nav__item:hover,
-  .man-nav__start:hover,
-  .man-nav__menu-item:hover {
-    background: man("border-subtle");
+  .man-nav__scroll-button {
+    @include man-outshine-host {
+      &:hover:not([aria-disabled="true"]) {
+        color: man("red") !important;
+      }
+    }
+  }
+}
+
+// Die Seite, auf der man ist: rot und fett (Vorgabe 06.11.2026) — in der
+// Leiste wie im Dropdown. Innerhalb von `man-outshine-host`, wo die Links
+// sonst Farbe und Schrift erben.
+@mixin -current-page {
+  &[aria-current="page"] {
+    color: man("red") !important;
+    font-weight: man("weight-body-bold") !important;
   }
 }
 
@@ -186,6 +213,8 @@
   @include -link;
   @include man-outshine-host {
     white-space: nowrap;
+
+    @include -current-page;
   }
 }
 
@@ -295,9 +324,7 @@
       font-weight: man("weight-body-bold") !important;
     }
 
-    &[aria-current="page"] {
-      color: man("red") !important;
-    }
+    @include -current-page;
   }
 }
 
