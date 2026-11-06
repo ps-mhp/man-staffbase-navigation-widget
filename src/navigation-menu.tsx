@@ -17,8 +17,9 @@ import { useHotStyle } from "@shared/hot-style";
 import { MenuEntry, MenuLevel, fetchMenuLevel, readMenuId } from "@shared/staffbase/menu";
 
 import { MenuDropdown } from "./menu-dropdown";
-import { Chevron, EntryLink, MESSAGES, StatusMessage } from "./menu-parts";
+import { Chevron, EntryLink, MESSAGES, StatusMessage, dropdownEntries } from "./menu-parts";
 import navigationCss from "./styles/navigation-menu.scss";
+import { ChildLevel, useChildLevels } from "./use-child-levels";
 import { DropdownRequest, useDropdown } from "./use-dropdown";
 import { LevelLoader, LevelState, useMenuLevel } from "./use-menu-level";
 import { useOverflow } from "./use-overflow";
@@ -75,19 +76,28 @@ function ArrowButton({ label, ...trigger }: TriggerProps & { label: string }): R
 interface BarItemProps {
   entry: MenuEntry;
   current: boolean;
-  trigger: TriggerProps;
+  /** Ohne etwas zu öffnen: `null`, kein Pfeil. */
+  trigger: TriggerProps | null;
 }
 
 /**
  * Ein Unterpunkt: der Titel führt auf die Seite, der Pfeil öffnet die
  * Unterpunkte. Ein reiner Ordner hat keine Seite — bei ihm öffnet der ganze
- * Eintrag das Dropdown.
+ * Eintrag das Dropdown; hat er nichts zu öffnen, bleibt er Text.
  */
 function BarItem({ entry, current, trigger }: BarItemProps): React.JSX.Element {
-  const itemClass = current ? "man-nav__item man-nav__item--current" : "man-nav__item";
   if (entry.href === null) {
+    if (trigger === null) {
+      return (
+        <li className="man-nav__item">
+          <span className="man-nav__start-title">
+            <span className="man-nav__title">{entry.title}</span>
+          </span>
+        </li>
+      );
+    }
     return (
-      <li className={itemClass}>
+      <li className="man-nav__item">
         <button
           type="button"
           className="man-nav__folder"
@@ -102,9 +112,9 @@ function BarItem({ entry, current, trigger }: BarItemProps): React.JSX.Element {
     );
   }
   return (
-    <li className={itemClass}>
+    <li className="man-nav__item">
       <EntryLink entry={entry} className="man-nav__link" current={current ? "page" : undefined} />
-      {entry.hasChildren && <ArrowButton label={MESSAGES.openChildren(entry.title)} {...trigger} />}
+      {trigger !== null && <ArrowButton label={MESSAGES.openChildren(entry.title)} {...trigger} />}
     </li>
   );
 }
@@ -117,9 +127,8 @@ interface StartPointProps {
 }
 
 function StartPoint({ entry, current, trigger }: StartPointProps): React.JSX.Element {
-  const startClass = current ? "man-nav__start man-nav__item--current" : "man-nav__start";
   return (
-    <div className={startClass}>
+    <div className="man-nav__start">
       {entry.href === null ? (
         <span className="man-nav__start-title">
           <span className="man-nav__title">{entry.title}</span>
@@ -137,8 +146,15 @@ function StartPoint({ entry, current, trigger }: StartPointProps): React.JSX.Ele
  * gibt — mit denselben Maßstäben wie das Dropdown, das reine Ordner auslässt.
  */
 const hasSiblings = (parent: LevelState, startId: string): boolean =>
-  parent.status === "ready" &&
-  parent.level.children.some((child) => !child.hidden && child.href !== null && child.id !== startId);
+  parent.status === "ready" && dropdownEntries(parent.level, startId).some((child) => child.id !== startId);
+
+/**
+ * Ein Unterpunkt bekommt einen Pfeil, wenn sein Dropdown etwas zeigen würde.
+ * Waren seine Kinder nicht zu laden, bleibt der Pfeil — das Dropdown meldet
+ * den Fehler und bietet einen neuen Versuch.
+ */
+const opensSomething = (entry: MenuEntry, level: ChildLevel): boolean =>
+  entry.hasChildren && (level === null || (level !== undefined && dropdownEntries(level, null).length > 0));
 
 /**
  * Die horizontale Leiste: links der Startpunkt, rechts davon seine
@@ -185,6 +201,11 @@ function NavigationBar({ css, startId, currentId, loadLevel }: NavigationBarProp
   const parent = useMenuLevel(startLevel?.parentId ?? null, loadLevel, loaded);
 
   const children = startLevel?.children.filter((child) => !child.hidden) ?? [];
+  const childLevel = useChildLevels(
+    children.filter((child) => child.hasChildren).map((child) => child.id),
+    loadLevel,
+    loaded,
+  );
   const [overflow, scroll] = useOverflow(scrollerRef, children.length);
   const dropdown = useDropdown(rootRef, scrollerRef);
 
@@ -225,11 +246,15 @@ function NavigationBar({ css, startId, currentId, loadLevel }: NavigationBarProp
                       key={entry.id}
                       entry={entry}
                       current={entry.id === currentId}
-                      trigger={triggerFor(entry.id, {
-                        levelId: entry.id,
-                        markId: null,
-                        label: MESSAGES.openChildren(entry.title),
-                      })}
+                      trigger={
+                        opensSomething(entry, childLevel(entry.id))
+                          ? triggerFor(entry.id, {
+                              levelId: entry.id,
+                              markId: null,
+                              label: MESSAGES.openChildren(entry.title),
+                            })
+                          : null
+                      }
                     />
                   ))}
                 </ul>

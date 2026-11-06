@@ -13,7 +13,7 @@
 
 import React from "react";
 
-import { MenuEntry } from "@shared/staffbase/menu";
+import { MenuEntry, MenuLevel } from "@shared/staffbase/menu";
 
 import { LevelState } from "./use-menu-level";
 
@@ -30,6 +30,15 @@ export const MESSAGES = {
   scrollForward: "Weitere Einträge zeigen",
   fallbackLabel: "Navigation",
 } as const;
+
+/**
+ * Was ein Dropdown von einer Ebene zeigt — genau eine Ebene: ein Eintrag mit
+ * eigenen Kindern erscheint als einfacher Verweis, ein reiner Ordner führte
+ * nirgendwohin und fehlt. `markId` (der Startpunkt unter seinen
+ * Geschwistern) bleibt immer.
+ */
+export const dropdownEntries = (level: MenuLevel, markId: string | null): MenuEntry[] =>
+  level.children.filter((child) => child.id === markId || (!child.hidden && child.href !== null));
 
 type ChevronDirection = "left" | "right" | "down";
 

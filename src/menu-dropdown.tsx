@@ -13,11 +13,11 @@
 
 import React, { RefObject, useLayoutEffect } from "react";
 
-import { MenuEntry, MenuLevel } from "@shared/staffbase/menu";
+import { MenuLevel } from "@shared/staffbase/menu";
 
 import { DropdownRequest } from "./use-dropdown";
 import { LevelLoader, LevelState, useMenuLevel } from "./use-menu-level";
-import { EntryLink, MESSAGES, StatusMessage } from "./menu-parts";
+import { EntryLink, MESSAGES, StatusMessage, dropdownEntries } from "./menu-parts";
 
 export interface MenuDropdownProps {
   id: string;
@@ -55,13 +55,6 @@ function usePlacement(
   });
 }
 
-/**
- * Genau eine Ebene: ein Eintrag mit eigenen Kindern erscheint hier als
- * einfacher Verweis. Ein reiner Ordner führte nirgendwohin und fehlt.
- */
-const shown = (level: MenuLevel, markId: string | null): MenuEntry[] =>
-  level.children.filter((child) => child.id === markId || (!child.hidden && child.href !== null));
-
 interface DropdownBodyProps {
   state: LevelState;
   label: string;
@@ -71,7 +64,7 @@ interface DropdownBodyProps {
 
 function DropdownBody({ state, label, markId, currentId }: DropdownBodyProps): React.JSX.Element | null {
   if (state.status !== "ready") return <StatusMessage state={state} />;
-  const entries = shown(state.level, markId);
+  const entries = dropdownEntries(state.level, markId);
   if (entries.length === 0) return <p className="man-nav__status">{MESSAGES.empty}</p>;
   return (
     <ul className="man-nav__menu" aria-label={label}>

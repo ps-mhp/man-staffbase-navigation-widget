@@ -136,7 +136,8 @@ describe("NavigationMenu", () => {
 
     await screen.findByRole("link", { name: "Fahrerhaus" });
     expect(screen.queryByRole("button", { name: MESSAGES.openSiblings("Hauptmenü") })).not.toBeInTheDocument();
-    expect(loadLevel).toHaveBeenCalledTimes(1);
+    // Kein Elternteil gefragt — nur der Startpunkt und, für die Pfeile, sein Unterpunkt mit Kindern.
+    expect(loadLevel.mock.calls.map(([id]) => id)).toEqual([WURZEL, FAHRERHAUS]);
   });
 
   it("gibt dem Startpunkt keinen Pfeil, wenn neben ihm nichts Sichtbares steht", async () => {
@@ -159,15 +160,41 @@ describe("NavigationMenu", () => {
     expect(screen.queryByText("Verborgen")).not.toBeInTheDocument();
   });
 
-  it("unterstreicht die Seite, auf der das Widget steht", async () => {
+  it("kennzeichnet die Seite, auf der das Widget steht", async () => {
     renderMenu({ currentId: RUHE });
 
     const current = await screen.findByRole("link", { name: "Ruhebereich" });
     expect(current).toHaveAttribute("aria-current", "page");
-    expect(current.closest("li")).toHaveClass("man-nav__item--current");
-    const other = screen.getByRole("link", { name: "Fahrerarbeitsplatz" });
-    expect(other).not.toHaveAttribute("aria-current");
-    expect(other.closest("li")).not.toHaveClass("man-nav__item--current");
+    expect(screen.getByRole("link", { name: "Fahrerarbeitsplatz" })).not.toHaveAttribute("aria-current");
+  });
+
+  // Live gesehen am 06.11.2026: „childrenIds“ zählt auch verborgene Kinder mit.
+  it("gibt einem Unterpunkt keinen Pfeil, wenn er nichts Sichtbares enthält", async () => {
+    renderMenu({
+      loadLevel: loaderFor({
+        ...menu,
+        [FAHRERHAUS]: {
+          ...menu[FAHRERHAUS],
+          children: menu[FAHRERHAUS].children.map((child) => (child.id === RUHE ? { ...child, hasChildren: true } : child)),
+        },
+        [RUHE]: {
+          entry: entry(RUHE, "Ruhebereich", { hasChildren: true }),
+          parentId: FAHRERHAUS,
+          children: [entry(LENKRAD, "Verborgen", { hidden: true }), entry(SITZE, "Ordner", { href: null, hasChildren: true })],
+        },
+      }),
+    });
+
+    expect(await arrow("Fahrerarbeitsplatz")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: MESSAGES.openChildren("Ruhebereich") })).not.toBeInTheDocument();
+  });
+
+  it("zeigt einen reinen Ordner ohne sichtbare Unterpunkte als Text", async () => {
+    renderMenu();
+
+    await arrow("Fahrerarbeitsplatz");
+    expect(screen.getByText("Argumentation")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Argumentation" })).not.toBeInTheDocument();
   });
 
   it("liest die aktuelle Seite aus der Adresse", async () => {
@@ -201,16 +228,16 @@ describe("NavigationMenu", () => {
 
   it("öffnet bei einem reinen Ordner das Dropdown mit dem ganzen Eintrag", async () => {
     const user = userEvent.setup();
-    renderMenu();
+    renderMenu({ loadLevel: loaderFor({ ...menu, [ORDNER]: { ...menu[ORDNER], children: [entry(LENKRAD, "Lenkrad")] } }) });
 
     const folder = await screen.findByRole("button", { name: "Argumentation" });
     await user.click(folder);
 
     expect(folder).toHaveAttribute("aria-expanded", "true");
-    expect(await screen.findByText(MESSAGES.empty)).toBeInTheDocument();
+    expect(await dropdownOf("Argumentation")).toHaveTextContent("Lenkrad");
   });
 
-  it("lädt ein Dropdown beim ersten Öffnen, danach aus der Ablage", async () => {
+  it("zeigt den Pfeil erst, wenn feststeht, dass es Unterpunkte gibt, und lädt sie nur einmal", async () => {
     const user = userEvent.setup();
     let resolve: (level: MenuLevel) => void = () => undefined;
     const base = loaderFor(menu);
@@ -219,20 +246,21 @@ describe("NavigationMenu", () => {
     );
     renderMenu({ loadLevel });
 
-    const button = await arrow("Fahrerarbeitsplatz");
-    await user.click(button);
-    expect(screen.getByRole("status")).toHaveTextContent(MESSAGES.loading);
+    await screen.findByRole("link", { name: "Fahrerarbeitsplatz" });
+    expect(screen.queryByRole("button", { name: MESSAGES.openChildren("Fahrerarbeitsplatz") })).not.toBeInTheDocument();
 
     await act(async () => resolve(menu[ARBEITSPLATZ]));
-    await dropdownOf("Fahrerarbeitsplatz");
+    const button = await arrow("Fahrerarbeitsplatz");
+    await user.click(button);
+    expect(await dropdownOf("Fahrerarbeitsplatz")).toBeInTheDocument();
+    await user.click(button);
+    await user.click(button);
 
-    await user.click(button);
-    await user.click(button);
     expect(await dropdownOf("Fahrerarbeitsplatz")).toBeInTheDocument();
     expect(loadLevel.mock.calls.filter(([id]) => id === ARBEITSPLATZ)).toHaveLength(1);
   });
 
-  it("meldet im Dropdown einen Fehler und fragt auf Wunsch neu", async () => {
+  it("lässt den Pfeil stehen, wenn die Unterpunkte nicht zu laden waren, und meldet es im Dropdown", async () => {
     const user = userEvent.setup();
     let fail = true;
     const loadLevel = jest.fn(async (id: string) => (id === ARBEITSPLATZ && fail ? null : (menu[id] ?? null)));
