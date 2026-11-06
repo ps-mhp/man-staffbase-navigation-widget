@@ -24,8 +24,8 @@ Nachbarbereichen.
 - Ein senkrechter **Strich** trennt den Startpunkt von seinen Unterpunkten.
 - Rechts die **Unterpunkte** des Startpunkts, in einer Zeile und in der
   Reihenfolge des Menüs.
-- Die **Seite, auf der man gerade ist**, steht rot und fett da — in der
-  Leiste wie in einem Dropdown.
+- Die **Seite, auf der man gerade ist**, ist in der Leiste rot
+  unterstrichen.
 - Ein Klick auf einen **Titel** öffnet die Seite selbst, ein Klick auf den
   **Pfeil** daneben ein Dropdown mit den Unterpunkten dieses Eintrags. Den
   Pfeil gibt es nur, wenn es dort etwas Sichtbares zu öffnen gibt. Das
