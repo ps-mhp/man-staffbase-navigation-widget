@@ -14,15 +14,12 @@
 @use "@shared/stylings/man-tokens" as *;
 @use "@shared/stylings/man-craft" as *;
 
-// Eine Leiste: helle Fläche, Craft-Haarlinie, keine Rundung. Kein
-// `overflow: hidden` — die Dropdowns ragen unten aus der Leiste heraus.
-// `position: relative`, weil sie relativ zur Leiste stehen.
+// Eine Leiste ohne Rahmen und ohne eigene Fläche, wie in der Vorlage
+// (Vorgabe 06.11.2026). Kein `overflow: hidden` — die Dropdowns ragen unten
+// aus der Leiste heraus. `position: relative`, weil sie relativ zu ihr stehen.
 .man-nav {
   position: relative;
   box-sizing: border-box;
-  border: man("border-width") solid man("border");
-  border-radius: man("radius");
-  background: man("surface-sunken");
   color: man("text");
   @include man-type("body");
 }
@@ -73,7 +70,7 @@
 }
 
 // Ein Eintrag der Leiste — der Startpunkt wie jeder Unterpunkt: Titel und
-// Pfeil nebeneinander, die rote Linie der aktuellen Seite darunter.
+// Pfeil nebeneinander.
 @mixin -bar-entry {
   position: relative;
   display: flex;
@@ -149,18 +146,6 @@
       content: none !important;
     }
   }
-}
-
-// Die Seite, auf der das Widget steht: rot unterstrichen. Eine Linie unter
-// dem ganzen Eintrag, kein `text-decoration` — unterstrichen wird Text nie.
-.man-nav__item--current::after {
-  position: absolute;
-  right: man("space-2");
-  bottom: 0;
-  left: man("space-2");
-  height: man("border-width-strong");
-  background: man("red");
-  content: "";
 }
 
 // Nur mit echtem Zeiger: auf dem Telefon bliebe die Fläche nach dem Tippen

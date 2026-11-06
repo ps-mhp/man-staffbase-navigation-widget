@@ -68,9 +68,12 @@ describe("Stylesheet", () => {
     expect(css).toMatch(/@media \(hover: hover\)\s*\{\s*\.man-nav__item:hover/);
   });
 
-  // Vorgabe 06.11.2026: die aktuelle Seite ist rot unterstrichen.
-  it("unterstreicht die aktuelle Seite rot, mit einer Linie statt Textunterstrich", () => {
-    expect(css).toMatch(/\.man-nav__item--current::after\s*\{[^}]*background:\s*var\(--man-red, #e40045\)/);
+  // Vorgabe 06.11.2026: wie die Vorlage ohne Rahmen, ohne Fläche und ohne
+  // rote Linie unter der aktuellen Seite.
+  it("zeichnet keinen Rahmen, keine Fläche und keine rote Linie", () => {
+    const [navRule] = css.match(/\.man-nav\s*\{[^}]*\}/) ?? [""];
+    expect(navRule).not.toMatch(/(^|[\s;{])(border|background)[a-z-]*:/);
+    expect(css).not.toContain("man-nav__item--current");
   });
 
   // Vorgabe 06.10.2026: kein Unterstrich im Hover, auch nicht von der Wirtsseite.
