@@ -13,7 +13,7 @@
    boomstructuur; er worden alleen menu-items aangeboden die subitems hebben.
 4. Selecteer het menu-item waarvan de subitems moeten worden weergegeven.
 5. Sla op en controleer in het voorbeeld: als je op de titel klikt, wordt de pagina geopend,
-   en met de pijl open je de subitems als een dropdown.
+   de pijl opent de subitems als een dropdownmenu.
 
 Als het menu-item niet in de lijst staat:
 

@@ -34,14 +34,14 @@ If the menu item isn’t in the list:
 
 This is not done in the widget, but in the app’s **Menu**:
 
-1. Open the menu manager in Staffbase.
+1. Open the menu management in Staffbase.
 2. Drag pages under the starting point, remove them, or reorder them.
 3. Reload the page with the navigation—the change will be visible immediately.
 
 ## If something isn’t working
 
 1. If “The menu could not be loaded” appears, click
-   **Try Again**—in the bar or in a dropdown menu. If that doesn’t help, check whether the starting point
+   **Try Again**—in the bar or in a dropdown. If that doesn’t help, check whether the starting point
    still exists in the menu, and select it again if necessary.
 2. If an entry is missing, check in the menu to see if it’s set to “Not visible” or
-   whether the person viewing it is authorized to see it.
+   whether the user is authorized to view it.

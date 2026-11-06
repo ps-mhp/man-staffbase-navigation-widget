@@ -41,7 +41,7 @@ Nie odbywa się to w widżecie, lecz w **menu** aplikacji:
 ## Jeśli coś nie działa
 
 1. Jeśli pojawi się komunikat „Nie udało się załadować menu”, kliknij
-   **Spróbuj ponownie** — na pasku lub w rozwijanym menu. Jeśli to nie pomoże, sprawdź, czy punkt startowy
+   **Spróbuj ponownie** — na pasku lub w menu rozwijanym. Jeśli to nie pomoże, sprawdź, czy punkt startowy
    nadal istnieje w menu i w razie potrzeby wybierz go ponownie.
 2. Jeśli brakuje wpisu, sprawdź w menu, czy jest on ustawiony jako „Niewidoczny” lub
    czy osoba przeglądająca ma uprawnienia do jego wyświetlania.

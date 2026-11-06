@@ -21,16 +21,17 @@ Antwoord: Het startpunt heeft geen zichtbare subitems — ofwel helemaal
 geen, ofwel staan ze allemaal in het menu op „Niet zichtbaar“ of zijn ze geblokkeerd voor de
 lezer.
 
-**Vraag:** In een dropdown staat „Hier zijn geen verdere items.“
+**Vraag:** In een dropdown staat „Hier zijn geen verdere vermeldingen.“
 
-Antwoord: Het item heeft weliswaar subitems, maar geen daarvan is zichtbaar voor de
+Antwoord: De vermelding heeft wel subitems, maar geen daarvan is zichtbaar voor de
 lezer of leidt naar een pagina.
 
 **Vraag:** Waarom heeft een item geen pijltje?
 
-Antwoord: Het pijltje verschijnt alleen als het item in het menu subitems heeft.
+Antwoord: Het pijltje verschijnt alleen als het item in het menu subitems heeft,
+die de lezer mag zien en die niet op „Niet zichtbaar“ staan.
 Een klik op de titel opent dan gewoon de pagina. Het startpunt heeft
-geen pijl als het helemaal bovenaan in het menu staat of als er naast het startpunt geen
+geen pijltje als het helemaal bovenaan in het menu staat of als er naast het startpunt geen
 zichtbare menu-items zijn.
 
 **Vraag:** Een item ontbreekt in de navigatie, hoewel het in het menu staat.

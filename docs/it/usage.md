@@ -7,26 +7,26 @@
    voce di menu; le pagine devono quindi essere già presenti nel menu sotto quella voce.
 2. Aprire la pagina da modificare e posizionare il widget **Navigazione** nel
    punto desiderato, preferibilmente a tutta larghezza: la barra
-   necessita di spazio per le voci affiancate.
+   ha bisogno di spazio per le voci affiancate.
 3. Nelle impostazioni, alla voce **Punto di partenza nel menu**, aprire l’elenco
-   **Seleziona punto di partenza …**. Questo mostra il menu come un albero
-   indentato; vengono proposti solo i punti del menu che hanno sottopunti.
-4. Selezionare il punto del menu i cui sottopunti devono essere visualizzati.
+   **Seleziona punto di partenza …**. Questo mostra il menu sotto forma di albero
+   indentato; vengono proposti solo i punti di menu che hanno sottopunti.
+4. Selezionare il punto di menu i cui sottopunti devono essere visualizzati.
 5. Salvare e verificare nell’anteprima: cliccando sul titolo si apre la pagina,
-   mentre la freccia apre le voci secondarie in un menu a tendina.
+   la freccia apre le voci secondarie come menu a tendina.
 
 Se la voce di menu non è presente nell’elenco:
 
 1. Aprire la pagina della voce di menu in Staffbase e **copiare l’indirizzo completo**
    dalla barra degli indirizzi.
-2. Selezionare **Inserisci altro ID menu …** dall’elenco.
+2. Nell’elenco selezionare **Inserisci altro ID menu …**.
 3. Incollare l’indirizzo nel campo. Il widget rileva automaticamente
    l’ID.
 
 ## Modificare il punto di partenza
 
 1. Aprire le impostazioni del widget.
-2. Sotto **Punto di partenza nel menu**, selezionare una voce di menu diversa.
+2. Sotto **Punto di partenza nel menu** selezionare una voce di menu diversa.
 3. Salvare. La barra mostrerà quindi il nuovo punto di partenza e le sue
    voci secondarie.
 

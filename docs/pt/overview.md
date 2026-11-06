@@ -10,23 +10,23 @@ Casos típicos: uma navegação por secções na parte superior das páginas de 
 uma visão geral dos temas numa página inicial, a transição entre
 secções adjacentes.
 
-## O que os leitores veem
+## O que os leitores vêem
 
 ```
-[Ponto de partida ⌄] | [Subopção 1 ⌄] [Subopção 2] [Subopção 3 ⌄] …   [‹ ›]
+[Ponto de partida ⌄] | [Subponto 1 ⌄] [Subponto 2] [Subponto 3 ⌄] …   [‹ ›]
 ```
 
 - À esquerda, o **ponto de partida**. Um clique no seu título abre a respetiva página.
   A **seta** ao lado abre os seus «irmãos» — os outros itens do menu
-  no mesmo nível; o próprio ponto de partida fica destacado nesse menu. Se
+  no mesmo nível; o ponto de partida fica destacado nesse menu. Se
   o ponto de partida estiver no topo do menu ou não houver nada visível ao seu lado, não há
   seta.
 - Uma **linha** vertical separa o ponto de partida dos seus subitens.
-- À direita, os **subitens** do ponto de partida, numa única linha e na
+- À direita, os **subitens** do ponto de partida, numa linha e na
   ordem do menu.
-- A **página em que se encontra** está sublinhada a vermelho.
 - Um clique num **título** abre a própria página; um clique na
-  **seta** ao lado abre um menu suspenso com os subitens dessa entrada. O
+  **seta** ao lado abre um menu suspenso com os subitens dessa entrada. A
+  seta só aparece se houver algo visível para abrir nesse local. O
   menu suspenso mostra exatamente um nível; as entradas de níveis inferiores aparecem ali como
   simples referências.
 - Se nem todos os subitens couberem na largura, aparecem à direita dois botões
@@ -43,7 +43,7 @@ abre o seu menu suspenso ao clicar na entrada completa.
 - O widget **não copia nada**. Ele recarrega o menu sempre que é acedido:
   se o menu mudar, a navegação também muda.
 - **As autorizações mantêm-se.** Cada pessoa vê apenas os
-  itens de menu que também vê no menu da aplicação.
+  opções de menu que também vê no menu da aplicação.
 - As opções de menu que estão marcadas como **«Não visíveis»** no menu
   também não são apresentadas na navegação.
 - Os **títulos** das opções de menu aparecem no idioma da pessoa que está a ler,

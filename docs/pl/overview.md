@@ -24,28 +24,28 @@ sąsiednimi sekcjami.
 - Pionowa **kreska** oddziela punkt początkowy od jego podpunktów.
 - Po prawej stronie znajdują się **podpunkty** punktu początkowego, ułożone w jednym wierszu i w
   kolejności zgodnej z menu.
-- **Strona, na której aktualnie się znajdujesz**, jest podkreślona na czerwono.
 - Kliknięcie **tytułu** otwiera samą stronę, a kliknięcie
-  **strzałki** obok niego powoduje wyświetlenie menu rozwijanego z podpunktami tej pozycji. To
-  menu rozwijane pokazuje dokładnie jeden poziom; pozycje z niższych poziomów pojawiają się tam jako
+  **strzałki** obok niego powoduje wyświetlenie menu rozwijanego z podpunktami tej pozycji.
+  Strzałka pojawia się tylko wtedy, gdy jest tam coś widocznego do otwarcia.
+  menu rozwijane pokazuje dokładnie jeden poziom; głębsze pozycje pojawiają się tam jako
   zwykłe odnośniki.
-- Jeśli nie wszystkie podpunkty mieszczą się w szerokości, po prawej stronie pojawiają się dwa przyciski
+- Jeśli nie wszystkie podpunkty mieszczą się na szerokości ekranu, po prawej stronie pojawiają się dwa przyciski
   **‹ ›**, za pomocą których można przesuwać pasek. Na telefonie
-  można to również zrobić palcem.
+  można to zrobić również palcem.
 - Menu rozwijane zamyka się klawiszem **Esc**, kliknięciem obok niego oraz w momencie
   przewijania paska.
 
 Folder, który zawiera wyłącznie inne pozycje i nie ma własnej strony,
 otwiera swoje menu rozwijane po kliknięciu całej pozycji.
 
-## Ważne informacje
+## Co warto wiedzieć
 
 - Widżet **nic nie kopiuje**. Przy każdym wywołaniu odczytuje menu od nowa:
   jeśli menu ulegnie zmianie, zmienia się również nawigacja.
-- **Uprawnienia pozostają niezmienne.** Każda osoba widzi tylko te
+- **Uprawnienia pozostają bez zmian.** Każda osoba widzi tylko te
   pozycje menu, które widzi również w menu aplikacji.
-- Pozycje menu, które w menu mają oznaczenie **„Niewidoczne”**, nie są
-  również wyświetlane w nawigacji.
+- Pozycje menu oznaczone w menu jako **„Niewidoczne”** nie są
+  wyświetlane również w nawigacji.
 - **Tytuły** pozycji menu pojawiają się w języku osoby czytającej,
   tak samo jak w menu aplikacji.
 
@@ -53,4 +53,4 @@ otwiera swoje menu rozwijane po kliknięciu całej pozycji.
 
 W edytorze widżet wygląda tak samo jak na opublikowanej stronie; można tam również
 otwierać menu rozwijane. Kliknięcie tytułu powoduje opuszczenie
-edytora — aby wypróbować funkcje, lepiej skorzystać z podglądu.
+edytora — aby to wypróbować, lepiej skorzystać z podglądu.

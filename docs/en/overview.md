@@ -1,8 +1,8 @@
 # Navigation
 
 Navigation brings a section of the Staffbase menu onto a page: You
-select a menu item as the starting point, and the widget displays it as
-a horizontal bar—with the starting point on the left and its subitems to the right.
+select a menu item as the starting point, and the widget displays it as a
+horizontal bar—with the starting point on the left and its subitems to the right.
 If an entry has subitems of its own, an arrow opens them as a dropdown without
 leaving the page.
 
@@ -24,9 +24,9 @@ adjacent sections.
 - A vertical **line** separates the starting point from its subitems.
 - On the right are the **subitems** of the starting point, arranged in a single row and in the
   order of the menu.
-- The **page you are currently on** is underlined in red.
 - Clicking a **title** opens the page itself; clicking the
-  **arrow** next to it opens a dropdown menu with the subitems for that entry. The
+  **arrow** next to it opens a dropdown with the subitems of that entry. The
+  arrow appears only if there is something visible to open there. The
   dropdown shows exactly one level; deeper entries appear there as
   simple links.
 - If not all subitems fit within the width, two buttons
@@ -40,10 +40,10 @@ opens its dropdown when you click on the entire entry.
 
 ## Important to Know
 
-- The widget **does not copy anything**. It reloads the menu each time it is called:
+- The widget **does not copy anything**. It re-reads the menu each time it is called up:
   If the menu changes, the navigation changes as well.
 - **Permissions remain in effect.** Each person sees only the
-  menu items that they also see in the app’s menu.
+  menu items they see in the app’s menu.
 - Menu items marked as **“Not visible”** in the menu are
   also not displayed in the navigation.
 - The **titles** of the menu items appear in the reader’s language,

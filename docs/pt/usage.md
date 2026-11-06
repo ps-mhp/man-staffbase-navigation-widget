@@ -13,15 +13,15 @@
    recuada; são apresentados apenas os itens de menu que têm subitens.
 4. Selecione o item de menu cujos subitens devem aparecer.
 5. Guarde e verifique na pré-visualização: clicar no título abre a página,
-   a seta abre os subitens como um menu suspenso.
+   a seta abre os subitens num menu suspenso.
 
-Se o item do menu não constar na lista:
+Se o item do menu não constar da lista:
 
 1. Abra a página do item do menu no Staffbase e **copie o endereço completo**
    da barra de endereços.
 2. Na lista, selecione **Introduzir outro ID de menu…**.
-3. Cole o endereço no campo. O widget identifica automaticamente
-   o ID.
+3. Cole o endereço no campo. O widget identifica o ID
+   automaticamente.
 
 ## Alterar o ponto de partida
 

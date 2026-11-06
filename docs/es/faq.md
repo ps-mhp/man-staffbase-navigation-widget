@@ -10,32 +10,33 @@ en la página publicada, así que nunca publiques sin un punto de inicio.
 
 **Pregunta:** Aparece el mensaje «No se ha podido cargar el menú».
 
-Respuesta: El widget no accede a la opción del menú. Causas habituales: la
-elemento del menú se ha eliminado, el lector no tiene permiso para verlo o la
-conexión se ha interrumpido brevemente. **Inténtalo de nuevo** para volver a intentarlo; si el
-mensaje persiste, selecciona otro punto de inicio.
+Respuesta: El widget no puede acceder a la opción del menú. Causas habituales: la
+opción del menú se ha eliminado, el usuario no tiene permiso para verla o la
+conexión se ha interrumpido brevemente. **Inténtalo de nuevo** vuelve a realizar la solicitud; si el
+mensaje persiste, vuelve a seleccionar el punto de inicio.
 
 **Pregunta:** En la barra solo aparece el punto de inicio.
 
-Respuesta: El punto de inicio no tiene subelementos visibles: o bien no tiene
-ninguno, o bien todos están configurados en el menú como «No visible» o están bloqueados para el
-usuario.
+Respuesta: El punto de inicio no tiene subpuntos visibles: o bien no tiene
+ninguno, o bien todos están configurados en el menú como «No visibles» o están bloqueados para el
+lector.
 
-**Pregunta:** En un menú desplegable aparece «No hay más entradas aquí».
+**Pregunta:** En un menú desplegable aparece «Aquí no hay más entradas».
 
-Respuesta: Aunque la entrada tiene subelementos, ninguno de ellos es
-visible para el lector ni conduce a ninguna página.
+Respuesta: La entrada tiene subpuntos, pero ninguno de ellos es visible para la
+persona que está leyendo ni conduce a ninguna página.
 
 **Pregunta:** ¿Por qué una entrada no tiene flecha?
 
-Respuesta: La flecha solo aparece si la entrada del menú tiene subelementos.
+Respuesta: La flecha solo aparece si la entrada del menú tiene subelementos
+que el lector pueda ver y que no estén configurados como «No visibles».
 Al hacer clic en el título, simplemente se abre la página. El elemento inicial no tiene
 flecha si se encuentra en la parte superior del menú o si no hay
 elementos de menú visibles a su lado.
 
 **Pregunta:** Falta una entrada en la navegación, aunque aparece en el menú.
 
-Respuesta: Si en el menú está configurada la opción «No visible», tampoco aparecerá en la
+Respuesta: Si en el menú está configurada como «No visible», tampoco aparecerá en la
 navegación. Además, cada persona solo ve las opciones del menú para las que tiene
 autorización; como editor o editora, es posible que veas más opciones que tus
 lectores y lectoras.

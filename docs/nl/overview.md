@@ -6,9 +6,9 @@ een horizontale balk — links het startpunt, rechts daarvan de subitems.
 Als een item zelf subitems heeft, opent een pijl deze als een dropdown, zonder
 de pagina te verlaten.
 
-Typische toepassingen: een sectienavigatie bovenaan de pagina’s van een thema,
-een themaoverzicht op een startpagina, het springen tussen
-aangrenzende secties.
+Typische toepassingen: een afdelingsnavigatie bovenaan de pagina’s van een thema,
+een themaoverzicht op een startpagina, het schakelen tussen
+aangrenzende afdelingen.
 
 ## Wat lezers zien
 
@@ -24,9 +24,9 @@ aangrenzende secties.
 - Een verticale **streep** scheidt het startpunt van de subitems.
 - Rechts staan de **subitems** van het startpunt, op één regel en in de
   volgorde van het menu.
-- De **pagina waarop je je momenteel bevindt** is rood onderstreept.
 - Een klik op een **titel** opent de pagina zelf, een klik op de
-  **pijl** ernaast opent een dropdownmenu met de subitems van dit item. Het
+  **pijl** ernaast opent een dropdown met de subitems van dit item. De
+  pijl is alleen aanwezig als er iets zichtbaars is om te openen. De
   dropdownmenu toont precies één niveau; dieper gelegen items verschijnen daar als
   eenvoudige verwijzingen.
 - Als niet alle subitems in de breedte passen, verschijnen er rechts twee knoppen
@@ -36,11 +36,11 @@ aangrenzende secties.
   er door de balk wordt gescrolld.
 
 Een map die alleen andere items bevat en geen eigen pagina heeft,
-opent zijn dropdown wanneer je op het volledige item klikt.
+opent zijn dropdown wanneer op het volledige item wordt geklikt.
 
 ## Belangrijk om te weten
 
-- De widget **kopieert niets**. Hij leest het menu bij elke oproep opnieuw in:
+- De widget **kopieert niets**. Hij leest het menu bij elke oproep opnieuw:
   als het menu verandert, verandert ook de navigatie.
 - **Rechten blijven behouden.** Iedereen ziet alleen de
   menu-items die hij of zij ook in het menu van de app ziet.

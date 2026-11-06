@@ -24,9 +24,9 @@ rubrique à l'autre.
 - Un **trait** vertical sépare le point de départ de ses sous-rubriques.
 - À droite, les **sous-rubriques** du point de départ, alignées sur une seule ligne et dans l’
   ordre du menu.
-- La **page sur laquelle vous vous trouvez actuellement** est soulignée en rouge.
 - Un clic sur un **titre** ouvre la page correspondante ; un clic sur la
-  **flèche** à côté ouvre un menu déroulant contenant les sous-rubriques de cette entrée. Le
+  **flèche** à côté ouvre un menu déroulant contenant les sous-éléments de cet élément. La
+  flèche n’apparaît que s’il y a quelque chose de visible à ouvrir à cet endroit. Le
   menu déroulant n’affiche qu’un seul niveau ; les entrées plus profondes y apparaissent sous forme de
   simples liens.
 - Si tous les sous-éléments ne tiennent pas dans la largeur, deux boutons
@@ -35,22 +35,22 @@ rubrique à l'autre.
 - Un menu déroulant se ferme avec la touche **Échap**, en cliquant à côté de celui-ci ou dès que
   la barre est fait défiler.
 
-Un dossier qui ne contient que d’autres entrées et ne dispose pas de sa propre page
+Un dossier qui ne contient que d’autres entrées et qui ne dispose pas de sa propre page
 ouvre son menu déroulant lorsque l’on clique sur l’entrée dans son ensemble.
 
-## Bon à savoir
+## À savoir
 
 - Le widget **ne copie rien**. Il relit le menu à chaque ouverture :
   si le menu change, la navigation change également.
 - **Les autorisations sont conservées.** Chaque utilisateur ne voit que les
-  éléments de menu qu’il voit également dans le menu de l’application.
-- Les éléments de menu marqués comme **« Non visible »** dans le menu
-  ne s’affichent pas non plus dans la navigation.
+  éléments de menu qu’elle voit également dans le menu de l’application.
+- Les éléments de menu marqués comme **« Non visibles »** dans le menu ne sont
+  pas non plus affichés dans la navigation.
 - Les **titres** des éléments de menu s’affichent dans la langue de la personne qui les lit,
   tout comme dans le menu de l’application.
 
 ## Ce que vous voyez dans l’éditeur CMS
 
 Dans l’éditeur, le widget s’affiche tel qu’il apparaît sur la page publiée ; les
-menus déroulants peuvent également y être ouverts. Un clic sur un titre vous fait quitter
+menus déroulants peuvent également y être ouverts. Un clic sur un titre fait quitter
 l’éditeur — pour tester, il est préférable d’utiliser l’aperçu.

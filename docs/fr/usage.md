@@ -13,7 +13,7 @@
    indentée ; seuls les éléments de menu comportant des sous-éléments sont proposés.
 4. Sélectionnez l’élément de menu dont vous souhaitez afficher les sous-éléments.
 5. Enregistrez et vérifiez dans l’aperçu : cliquer sur le titre ouvre la page,
-   la flèche ouvre les sous-éléments sous forme de menu déroulant.
+   la flèche ouvre les sous-rubriques sous forme de menu déroulant.
 
 Si l’élément de menu ne figure pas dans la liste :
 
@@ -40,8 +40,8 @@ Cette opération ne s’effectue pas dans le widget, mais dans le **menu** de l�
 
 ## Si quelque chose ne fonctionne pas
 
-1. Si le message « Le menu n’a pas pu être chargé. » s’affiche, cliquez sur
-   **Réessayer** — dans la barre ou dans un menu déroulant. Si cela ne fonctionne pas, vérifiez si le point de départ
+1. Si le message « Impossible de charger le menu » s’affiche, cliquez sur
+   **Réessayer** — dans la barre ou dans le menu déroulant. Si cela ne fonctionne pas, vérifiez si le point de départ
    existe toujours dans le menu et, le cas échéant, sélectionnez-le à nouveau.
 2. Si une entrée manque, vérifiez dans le menu si elle est réglée sur « Non visible » ou
    si la personne qui consulte le menu est autorisée à la voir.
