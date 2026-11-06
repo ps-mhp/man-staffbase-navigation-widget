@@ -83,24 +83,21 @@ describe("Stylesheet", () => {
     expect(css).not.toMatch(/\.man-nav__(?!retry)[\w-]+(?:\.man-nav__[\w-]+)*:hover[^{]*\{[^}]*background/);
   });
 
-  // Vorgabe 06.11.2026: die Seite, auf der man ist, steht rot und fett da.
-  it.each(["man-nav__link", "man-nav__menu-link"])("zeigt die aktuelle Seite in %s rot und fett", (className) => {
-    const selector = `\\.${className.replace(/-/g, "\\-")}`.repeat(5);
-    const rule = new RegExp(`${selector}\\[aria-current=page\\]\\s*\\{([^}]*)\\}`).exec(css)?.[1] ?? "";
-    expect(rule).toMatch(/color:\s*var\(--man-red, #e40045\) !important/);
-    expect(rule).toMatch(/font-weight:\s*var\(--man-weight-body-bold, 700\) !important/);
+  // Vorgabe 06.11.2026: die Seite, auf der man ist, trägt eine rote Linie
+  // unter dem ganzen Eintrag; der Text bleibt, wie er ist.
+  it("unterstreicht die aktuelle Seite mit einer roten Linie, nicht mit Farbe oder Fettung", () => {
+    expect(css).toMatch(/\.man-nav__item--current::after\s*\{[^}]*bottom:\s*0[^}]*background:\s*var\(--man-red, #e40045\)/);
+    expect(css).not.toMatch(/aria-current=page\]\s*\{[^}]*(color|font-weight)/);
   });
 
   it("färbt einen gesperrten Scroll-Knopf unter dem Zeiger nicht", () => {
     expect(css).toMatch(/man-nav__scroll-button:hover:not\(\[aria-disabled=true\]\)\s*\{\s*color:/);
   });
 
-  // Vorgabe 06.11.2026: wie die Vorlage ohne Rahmen, ohne Fläche und ohne
-  // rote Linie unter der aktuellen Seite.
-  it("zeichnet keinen Rahmen, keine Fläche und keine rote Linie", () => {
+  // Vorgabe 06.11.2026: wie die Vorlage ohne Rahmen und ohne Fläche.
+  it("zeichnet keinen Rahmen und keine Fläche", () => {
     const [navRule] = css.match(/\.man-nav\s*\{[^}]*\}/) ?? [""];
     expect(navRule).not.toMatch(/(^|[\s;{])(border|background)[a-z-]*:/);
-    expect(css).not.toContain("man-nav__item--current");
   });
 
   // Vorgabe 06.10.2026: kein Unterstrich im Hover, auch nicht von der Wirtsseite.

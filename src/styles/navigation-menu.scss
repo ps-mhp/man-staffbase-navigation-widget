@@ -148,6 +148,19 @@
   }
 }
 
+// Die Seite, auf der man ist: eine rote Linie unter dem ganzen Eintrag,
+// Titel und Pfeil zusammen; der Text bleibt, wie er ist (Vorgabe 06.11.2026).
+// Kein `text-decoration` — unterstrichen wird Text nie.
+.man-nav__item--current::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: man("border-width-strong");
+  background: man("red");
+  content: "";
+}
+
 // Unter dem Zeiger wird das Ziel MAN-rot, keine Fläche (Vorgabe 06.11.2026).
 // Titel und Pfeil je für sich: bei einem geteilten Eintrag zeigt die Farbe,
 // welches der beiden Ziele greift. Nur mit echtem Zeiger — auf dem Telefon
@@ -172,16 +185,6 @@
         color: man("red") !important;
       }
     }
-  }
-}
-
-// Die Seite, auf der man ist: rot und fett (Vorgabe 06.11.2026) — in der
-// Leiste wie im Dropdown. Innerhalb von `man-outshine-host`, wo die Links
-// sonst Farbe und Schrift erben.
-@mixin -current-page {
-  &[aria-current="page"] {
-    color: man("red") !important;
-    font-weight: man("weight-body-bold") !important;
   }
 }
 
@@ -213,8 +216,6 @@
   @include -link;
   @include man-outshine-host {
     white-space: nowrap;
-
-    @include -current-page;
   }
 }
 
@@ -319,12 +320,10 @@
   @include man-outshine-host {
     overflow-wrap: anywhere;
 
-    // Hier ist es der Startpunkt unter seinen Geschwistern: fett statt rot.
+    // Der Startpunkt unter seinen Geschwistern.
     &[aria-current="true"] {
       font-weight: man("weight-body-bold") !important;
     }
-
-    @include -current-page;
   }
 }
 

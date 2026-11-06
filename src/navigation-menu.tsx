@@ -112,7 +112,7 @@ function BarItem({ entry, current, trigger }: BarItemProps): React.JSX.Element {
     );
   }
   return (
-    <li className="man-nav__item">
+    <li className={current ? "man-nav__item man-nav__item--current" : "man-nav__item"}>
       <EntryLink entry={entry} className="man-nav__link" current={current ? "page" : undefined} />
       {trigger !== null && <ArrowButton label={MESSAGES.openChildren(entry.title)} {...trigger} />}
     </li>
@@ -128,7 +128,7 @@ interface StartPointProps {
 
 function StartPoint({ entry, current, trigger }: StartPointProps): React.JSX.Element {
   return (
-    <div className="man-nav__start">
+    <div className={current ? "man-nav__start man-nav__item--current" : "man-nav__start"}>
       {entry.href === null ? (
         <span className="man-nav__start-title">
           <span className="man-nav__title">{entry.title}</span>

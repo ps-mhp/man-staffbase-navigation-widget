@@ -160,12 +160,23 @@ describe("NavigationMenu", () => {
     expect(screen.queryByText("Verborgen")).not.toBeInTheDocument();
   });
 
-  it("kennzeichnet die Seite, auf der das Widget steht", async () => {
+  it("unterstreicht die Seite, auf der das Widget steht", async () => {
     renderMenu({ currentId: RUHE });
 
     const current = await screen.findByRole("link", { name: "Ruhebereich" });
     expect(current).toHaveAttribute("aria-current", "page");
-    expect(screen.getByRole("link", { name: "Fahrerarbeitsplatz" })).not.toHaveAttribute("aria-current");
+    expect(current.closest("li")).toHaveClass("man-nav__item--current");
+    const other = screen.getByRole("link", { name: "Fahrerarbeitsplatz" });
+    expect(other).not.toHaveAttribute("aria-current");
+    expect(other.closest("li")).not.toHaveClass("man-nav__item--current");
+  });
+
+  it("unterstreicht auch den Startpunkt, wenn das Widget auf seiner Seite steht", async () => {
+    renderMenu({ currentId: FAHRERHAUS });
+
+    const start = await screen.findByRole("link", { name: "Fahrerhaus" });
+    expect(start).toHaveAttribute("aria-current", "page");
+    expect(start.closest(".man-nav__start")).toHaveClass("man-nav__item--current");
   });
 
   // Live gesehen am 06.11.2026: „childrenIds“ zählt auch verborgene Kinder mit.
