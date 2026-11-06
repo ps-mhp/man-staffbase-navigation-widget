@@ -21,9 +21,11 @@ sezioni adiacenti.
   allo stesso livello; il punto di partenza stesso è evidenziato al loro interno. Se
   il punto di partenza si trova in cima al menu o non c’è nulla di visibile accanto ad esso, non c’è
   alcuna freccia.
-- Una **linea** verticale separa il punto di partenza dalle sue sottovoci.
-- A destra le **sottovoci** del punto di partenza, disposte su una riga e nell’
+- Una **linea** verticale separa il punto di partenza dalle sue voci secondarie.
+- A destra si trovano le **sottovoci** della voce principale, disposte su una riga e nell’
   ordine del menu.
+- La **pagina in cui ci si trova attualmente** è sottolineata in rosso
+  nella barra.
 - Cliccando su un **titolo** si apre la pagina stessa, cliccando sulla
   **freccia** accanto ad esso si apre un menu a tendina con le voci secondarie di quella voce. La
   freccia è presente solo se c’è qualcosa di visibile da aprire. Il
@@ -44,7 +46,7 @@ apre il proprio menu a tendina quando si clicca sull’intera voce.
   se il menu cambia, cambia anche la navigazione.
 - **Le autorizzazioni rimangono invariate.** Ogni utente vede solo le
   voci di menu che vede anche nel menu dell’app.
-- Le voci di menu contrassegnate nel menu come **«Non visibili»** non vengono
+- Le voci di menu contrassegnate nel menu come **«Non visibile»** non vengono
   visualizzate nemmeno nella navigazione.
 - I **titoli** delle voci di menu appaiono nella lingua dell’utente,
   proprio come nel menu dell’app.

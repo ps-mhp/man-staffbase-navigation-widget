@@ -50,4 +50,4 @@ con el dedo. Al principio y al final, el botón correspondiente aparece atenuado
 **Pregunta:** ¿Puedo renombrar u ordenar las entradas solo para este widget?
 
 Respuesta: No. Los títulos y el orden provienen del menú de la aplicación; los cambios
-que se realicen allí se aplican en todas partes, también en la navegación.
+que se realicen allí se aplican en todas partes, incluso en la navegación.

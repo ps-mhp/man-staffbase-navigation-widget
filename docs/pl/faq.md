@@ -3,7 +3,7 @@
 **Pytanie:** Pojawia się komunikat „Proszę wybrać punkt początkowy w menu
 w ustawieniach”.
 
-Odpowiedź: W polu **Punkt początkowy w menu** nie wybrano żadnej opcji — lub
+Odpowiedź: W polu **Punkt początkowy w menu** nie wybrano żadnej opcji — albo
 wprowadzona wartość nie jest ani identyfikatorem menu, ani adresem zawierającym taki identyfikator.
 Wybierz punkt początkowy z listy i zapisz. Komunikat ten pojawia się również
 na opublikowanej stronie, dlatego nigdy nie publikuj bez punktu początkowego.
@@ -21,9 +21,9 @@ Odpowiedź: Punkt początkowy nie ma widocznych podpunktów — albo nie ma ich
 w ogóle, albo wszystkie w menu mają ustawioną opcję „Niewidoczne” lub są zablokowane dla
 osoby czytającej.
 
-**Pytanie:** W rozwijanym menu widnieje komunikat „Nie ma tutaj żadnych innych pozycji”.
+**Pytanie:** W rozwijanym menu widnieje komunikat „Nie ma tutaj żadnych innych wpisów”.
 
-Odpowiedź: Pozycja ta ma wprawdzie podpunkty, ale żaden z nich nie jest widoczny dla
+Odpowiedź: Wpis ma wprawdzie podpunkty, ale żaden z nich nie jest widoczny dla
 osoby czytającej ani nie prowadzi do żadnej strony.
 
 **Pytanie:** Dlaczego pozycja nie ma strzałki?

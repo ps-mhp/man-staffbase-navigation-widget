@@ -44,4 +44,4 @@ This is not done in the widget, but in the app’s **Menu**:
    **Try Again**—in the bar or in a dropdown. If that doesn’t help, check whether the starting point
    still exists in the menu, and select it again if necessary.
 2. If an entry is missing, check in the menu to see if it’s set to “Not visible” or
-   whether the user is authorized to view it.
+   whether the person viewing it is authorized to see it.

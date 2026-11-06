@@ -18,7 +18,7 @@ message persists, select a new starting point.
 **Question:** Only the starting point appears in the bar.
 
 Answer: The starting point has no visible subitems—either none at all,
-or all of them are set to “Not visible” in the menu or are blocked for the
+or all of them are set to “Not visible” in the menu or are restricted for the
 reader.
 
 **Question:** A drop-down menu says, “There are no further entries here.”
@@ -29,7 +29,7 @@ reader or lead to a page.
 **Question:** Why doesn’t an entry have an arrow?
 
 Answer: The arrow appears only if the entry in the menu has subitems
-that the reader is allowed to see and that are not set to “Hidden.”
+that the reader is authorized to see and that are not set to “Hidden.”
 Clicking on the title then simply opens the page. The root item has
 no arrow if it is at the very top of the menu or if there are no
 visible menu items next to it.

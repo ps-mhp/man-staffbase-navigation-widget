@@ -18,12 +18,14 @@ adjacent sections.
 
 - On the left is the **starting point**. Clicking its title opens its page.
   The **arrow** next to it opens its siblings—the other menu items
-  on the same level; the starting point itself is highlighted within it. If
+  on the same level; the starting point itself is highlighted within them. If
   the starting point is at the very top of the menu or there is nothing visible next to it, there is
   no arrow.
 - A vertical **line** separates the starting point from its subitems.
-- On the right are the **subitems** of the starting point, arranged in a single row and in the
+- On the right are the **subitems** of the starting point, listed in a single row and in the
   order of the menu.
+- The **page you are currently on** is underlined in red
+  in the bar.
 - Clicking a **title** opens the page itself; clicking the
   **arrow** next to it opens a dropdown with the subitems of that entry. The
   arrow appears only if there is something visible to open there. The

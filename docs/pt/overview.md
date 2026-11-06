@@ -10,20 +10,22 @@ Casos típicos: uma navegação por secções na parte superior das páginas de 
 uma visão geral dos temas numa página inicial, a transição entre
 secções adjacentes.
 
-## O que os leitores vêem
+## O que os leitores veem
 
 ```
-[Ponto de partida ⌄] | [Subponto 1 ⌄] [Subponto 2] [Subponto 3 ⌄] …   [‹ ›]
+[Ponto de partida ⌄] | [Subopção 1 ⌄] [Subopção 2] [Subopção 3 ⌄] …   [‹ ›]
 ```
 
 - À esquerda, o **ponto de partida**. Um clique no seu título abre a respetiva página.
   A **seta** ao lado abre os seus «irmãos» — os outros itens do menu
-  no mesmo nível; o ponto de partida fica destacado nesse menu. Se
+  no mesmo nível, sendo o próprio ponto de partida destacado nesse contexto. Se
   o ponto de partida estiver no topo do menu ou não houver nada visível ao seu lado, não há
   seta.
 - Uma **linha** vertical separa o ponto de partida dos seus subitens.
-- À direita, os **subitens** do ponto de partida, numa linha e na
+- À direita, encontram-se os **subitens** do ponto inicial, numa única linha e na
   ordem do menu.
+- A **página em que se encontra** está sublinhada a vermelho
+  na barra.
 - Um clique num **título** abre a própria página; um clique na
   **seta** ao lado abre um menu suspenso com os subitens dessa entrada. A
   seta só aparece se houver algo visível para abrir nesse local. O

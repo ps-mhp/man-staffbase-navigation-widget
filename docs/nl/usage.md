@@ -13,7 +13,7 @@
    boomstructuur; er worden alleen menu-items aangeboden die subitems hebben.
 4. Selecteer het menu-item waarvan de subitems moeten worden weergegeven.
 5. Sla op en controleer in het voorbeeld: als je op de titel klikt, wordt de pagina geopend,
-   de pijl opent de subitems als een dropdownmenu.
+   en met de pijl worden de subitems als dropdown geopend.
 
 Als het menu-item niet in de lijst staat:
 
@@ -28,7 +28,7 @@ Als het menu-item niet in de lijst staat:
 1. Open de instellingen van de widget.
 2. Kies onder **Startpunt in het menu** een ander menu-item.
 3. Sla op. De balk toont daarna het nieuwe startpunt en de
-   subitems.
+   bijbehorende subitems.
 
 ## Items toevoegen, verwijderen of herschikken
 

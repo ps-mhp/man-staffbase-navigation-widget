@@ -20,8 +20,8 @@ Se o item do menu não constar da lista:
 1. Abra a página do item do menu no Staffbase e **copie o endereço completo**
    da barra de endereços.
 2. Na lista, selecione **Introduzir outro ID de menu…**.
-3. Cole o endereço no campo. O widget identifica o ID
-   automaticamente.
+3. Cole o endereço no campo. O widget identifica automaticamente
+   o ID.
 
 ## Alterar o ponto de partida
 

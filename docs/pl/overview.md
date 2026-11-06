@@ -17,22 +17,24 @@ sąsiednimi sekcjami.
 ```
 
 - Po lewej stronie znajduje się **punkt początkowy**. Kliknięcie jego tytułu otwiera odpowiednią stronę.
-  **Strzałka** obok niego otwiera jego „rodzeństwo” — pozostałe pozycje menu
-  na tym samym poziomie, przy czym sam punkt początkowy jest w nim wyróżniony. Jeśli
+  **Strzałka** obok niego otwiera elementy pokrewne — pozostałe pozycje menu
+  na tym samym poziomie, przy czym sam punkt początkowy jest w nich wyróżniony. Jeśli
   punkt początkowy znajduje się na samym szczycie menu lub obok niego nie ma nic widocznego, nie ma
   strzałki.
 - Pionowa **kreska** oddziela punkt początkowy od jego podpunktów.
-- Po prawej stronie znajdują się **podpunkty** punktu początkowego, ułożone w jednym wierszu i w
+- Po prawej stronie znajdują się **podpunkty** punktu startowego, ułożone w jednym wierszu i w
   kolejności zgodnej z menu.
+- **Strona, na której aktualnie się znajdujesz**, jest podkreślona na czerwono
+  w pasku.
 - Kliknięcie **tytułu** otwiera samą stronę, a kliknięcie
-  **strzałki** obok niego powoduje wyświetlenie menu rozwijanego z podpunktami tej pozycji.
+  **strzałki** obok niego powoduje wyświetlenie rozwijanego menu z podpunktami tej pozycji.
   Strzałka pojawia się tylko wtedy, gdy jest tam coś widocznego do otwarcia.
-  menu rozwijane pokazuje dokładnie jeden poziom; głębsze pozycje pojawiają się tam jako
+  Menu rozwijane pokazuje dokładnie jeden poziom; pozycje z niższych poziomów pojawiają się tam jako
   zwykłe odnośniki.
-- Jeśli nie wszystkie podpunkty mieszczą się na szerokości ekranu, po prawej stronie pojawiają się dwa przyciski
+- Jeśli nie wszystkie podpunkty mieszczą się na szerokości, po prawej stronie pojawiają się dwa przyciski
   **‹ ›**, za pomocą których można przesuwać pasek. Na telefonie
   można to zrobić również palcem.
-- Menu rozwijane zamyka się klawiszem **Esc**, kliknięciem obok niego oraz w momencie
+- Menu rozwijane zamyka się klawiszem **Escape**, kliknięciem obok niego oraz w momencie
   przewijania paska.
 
 Folder, który zawiera wyłącznie inne pozycje i nie ma własnej strony,

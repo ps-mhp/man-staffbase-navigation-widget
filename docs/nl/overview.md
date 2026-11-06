@@ -6,9 +6,9 @@ een horizontale balk — links het startpunt, rechts daarvan de subitems.
 Als een item zelf subitems heeft, opent een pijl deze als een dropdown, zonder
 de pagina te verlaten.
 
-Typische toepassingen: een afdelingsnavigatie bovenaan de pagina’s van een thema,
-een themaoverzicht op een startpagina, het schakelen tussen
-aangrenzende afdelingen.
+Typische toepassingen: een sectienavigatie bovenaan de pagina’s van een thema,
+een themaoverzicht op een startpagina, het springen tussen
+aangrenzende secties.
 
 ## Wat lezers zien
 
@@ -17,16 +17,18 @@ aangrenzende afdelingen.
 ```
 
 - Links het **startpunt**. Een klik op de titel opent de bijbehorende pagina.
-  De **pijl** ernaast opent de bijbehorende items — de andere menu-items
+  De **pijl** ernaast opent de zusteritems — de andere menu-items
   op hetzelfde niveau; het startpunt zelf is daarin gemarkeerd. Als
-  het startpunt helemaal bovenaan in het menu staat of er niets zichtbaar naast staat, is er
+  het startpunt helemaal bovenaan in het menu staat of er niets zichtbaar is naast het startpunt, is er
   geen pijl.
 - Een verticale **streep** scheidt het startpunt van de subitems.
 - Rechts staan de **subitems** van het startpunt, op één regel en in de
   volgorde van het menu.
+- De **pagina waarop je je momenteel bevindt** is in de balk rood
+  onderstreept.
 - Een klik op een **titel** opent de pagina zelf, een klik op de
-  **pijl** ernaast opent een dropdown met de subitems van dit item. De
-  pijl is alleen aanwezig als er iets zichtbaars is om te openen. De
+  **pijl** ernaast opent een dropdownmenu met de subitems van dit item. De
+  pijl is alleen zichtbaar als er iets te openen valt. Het
   dropdownmenu toont precies één niveau; dieper gelegen items verschijnen daar als
   eenvoudige verwijzingen.
 - Als niet alle subitems in de breedte passen, verschijnen er rechts twee knoppen

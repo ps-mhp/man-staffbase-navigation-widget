@@ -9,9 +9,9 @@
    punto desiderato, preferibilmente a tutta larghezza: la barra
    ha bisogno di spazio per le voci affiancate.
 3. Nelle impostazioni, alla voce **Punto di partenza nel menu**, aprire l’elenco
-   **Seleziona punto di partenza …**. Questo mostra il menu sotto forma di albero
-   indentato; vengono proposti solo i punti di menu che hanno sottopunti.
-4. Selezionare il punto di menu i cui sottopunti devono essere visualizzati.
+   **Seleziona punto di partenza …**. Questo mostra il menu come un albero
+   indentato; vengono proposti solo i punti del menu che hanno sottovoci.
+4. Selezionare il punto del menu di cui si desidera visualizzare le sottovoci.
 5. Salvare e verificare nell’anteprima: cliccando sul titolo si apre la pagina,
    la freccia apre le voci secondarie come menu a tendina.
 
@@ -26,7 +26,7 @@ Se la voce di menu non è presente nell’elenco:
 ## Modificare il punto di partenza
 
 1. Aprire le impostazioni del widget.
-2. Sotto **Punto di partenza nel menu** selezionare una voce di menu diversa.
+2. Sotto **Punto di partenza nel menu**, selezionare una voce di menu diversa.
 3. Salvare. La barra mostrerà quindi il nuovo punto di partenza e le sue
    voci secondarie.
 

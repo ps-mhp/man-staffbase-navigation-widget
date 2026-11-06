@@ -4,7 +4,7 @@
 nas definições.»
 
 Resposta: Em **Ponto de partida no menu** não está selecionada nenhuma opção — ou o
-valor introduzido não é nem um ID de menu nem um endereço que contenha um.
+valor introduzido não é nem um ID de menu nem um endereço que contenha um tal ID.
 Selecione o ponto de partida da lista e guarde. A mensagem também aparece
 na página publicada, por isso nunca publique sem um ponto de partida.
 
@@ -34,11 +34,11 @@ Basta clicar no título para abrir a página. O item inicial não tem
 seta se estiver no topo do menu ou se não houver
 itens de menu visíveis ao seu lado.
 
-**Pergunta:** Falta uma entrada na navegação, apesar de estar no menu.
+**Pergunta:** Falta uma entrada na navegação, apesar de estar presente no menu.
 
 Resposta: Se estiver definido como «Não visível» no menu, a
 navegação também não a mostra. Além disso, cada pessoa vê apenas os itens do menu para os quais tem
-autorização — como editor(a), poderá ver mais do que os seus
+autorização — como editor(a), poderá ver, em determinadas circunstâncias, mais do que os seus
 leitores e leitoras.
 
 **Pergunta:** Nem todos os subitens cabem na barra.
@@ -50,4 +50,4 @@ com o dedo. No início ou no fim, o botão correspondente fica a cinzento.
 **Pergunta:** Posso renomear ou reorganizar as entradas apenas para este widget?
 
 Resposta: Não. Os títulos e a ordem provêm do menu da aplicação; as alterações
-efetuadas aí têm efeito em todo o lado, inclusive na navegação.
+efetuadas aí aplicam-se em todo o lado, inclusive na navegação.

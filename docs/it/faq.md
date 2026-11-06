@@ -36,14 +36,14 @@ voci di menu visibili.
 
 **Domanda:** Una voce manca nella navigazione, sebbene sia presente nel menu.
 
-Risposta: Se nel menu è impostata l’opzione «Non visibile», non verrà visualizzata nemmeno nella
+Risposta: Se nel menu è impostata l’opzione «Non visibile», non viene visualizzata nemmeno nella
 navigazione. Inoltre, ogni utente vede solo le voci di menu per le quali è
 autorizzato: in qualità di redattore/redattrice, potresti vedere più voci rispetto ai tuoi
 lettori.
 
 **Domanda:** Non tutte le voci secondarie entrano nella barra.
 
-Risposta: In tal caso, a destra compaiono i pulsanti **‹ ›**; questi consentono di far scorrere la barra
+Risposta: In tal caso, a destra compaiono i pulsanti **‹ ›**; questi consentono di scorrere la barra
 ulteriormente. Sul telefono è possibile spostarla lateralmente anche con il dito
 . All’inizio e alla fine, il pulsante corrispondente è disattivato.
 

@@ -35,7 +35,7 @@ Jeśli pozycja menu nie znajduje się na liście:
 Nie odbywa się to w widżecie, lecz w **menu** aplikacji:
 
 1. Otwórz zarządzanie menu w Staffbase.
-2. Przeciągnij strony pod punktem początkowym, usuń je lub zmień ich kolejność.
+2. Przeciągnij strony pod punkt początkowy, usuń je lub zmień ich kolejność.
 3. Odśwież stronę z nawigacją — zmiana będzie widoczna natychmiast.
 
 ## Jeśli coś nie działa
@@ -43,5 +43,5 @@ Nie odbywa się to w widżecie, lecz w **menu** aplikacji:
 1. Jeśli pojawi się komunikat „Nie udało się załadować menu”, kliknij
    **Spróbuj ponownie** — na pasku lub w menu rozwijanym. Jeśli to nie pomoże, sprawdź, czy punkt startowy
    nadal istnieje w menu i w razie potrzeby wybierz go ponownie.
-2. Jeśli brakuje wpisu, sprawdź w menu, czy jest on ustawiony jako „Niewidoczny” lub
+2. Jeśli brakuje wpisu, sprawdź w menu, czy jest on ustawiony na „Niewidoczny” lub
    czy osoba przeglądająca ma uprawnienia do jego wyświetlania.

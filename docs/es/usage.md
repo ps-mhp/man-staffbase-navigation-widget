@@ -6,9 +6,9 @@
    subopciones. La navegación siempre muestra las subopciones **de una**
    opción del menú; por lo tanto, las páginas ya deben aparecer debajo de ella en el menú.
 2. Abre la página para editarla y coloca el widget **Navegación** en el
-   lugar deseado, preferiblemente a lo ancho completo, ya que la barra
-   necesita espacio para mostrar los elementos uno al lado del otro.
-3. En los ajustes, en **Punto de inicio en el menú**, abre la lista
+   lugar deseado, preferiblemente a lo ancho completo; la barra
+   necesita espacio para que los elementos quepan uno al lado del otro.
+3. En la configuración, en **Punto de inicio en el menú**, abre la lista
    **Seleccionar punto de inicio…**. Muestra el menú como un árbol
    sangrado; solo se ofrecen las opciones de menú que tienen subopciones.
 4. Selecciona la opción de menú cuyas subopciones deban aparecer.

@@ -21,9 +21,9 @@ Réponse : Le point de départ ne comporte aucun sous-élément visible — soit
 pas du tout, soit tous sont réglés sur « Non visible » dans le menu ou sont bloqués pour le
 lecteur.
 
-**Question :** Dans un menu déroulant, il est indiqué « Il n'y a pas d'autres entrées ici. »
+**Question :** Dans un menu déroulant, il est indiqué « Il n’y a pas d’autres entrées ici. »
 
-Réponse : L'entrée comporte certes des sous-rubriques, mais aucune d'entre elles n'est visible pour la
+Réponse : L’entrée comporte certes des sous-rubriques, mais aucune d’entre elles n’est visible pour la
 personne qui lit ou ne mène à une page.
 
 **Question :** Pourquoi une entrée n’a-t-elle pas de flèche ?
