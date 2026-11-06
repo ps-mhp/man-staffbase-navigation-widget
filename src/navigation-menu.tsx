@@ -19,6 +19,7 @@ import { MenuEntry, MenuLevel, fetchMenuLevel, readMenuId } from "@shared/staffb
 import { MenuDropdown } from "./menu-dropdown";
 import { Chevron, EntryLink, MESSAGES, StatusMessage, dropdownEntries } from "./menu-parts";
 import navigationCss from "./styles/navigation-menu.scss";
+import { useSectionFit } from "./section-fit";
 import { ChildLevel, useChildLevels } from "./use-child-levels";
 import { DropdownRequest, useDropdown } from "./use-dropdown";
 import { LevelLoader, LevelState, useMenuLevel } from "./use-menu-level";
@@ -208,6 +209,7 @@ function NavigationBar({ css, startId, currentId, loadLevel }: NavigationBarProp
   );
   const [overflow, scroll] = useOverflow(scrollerRef, children.length);
   const dropdown = useDropdown(rootRef, scrollerRef);
+  useSectionFit(rootRef);
 
   const controlsId = (entryId: string): string => `${baseId}-${entryId}`;
   const triggerFor = (forId: string, request: Omit<DropdownRequest, "forId" | "trigger">): TriggerProps => ({
