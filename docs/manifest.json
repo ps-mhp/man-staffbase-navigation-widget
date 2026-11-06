@@ -1,6 +1,6 @@
 {
   "title": "Navigation",
-  "summary": "Zeigt einen Ausschnitt des Menüs als blätterndes Menü auf der Seite.",
+  "summary": "Zeigt einen Ausschnitt des Menüs als horizontale Leiste auf der Seite.",
   "icon": "🧭",
   "pages": [
     { "id": "overview", "title": "Übersicht", "file": "overview.md" },
@@ -10,8 +10,8 @@
   ],
   "examples": [
     {
-      "title": "Blätterndes Menü",
-      "attributes": { "heading": "Weiterführende Links" },
+      "title": "Leiste ab einem Startpunkt",
+      "attributes": {},
       "resolve": ["menu-id"]
     }
   ]

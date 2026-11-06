@@ -1,8 +1,9 @@
 # navigation-widget
 
 Staffbase-Custom-Widget „Navigation“: zeigt die Unterpunkte eines gewählten
-Menüeintrags als blätterndes Menü — Titel öffnet die Seite, Pfeil blättert
-eine Ebene tiefer, auf dem Telefon blättert ein Wischen nach rechts zurück.
+Startpunkts als horizontale Leiste — links der Startpunkt (Pfeil: seine
+Geschwister), rechts seine Unterpunkte (Titel öffnet die Seite, Pfeil ein
+Dropdown mit der nächsten Ebene), bei Platzmangel waagerecht scrollbar mit ‹ ›.
 Die Daten kommen aus `GET /api/menu/{id}` (`@shared/staffbase/menu`).
 
 Entwickelt, gebaut und released wird es aus dem Meta-Repo

@@ -15,16 +15,23 @@ Menüpunkt wurde gelöscht, die lesende Person darf ihn nicht sehen, oder die
 Verbindung war kurz weg. **Erneut versuchen** fragt noch einmal; bleibt die
 Meldung, den Startpunkt neu wählen.
 
-**Frage:** Es erscheint „Hier gibt es keine weiteren Einträge.“
+**Frage:** In der Leiste steht nur der Startpunkt.
 
-Antwort: Der Menüpunkt hat keine sichtbaren Unterpunkte — entweder gar
+Antwort: Der Startpunkt hat keine sichtbaren Unterpunkte — entweder gar
 keine, oder alle stehen im Menü auf „Nicht sichtbar“ bzw. sind für die
 lesende Person gesperrt.
+
+**Frage:** In einem Dropdown steht „Hier gibt es keine weiteren Einträge.“
+
+Antwort: Der Eintrag hat zwar Unterpunkte, aber keiner davon ist für die
+lesende Person sichtbar oder führt auf eine Seite.
 
 **Frage:** Warum hat ein Eintrag keinen Pfeil?
 
 Antwort: Der Pfeil erscheint nur, wenn der Eintrag im Menü Unterpunkte hat.
-Ein Klick auf den Titel öffnet dann einfach die Seite.
+Ein Klick auf den Titel öffnet dann einfach die Seite. Der Startpunkt hat
+keinen Pfeil, wenn er ganz oben im Menü steht oder es neben ihm keine
+sichtbaren Menüpunkte gibt.
 
 **Frage:** Ein Eintrag fehlt in der Navigation, obwohl er im Menü steht.
 
@@ -33,10 +40,11 @@ Navigation nicht. Außerdem sieht jede Person nur die Menüpunkte, für die sie
 berechtigt ist — als Redakteur:in sehen Sie unter Umständen mehr als Ihre
 Leser:innen.
 
-**Frage:** Wie blättere ich auf dem Telefon zurück?
+**Frage:** Nicht alle Unterpunkte passen in die Leiste.
 
-Antwort: Auf den Pfeil nach links oben in der Navigation tippen — oder auf
-der Liste nach rechts wischen.
+Antwort: Dann erscheinen rechts die Knöpfe **‹ ›**; sie schieben die Leiste
+weiter. Auf dem Telefon lässt sie sich auch mit dem Finger seitlich
+verschieben. Am Anfang bzw. Ende ist der jeweilige Knopf ausgegraut.
 
 **Frage:** Kann ich Einträge nur für dieses Widget umbenennen oder umsortieren?
 

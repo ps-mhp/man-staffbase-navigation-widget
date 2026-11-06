@@ -1,30 +1,42 @@
 # Navigation
 
 Die Navigation holt einen Ausschnitt des Staffbase-Menüs auf eine Seite: Sie
-wählen einen Menüpunkt als Startpunkt, und das Widget zeigt dessen
-Unterpunkte als Liste. Hat ein Unterpunkt selbst Unterpunkte, steht rechts
-ein Pfeil — damit blättert man eine Ebene tiefer, ohne die Seite zu
-verlassen.
+wählen einen Menüpunkt als Startpunkt, und das Widget zeigt ihn als
+horizontale Leiste — links der Startpunkt, rechts daneben seine Unterpunkte.
+Hat ein Eintrag selbst Unterpunkte, öffnet ein Pfeil sie als Dropdown, ohne
+die Seite zu verlassen.
 
-Typische Anlässe: „Weiterführende Links“ neben einem Artikel, eine
-Themenübersicht auf einer Einstiegsseite, ein Inhaltsverzeichnis für einen
-Bereich mit vielen Unterseiten.
+Typische Anlässe: eine Bereichsnavigation oben auf den Seiten eines Themas,
+eine Themenübersicht auf einer Einstiegsseite, der Sprung zwischen
+Nachbarbereichen.
 
 ## Was Leser:innen sehen
 
-- Oben die **Überschrift** — die eingetragene oder, ohne Eintrag, der Titel
-  des Startpunkts.
-- Darunter die **Unterpunkte** des Startpunkts, in der Reihenfolge des Menüs.
-- Die **Seite, auf der man gerade ist**, ist grau hinterlegt — auch eine
-  Ebene tiefer, wenn man dorthin blättert.
-- Ein Klick auf einen **Titel** öffnet die Seite selbst.
-- Ein Klick auf den **Pfeil** rechts blättert zu den Unterpunkten dieses
-  Eintrags. Oben steht dann ein Pfeil nach links mit dem Titel der Ebene; ein
-  Klick darauf blättert zurück.
-- Auf dem **Telefon** blättert auch ein Wischen nach rechts zurück.
+```
+[Startpunkt ⌄] | [Unterpunkt 1 ⌄] [Unterpunkt 2] [Unterpunkt 3 ⌄] …   [‹ ›]
+```
+
+- Links der **Startpunkt**. Ein Klick auf seinen Titel öffnet seine Seite.
+  Der **Pfeil** daneben öffnet seine Geschwister — die anderen Menüpunkte
+  auf derselben Ebene, der Startpunkt selbst ist darin hervorgehoben. Steht
+  der Startpunkt ganz oben im Menü oder neben ihm nichts Sichtbares, gibt es
+  keinen Pfeil.
+- Ein senkrechter **Strich** trennt den Startpunkt von seinen Unterpunkten.
+- Rechts die **Unterpunkte** des Startpunkts, in einer Zeile und in der
+  Reihenfolge des Menüs.
+- Die **Seite, auf der man gerade ist**, ist rot unterstrichen.
+- Ein Klick auf einen **Titel** öffnet die Seite selbst, ein Klick auf den
+  **Pfeil** daneben ein Dropdown mit den Unterpunkten dieses Eintrags. Das
+  Dropdown zeigt genau eine Ebene; tiefere Einträge erscheinen dort als
+  einfache Verweise.
+- Passen nicht alle Unterpunkte in die Breite, erscheinen rechts zwei Knöpfe
+  **‹ ›**, mit denen sich die Leiste weiterschieben lässt. Auf dem Telefon
+  geht das auch mit dem Finger.
+- Ein Dropdown schließt mit **Escape**, mit einem Klick daneben und sobald
+  die Leiste gescrollt wird.
 
 Ein Ordner, der nur andere Einträge enthält und keine eigene Seite hat,
-blättert beim Klick auf die ganze Zeile.
+öffnet sein Dropdown beim Klick auf den ganzen Eintrag.
 
 ## Wichtig zu wissen
 
@@ -39,6 +51,6 @@ blättert beim Klick auf die ganze Zeile.
 
 ## Was Sie im CMS-Editor sehen
 
-Im Editor erscheint das Widget so wie auf der veröffentlichten Seite und
-lässt sich dort auch durchblättern. Ein Klick auf einen Titel verlässt dabei
+Im Editor erscheint das Widget so wie auf der veröffentlichten Seite; die
+Dropdowns lassen sich dort auch öffnen. Ein Klick auf einen Titel verlässt dabei
 den Editor — zum Ausprobieren besser die Vorschau verwenden.
