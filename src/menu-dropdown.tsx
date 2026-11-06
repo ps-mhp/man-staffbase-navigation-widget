@@ -34,25 +34,57 @@ const anchorOf = (trigger: HTMLElement): HTMLElement =>
   trigger.closest<HTMLElement>(".man-nav__item, .man-nav__start") ?? trigger;
 
 /**
- * Legt das Dropdown unter seinen Eintrag, gemessen relativ zur Leiste. Ragte
- * es rechts hinaus, rückt es nach links, bis es in die Leiste passt.
+ * Hebt das Dropdown in den Top Layer. Der Content Designer setzt jeden Block
+ * in einen Kasten mit `overflow: hidden` (live gesehen 06.11.2026), der alles
+ * unter der Leiste abschnitte; im Top Layer greift kein `overflow`,
+ * `transform` oder `z-index` eines Vorfahren mehr. `manual`: Schließen regelt
+ * `useDropdown`, nicht der Browser.
+ */
+function useTopLayer(panelRef: RefObject<HTMLDivElement | null>): void {
+  useLayoutEffect(() => {
+    const panel = panelRef.current;
+    if (panel === null || typeof panel.showPopover !== "function") return;
+    panel.setAttribute("popover", "manual");
+    panel.showPopover();
+  }, [panelRef]);
+}
+
+/**
+ * Legt das Dropdown unter seinen Eintrag, in Koordinaten des Fensters
+ * (`position: fixed`). Ragte es rechts aus der Leiste oder dem Fenster, rückt
+ * es nach links. Neu gelegt, wenn die Seite scrollt, das Fenster sich ändert
+ * oder der Inhalt geladen ist und das Dropdown breiter wird.
  */
 function usePlacement(
   rootRef: RefObject<HTMLElement | null>,
   panelRef: RefObject<HTMLDivElement | null>,
   trigger: HTMLElement,
+  contentKey: unknown,
 ): void {
   useLayoutEffect(() => {
     const root = rootRef.current;
     const panel = panelRef.current;
     if (root === null || panel === null) return;
-    // `left`/`top` zählen ab der Innenkante, nicht ab dem Rand der Leiste.
-    const bar = root.getBoundingClientRect();
-    const anchor = anchorOf(trigger).getBoundingClientRect();
-    const left = Math.max(0, Math.min(anchor.left - bar.left - root.clientLeft, root.clientWidth - panel.offsetWidth));
-    panel.style.left = `${left}px`;
-    panel.style.top = `${anchor.bottom - bar.top - root.clientTop}px`;
-  });
+    const place = (): void => {
+      const bar = root.getBoundingClientRect();
+      const anchor = anchorOf(trigger).getBoundingClientRect();
+      const right = Math.min(bar.right, document.documentElement.clientWidth || bar.right);
+      const left = Math.max(0, bar.left, Math.min(anchor.left, right - panel.offsetWidth));
+      panel.style.left = `${left}px`;
+      panel.style.top = `${anchor.bottom}px`;
+    };
+    place();
+
+    window.addEventListener("scroll", place, { capture: true, passive: true });
+    window.addEventListener("resize", place);
+    const observer = typeof ResizeObserver === "function" ? new ResizeObserver(place) : null;
+    observer?.observe(panel);
+    return () => {
+      window.removeEventListener("scroll", place, { capture: true });
+      window.removeEventListener("resize", place);
+      observer?.disconnect();
+    };
+  }, [rootRef, panelRef, trigger, contentKey]);
 }
 
 interface DropdownBodyProps {
@@ -92,7 +124,8 @@ export function MenuDropdown({
   panelRef,
 }: MenuDropdownProps): React.JSX.Element {
   const state = useMenuLevel(request.levelId, loadLevel, loaded);
-  usePlacement(rootRef, panelRef, request.trigger);
+  useTopLayer(panelRef);
+  usePlacement(rootRef, panelRef, request.trigger, state.status);
 
   return (
     <div id={id} className="man-nav__dropdown" ref={panelRef}>

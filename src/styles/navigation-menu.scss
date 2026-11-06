@@ -16,7 +16,8 @@
 
 // Eine Leiste ohne Rahmen und ohne eigene Fläche, wie in der Vorlage
 // (Vorgabe 06.11.2026). Kein `overflow: hidden` — die Dropdowns ragen unten
-// aus der Leiste heraus. `position: relative`, weil sie relativ zu ihr stehen.
+// aus der Leiste heraus. `position: relative` für die rote Linie und alles,
+// was relativ zur Leiste steht.
 .man-nav {
   position: relative;
   box-sizing: border-box;
@@ -282,17 +283,26 @@
   }
 }
 
-// Außerhalb des Streifens, sonst schnitte `overflow-x` es ab; Lage setzt
-// `menu-dropdown.tsx` unter den auslösenden Eintrag.
+// Außerhalb des Streifens, sonst schnitte `overflow-x` es ab, und im Top
+// Layer (`popover`), sonst schnitte es der Kasten des Content Designers ab.
+// Lage setzt `menu-dropdown.tsx` in Fensterkoordinaten unter den Eintrag.
+// `inset`, `margin` und `overflow` heben die Vorgaben des Browsers für
+// `[popover]` auf (mittig, über die ganze Fläche); Farbe und Schrift erbt es
+// trotzdem von der Leiste.
 .man-nav__dropdown {
   @include man-overlay;
 
-  position: absolute;
+  position: fixed;
+  inset: auto;
   z-index: 10;
   box-sizing: border-box;
   min-width: 200px;
-  max-width: min(320px, 100%);
+  max-width: min(320px, calc(100vw - 2 * #{man("space-3")}));
+  margin: 0;
   padding: man("space-1") 0;
+  overflow: visible;
+  color: inherit;
+  font: inherit;
 }
 
 .man-nav__menu {

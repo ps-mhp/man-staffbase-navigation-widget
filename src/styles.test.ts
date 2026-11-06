@@ -52,12 +52,16 @@ describe("Stylesheet", () => {
     expect(css).toMatch(/flex-wrap:\s*nowrap\s*!important/);
   });
 
-  // Die Dropdowns ragen unten aus der Leiste heraus und stehen relativ zu ihr.
+  // Live gesehen 06.11.2026: der Kasten des Content Designers (`overflow:
+  // hidden`) schnitt das Dropdown unter der Leiste ganz ab.
   it("schneidet die Dropdowns nicht ab", () => {
     const [navRule] = css.match(/\.man-nav\s*\{[^}]*\}/) ?? [""];
-    expect(navRule).toMatch(/position:\s*relative/);
     expect(navRule).not.toMatch(/overflow/);
-    expect(css).toMatch(/\.man-nav__dropdown\s*\{[^}]*position:\s*absolute/);
+    const [dropdownRule] = css.match(/\.man-nav__dropdown\s*\{[^}]*\}/) ?? [""];
+    expect(dropdownRule).toMatch(/position:\s*fixed/);
+    // Die Vorgaben des Browsers für `[popover]` legten es mittig übers Fenster.
+    expect(dropdownRule).toMatch(/inset:\s*auto/);
+    expect(dropdownRule).toMatch(/margin:\s*0/);
   });
 
   // Live gesehen am 06.10.2026: nach dem Tippen blieb der Eintrag unter dem

@@ -456,6 +456,56 @@ describe("NavigationMenu", () => {
     }
   });
 
+  // Live gesehen 06.11.2026: der Kasten des Content Designers (`overflow:
+  // hidden`) schnitt das Dropdown unter der Leiste ganz ab.
+  it("hebt das Dropdown in den Top Layer, wo der Browser es kann", async () => {
+    const user = userEvent.setup();
+    const showPopover = jest.fn(function (this: HTMLElement) {
+      expect(this).toHaveAttribute("popover", "manual");
+    });
+    Object.defineProperty(HTMLElement.prototype, "showPopover", { configurable: true, value: showPopover });
+    try {
+      renderMenu();
+      await user.click(await arrow("Fahrerarbeitsplatz"));
+
+      const panel = (await dropdownOf("Fahrerarbeitsplatz")).parentElement!;
+      expect(panel).toHaveAttribute("popover", "manual");
+      expect(showPopover.mock.contexts).toEqual([panel]);
+    } finally {
+      delete (HTMLElement.prototype as { showPopover?: unknown }).showPopover;
+    }
+  });
+
+  it("legt das Dropdown in Fensterkoordinaten unter seinen Eintrag und rückt es in die Leiste", async () => {
+    const user = userEvent.setup();
+    const rect = (left: number, right: number, top: number, bottom: number): DOMRect =>
+      ({ left, right, top, bottom, x: left, y: top, width: right - left, height: bottom - top, toJSON: () => ({}) }) as DOMRect;
+    const original = Element.prototype.getBoundingClientRect;
+    const width = Object.getOwnPropertyDescriptor(HTMLElement.prototype, "offsetWidth")!;
+    Element.prototype.getBoundingClientRect = function (this: Element) {
+      if (this.matches(".man-nav")) return rect(20, 620, 300, 344);
+      if (this.matches(".man-nav__start")) return rect(30, 130, 300, 344);
+      if (this.matches(".man-nav__item")) return rect(500, 600, 300, 344);
+      return rect(0, 0, 0, 0);
+    };
+    Object.defineProperty(HTMLElement.prototype, "offsetWidth", { configurable: true, get: () => 240 });
+    try {
+      renderMenu();
+      await user.click(await screen.findByRole("button", { name: MESSAGES.openSiblings("Fahrerhaus") }));
+      const panel = (await screen.findByRole("list", { name: MESSAGES.openSiblings("Fahrerhaus") })).parentElement!;
+      expect(panel.style.left).toBe("30px");
+      expect(panel.style.top).toBe("344px");
+
+      await user.click(await arrow("Fahrerarbeitsplatz"));
+      const moved = (await dropdownOf("Fahrerarbeitsplatz")).parentElement!;
+      // Rechts endet die Leiste bei 620: 620 − 240.
+      expect(moved.style.left).toBe("380px");
+    } finally {
+      Element.prototype.getBoundingClientRect = original;
+      Object.defineProperty(HTMLElement.prototype, "offsetWidth", width);
+    }
+  });
+
   it("nennt den Pfeil am Startpunkt nach den Geschwistern, nicht nach Unterpunkten", async () => {
     renderMenu();
 
