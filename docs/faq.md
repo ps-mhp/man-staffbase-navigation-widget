@@ -28,7 +28,8 @@ lesende Person sichtbar oder führt auf eine Seite.
 
 **Frage:** Warum hat ein Eintrag keinen Pfeil?
 
-Antwort: Der Pfeil erscheint nur, wenn der Eintrag im Menü Unterpunkte hat.
+Antwort: Der Pfeil erscheint nur, wenn der Eintrag im Menü Unterpunkte hat,
+die die lesende Person sehen darf und die nicht auf „Nicht sichtbar“ stehen.
 Ein Klick auf den Titel öffnet dann einfach die Seite. Der Startpunkt hat
 keinen Pfeil, wenn er ganz oben im Menü steht oder es neben ihm keine
 sichtbaren Menüpunkte gibt.
