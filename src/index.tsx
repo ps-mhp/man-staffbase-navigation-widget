@@ -25,7 +25,7 @@ import { startEntityPickerInjector } from "@shared/entity-picker/entity-picker-i
 import { readMenuId } from "@shared/staffbase/menu";
 import { MENU_ID_ATTRIBUTE, NAVIGATION_WIDGET_TAG, configurationSchema, uiSchema } from "./configuration-schema";
 import { NavigationMenu } from "./navigation-menu";
-import { fetchStartPointOptions } from "./start-point-catalog";
+import { fetchStartPointOptions } from "@shared/staffbase/menu-start-points";
 import icon from "../resources/navigation-widget.svg";
 import pkg from "../package.json";
 
