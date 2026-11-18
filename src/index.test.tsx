@@ -16,16 +16,17 @@ import { render, screen } from "@testing-library/react";
 
 import { clearMenuCache } from "@shared/staffbase/menu";
 
-import { MENU_ID_ATTRIBUTE, configurationSchema, uiSchema } from "./configuration-schema";
+import { MENU_ID_ATTRIBUTE, NAVIGATION_CONFIG_ATTRIBUTE, configurationSchema, uiSchema } from "./configuration-schema";
 import { NavigationWidget } from "./index";
+import { serializeNavigationConfig } from "./navigation-config";
 import { MESSAGES } from "./navigation-menu";
 
 const ARBEITSPLATZ = "6a73580860fe1414378d4660";
 
 describe("Namen der Attribute", () => {
   it("sind genau die Schlüssel, unter denen der Dialog speichert, und klein geschrieben", () => {
-    expect(Object.keys(configurationSchema.properties!)).toEqual([MENU_ID_ATTRIBUTE]);
-    for (const name of [MENU_ID_ATTRIBUTE]) expect(name).toBe(name.toLowerCase());
+    expect(Object.keys(configurationSchema.properties!)).toEqual([NAVIGATION_CONFIG_ATTRIBUTE, MENU_ID_ATTRIBUTE]);
+    for (const name of [NAVIGATION_CONFIG_ATTRIBUTE, MENU_ID_ATTRIBUTE]) expect(name).toBe(name.toLowerCase());
   });
 
   it("tragen auch die Hinweise des Dialogs", () => {
@@ -75,6 +76,25 @@ describe("NavigationWidget", () => {
     expect(await screen.findByRole("link", { name: "Lenkrad" })).toBeInTheDocument();
     expect(screen.getByRole("navigation", { name: "Fahrerarbeitsplatz" })).toBeInTheDocument();
     expect(fetchMock).toHaveBeenCalledWith(`/api/menu/${ARBEITSPLATZ}`, expect.anything());
+  });
+
+  it("nimmt den Startpunkt aus navigation-config vor dem alten Feld", async () => {
+    const fetchMock = jest.fn().mockResolvedValue({ ok: false, json: async () => ({}) });
+    globalThis.fetch = fetchMock as unknown as typeof fetch;
+
+    render(
+      <NavigationWidget
+        contentLanguage="de_DE"
+        {...{
+          [NAVIGATION_CONFIG_ATTRIBUTE]: serializeNavigationConfig({ menuId: ARBEITSPLATZ }),
+          [MENU_ID_ATTRIBUTE]: "6aa0161549d51f0f57864771",
+        }}
+      />,
+    );
+
+    await screen.findByText(MESSAGES.failed);
+    expect(fetchMock).toHaveBeenCalledWith(`/api/menu/${ARBEITSPLATZ}`, expect.anything());
+    expect(fetchMock).not.toHaveBeenCalledWith("/api/menu/6aa0161549d51f0f57864771", expect.anything());
   });
 
   it("zeigt ohne Startpunkt den Hinweis für die Redaktion", () => {

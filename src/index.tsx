@@ -22,8 +22,15 @@ import ReactDOM from "react-dom/client";
 import { BlockAttributes, BlockFactory, BlockDefinition, ExternalBlockDefinition, BaseBlock } from "widget-sdk";
 import { startWidget } from "@shared/dev-mode/start-widget";
 import { startEntityPickerInjector } from "@shared/entity-picker/entity-picker-injector";
-import { readMenuId } from "@shared/staffbase/menu";
-import { MENU_ID_ATTRIBUTE, NAVIGATION_WIDGET_TAG, configurationSchema, uiSchema } from "./configuration-schema";
+import {
+  ALL_ATTRIBUTES,
+  MENU_ID_ATTRIBUTE,
+  NAVIGATION_CONFIG_ATTRIBUTE,
+  NAVIGATION_WIDGET_TAG,
+  configurationSchema,
+  uiSchema,
+} from "./configuration-schema";
+import { resolveStartId } from "./navigation-config";
 import { NavigationMenu } from "./navigation-menu";
 import { fetchStartPointOptions } from "@shared/staffbase/menu-start-points";
 import icon from "../resources/navigation-widget.svg";
@@ -31,15 +38,21 @@ import pkg from "../package.json";
 
 /** Attribute kommen immer als Zeichenkette an; die Namen tragen Bindestriche wie im Schema. */
 export type NavigationWidgetProps = BlockAttributes & {
+  [NAVIGATION_CONFIG_ATTRIBUTE]?: string;
   [MENU_ID_ATTRIBUTE]?: string;
 };
 
+/**
+ * Der Startpunkt kommt aus `navigation-config`; fehlt er dort, aus dem alten
+ * Feld `menu-id` – ein älterer Block zeigt so genau, was er bisher zeigte
+ * (`navigation-config.ts`).
+ */
 export const NavigationWidget = (props: NavigationWidgetProps): ReactElement => (
-  <NavigationMenu startId={readMenuId(props[MENU_ID_ATTRIBUTE])} />
+  <NavigationMenu startId={resolveStartId(props)} />
 );
 
-/** Aus denselben Konstanten wie das Schema — ein Tippfehler wäre sonst ein stumm leeres Attribut. */
-const widgetAttributes: string[] = [MENU_ID_ATTRIBUTE];
+/** Aus dem Schema – ein Tippfehler wäre sonst ein stumm leeres Attribut. */
+const widgetAttributes: string[] = ALL_ATTRIBUTES;
 
 const START_POINT_LABELS = {
   placeholder: "Startpunkt auswählen …",

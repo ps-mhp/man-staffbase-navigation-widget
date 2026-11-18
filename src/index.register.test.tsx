@@ -42,7 +42,7 @@ describe("Anmeldung des Widgets", () => {
     expect(mockStartPicker).toHaveBeenCalledWith(expect.objectContaining({ fieldKey: "menu-id" }));
     expect(host.defineBlock).toHaveBeenCalledWith(
       expect.objectContaining({
-        blockDefinition: expect.objectContaining({ name: "navigation-widget", attributes: ["menu-id"] }),
+        blockDefinition: expect.objectContaining({ name: "navigation-widget", attributes: ["navigation-config", "menu-id"] }),
       }),
     );
   });

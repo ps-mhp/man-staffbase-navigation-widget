@@ -17,21 +17,43 @@ import { JSONSchema7 } from "json-schema";
 /** Muss dem Tag entsprechen, unter dem `index.tsx` das Widget anmeldet. */
 export const NAVIGATION_WIDGET_TAG = "navigation-widget";
 
+// Die Namen der Konfiguration.
+//
+// Jeder muss an drei Stellen gleich heißen: als Schlüssel im Schema, weil der
+// Host einen Wert wörtlich unter ihm speichert; als beim Host angemeldetes
+// Attribut, weil er ein unbekanntes verwirft; und in `widgets.json`.
+
+/**
+ * Die ganze Konfiguration in einem Feld – siehe `navigation-config.ts`. Der
+ * Name trägt das Widget: Editoren hängen sich über `root_<Attribut>` ein,
+ * ohne das Widget zu kennen, und `menu-id` führt auch das Hotspot-Widget.
+ */
+export const NAVIGATION_CONFIG_ATTRIBUTE = "navigation-config";
+
 /**
  * Der Menüeintrag, den die Navigation links zeigt; rechts daneben stehen
- * seine Unterpunkte.
- *
- * Drei Stellen müssen sich über den Namen einig sein: der Schlüssel im Schema,
- * weil der Host einen Wert wörtlich unter ihm speichert; das beim Host
- * angemeldete Attribut, weil er ein unbekanntes verwirft; und `widgets.json`.
+ * seine Unterpunkte. Das einzelne Feld bis 0.2.0-rc.6: es steht weiter im
+ * Schema, damit der Dialog seinen Wert führt und ältere Blöcke ihn behalten,
+ * ist im eigenen Dialog aber ausgeblendet (`legacy-fields.ts`).
  */
 export const MENU_ID_ATTRIBUTE = "menu-id";
 
+/** Die Felder älterer Fassungen, die das Fenster beim ersten Öffnen liest. */
+export const LEGACY_ATTRIBUTES = [MENU_ID_ATTRIBUTE] as const;
+
 /**
+ * Zu sehen ist nur `navigation-config`: an seine Stelle tritt der Knopf zum
+ * Fenster „Startpunkt wählen“ (`navigation-dialog.tsx`).
+ *
  * @see https://rjsf-team.github.io/react-jsonschema-form/docs/
  */
 export const configurationSchema: JSONSchema7 = {
   properties: {
+    [NAVIGATION_CONFIG_ATTRIBUTE]: {
+      type: "string",
+      title: "Navigation",
+      default: "",
+    },
     [MENU_ID_ATTRIBUTE]: {
       type: "string",
       title: "Startpunkt im Menü",
@@ -39,13 +61,15 @@ export const configurationSchema: JSONSchema7 = {
   },
 };
 
+/** Alle Attribute, in der Reihenfolge des Schemas: das neue zuerst, dann das alte. */
+export const ALL_ATTRIBUTES: string[] = Object.keys(configurationSchema.properties ?? {});
+
 /**
  * @see https://rjsf-team.github.io/react-jsonschema-form/docs/api-reference/uiSchema
  */
 export const uiSchema: UiSchema = {
-  [MENU_ID_ATTRIBUTE]: {
+  [NAVIGATION_CONFIG_ATTRIBUTE]: {
     "ui:help":
-      "Den Menüpunkt wählen, dessen Unterpunkte die Navigation zeigt. Fehlt er in der Liste, " +
-      "„Andere Menü-ID eingeben …“ wählen und die Adresse der Seite einfügen.",
+      "Der Startpunkt wird im Fenster „Startpunkt wählen“ gepflegt; das Textfeld dahinter ist die Rohfassung.",
   },
 };
