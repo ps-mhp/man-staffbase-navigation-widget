@@ -81,6 +81,8 @@ export const navigationEditorShell: FieldModalShellOptions<NavigationConfig> = {
   title: REOPEN_LABEL,
   icon: Menu,
   preview: true,
+  // Der Ziel-Screen beginnt in der Desktop-Ansicht, nicht im Baum allein.
+  defaultView: "desktop",
   help: HELP,
   statusText: navigationChangesStatus,
   validate: validateNavigationConfig,

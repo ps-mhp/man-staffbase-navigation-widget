@@ -126,6 +126,7 @@ describe("Nachladen", () => {
 
     const opened = await open({});
     expect(mockEditorLoaded).toHaveBeenCalledTimes(1);
+    await click(buttonNamed("Editor")); // das Fenster öffnet in „Desktop“
     expect(inModal('[data-testid="navigation-editor"]')).not.toBeNull();
     await act(async () => opened.stop());
   });
@@ -161,6 +162,7 @@ describe("startNavigationDialog", () => {
     const { container, stop } = await open({ "menu-id": address });
 
     expect(applyButton()).toBeDisabled();
+    await click(buttonNamed("Editor")); // das Fenster öffnet in „Desktop“
     expect(rowNamed("Standorte")).toHaveAttribute("aria-selected", "true");
     expect(inModal('[data-testid="navigation-heading"]')).toHaveTextContent("Standorte");
     expect(ownField(container, "navigation-config").value).toBe("");
@@ -264,6 +266,15 @@ describe("startNavigationDialog", () => {
 
     expect(search.value).toBe("");
     expect(inModal('[data-testid="config-shell"]')).not.toBeNull();
+
+    await act(async () => stop());
+  });
+
+  it("öffnet in der Desktop-Ansicht, dem Ziel-Screen", async () => {
+    const { stop } = await open({ "menu-id": ids.standorte });
+
+    expect(modalRoot()!.querySelector('[role="radio"][aria-checked="true"]')).toHaveTextContent("Desktop");
+    expect(inModal('[data-testid="navigation-preview"]')).not.toBeNull();
 
     await act(async () => stop());
   });
