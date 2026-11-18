@@ -23,12 +23,13 @@
  */
 
 import * as React from "react";
-import { Search, TriangleAlert } from "lucide-react";
 import { Field } from "@man/config-ui/form/field";
+import { IssueText } from "@man/config-ui/form/issue-text";
 import { Button } from "@man/config-ui/primitives/button";
 import { Input } from "@man/config-ui/primitives/input";
 import { ItemTree } from "@man/config-ui/sidebar/item-tree";
 import { SidebarPanel } from "@man/config-ui/sidebar/sidebar-panel";
+import { SidebarSearch } from "@man/config-ui/sidebar/sidebar-search";
 import { readMenuId } from "@shared/staffbase/menu";
 
 import { START_POINT_MESSAGES } from "./start-point-rules";
@@ -69,38 +70,6 @@ function RetryNote({ onRetry }: { onRetry: () => void }): React.ReactElement {
         Erneut versuchen
       </Button>
       <p className="text-[13px] text-muted-foreground">Oder unten eine ID oder Adresse eingeben.</p>
-    </div>
-  );
-}
-
-interface SearchProps {
-  query: string;
-  onQueryChange: (query: string) => void;
-}
-
-/**
- * Das Suchfeld, beim Scrollen oben stehend. Escape leert es zuerst; erst ein
- * leeres Feld lässt Escape an den Rahmen, der dann schließt.
- */
-function TreeSearch({ query, onQueryChange }: SearchProps): React.ReactElement {
-  return (
-    <div className="sticky top-0 z-10 -mx-2 bg-muted px-4 pb-3">
-      <div className="relative">
-        <Search className="pointer-events-none absolute top-3 left-3 size-4 text-muted-foreground" aria-hidden />
-        <Input
-          type="search"
-          aria-label={SEARCH_LABEL}
-          placeholder={SEARCH_LABEL}
-          value={query}
-          onChange={(event) => onQueryChange(event.target.value)}
-          onKeyDown={(event) => {
-            if (event.key !== "Escape" || query === "") return;
-            event.preventDefault();
-            onQueryChange("");
-          }}
-          className="h-10 bg-background pl-[38px]"
-        />
-      </div>
     </div>
   );
 }
@@ -238,15 +207,6 @@ function ManualEntry({ onSubmit }: ManualEntryProps): React.ReactElement {
   );
 }
 
-function IssueText({ children }: { children: React.ReactNode }): React.ReactElement {
-  return (
-    <p role="alert" className="flex items-start gap-1.5 px-2 pb-3 text-[13px] text-destructive">
-      <TriangleAlert className="mt-0.5 size-3.5 shrink-0" aria-hidden />
-      <span>{children}</span>
-    </p>
-  );
-}
-
 export function StartPointSidebar({
   state,
   onRetry,
@@ -258,8 +218,8 @@ export function StartPointSidebar({
   const [query, setQuery] = React.useState("");
   return (
     <SidebarPanel title={SIDEBAR_TITLE} footer={<ManualEntry onSubmit={onSelect} />}>
-      {state.status === "ready" && <TreeSearch query={query} onQueryChange={setQuery} />}
-      {issue !== undefined && <IssueText>{issue}</IssueText>}
+      {state.status === "ready" && <SidebarSearch aria-label={SEARCH_LABEL} value={query} onValueChange={setQuery} />}
+      {issue !== undefined && <IssueText className="px-2 pb-3">{issue}</IssueText>}
       {state.status === "loading" && (
         <p role="status" className={NOTE}>
           Menü wird geladen …

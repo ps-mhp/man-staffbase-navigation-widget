@@ -22,8 +22,11 @@
  */
 
 import * as React from "react";
-import { EyeOff, Info, TriangleAlert } from "lucide-react";
+import { EyeOff, Info } from "lucide-react";
+import { FormHeading } from "@man/config-ui/form/form-heading";
 import { FormSection } from "@man/config-ui/form/form-section";
+import { IssueText } from "@man/config-ui/form/issue-text";
+import { Note } from "@man/config-ui/form/note";
 
 import type { NavigationConfig } from "./navigation-config";
 import { NavigationPreview } from "./navigation-preview";
@@ -70,34 +73,11 @@ function headingText(selected: SelectedEntry, selectedId: string | null, raw: st
   }
 }
 
-function IssueText({ children }: { children: React.ReactNode }): React.ReactElement {
-  return (
-    <p role="alert" className="flex items-start gap-1.5 text-[13px] text-destructive">
-      <TriangleAlert className="mt-0.5 size-3.5 shrink-0" aria-hidden />
-      <span>{children}</span>
-    </p>
-  );
-}
-
-/** Ein Hinweis in grauem Kasten, wie `s-note` im Entwurf. */
-function Note({ icon: Icon, children }: { icon: typeof Info; children: React.ReactNode }): React.ReactElement {
-  return (
-    <p className="flex items-start gap-2.5 rounded-md bg-secondary px-3.5 py-3 text-[13px] leading-normal text-muted-foreground">
-      <Icon className="mt-0.5 size-4 shrink-0" aria-hidden />
-      <span>{children}</span>
-    </p>
-  );
-}
-
 function StartPointHeading({ config, selected, selectedId, issue }: StartPointOverviewProps): React.ReactElement {
   const { title, kicker } = headingText(selected, selectedId, config.menuId ?? "");
   const path = selected.status === "found" ? selected.path : null;
   return (
-    <div className="flex flex-col gap-1.5" data-testid="navigation-heading">
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <h2 className="text-xl leading-[1.3] font-semibold break-all text-foreground">{title}</h2>
-        <span className={HINT}>{kicker}</span>
-      </div>
+    <FormHeading title={title} kicker={kicker} titleClassName="break-all" data-testid="navigation-heading">
       {path !== null && path.length > 1 && (
         <p className={HINT}>
           <span className="sr-only">Weg im Menü: </span>
@@ -110,7 +90,7 @@ function StartPointHeading({ config, selected, selectedId, issue }: StartPointOv
         </p>
       )}
       {issue !== undefined && <IssueText>{issue}</IssueText>}
-    </div>
+    </FormHeading>
   );
 }
 
