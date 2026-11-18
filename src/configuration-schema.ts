@@ -34,7 +34,7 @@ export const NAVIGATION_CONFIG_ATTRIBUTE = "navigation-config";
  * Der Menüeintrag, den die Navigation links zeigt; rechts daneben stehen
  * seine Unterpunkte. Das einzelne Feld bis 0.2.0-rc.6: es steht weiter im
  * Schema, damit der Dialog seinen Wert führt und ältere Blöcke ihn behalten,
- * ist im eigenen Dialog aber ausgeblendet (`legacy-fields.ts`).
+ * ist im eigenen Dialog aber ausgeblendet (`@shared/legacy-fields`).
  */
 export const MENU_ID_ATTRIBUTE = "menu-id";
 

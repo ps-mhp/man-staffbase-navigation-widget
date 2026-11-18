@@ -26,16 +26,23 @@ import * as React from "react";
 import { Menu } from "lucide-react";
 
 import { FieldModalShellOptions, startFieldModalInjector } from "@shared/config-modal";
+import { legacyFieldsFromSchema, readLegacyFields, startHiddenFields } from "@shared/legacy-fields";
 
-import { LEGACY_ATTRIBUTES, NAVIGATION_CONFIG_ATTRIBUTE } from "./configuration-schema";
-import { readLegacyFromDialog, startHiddenFields } from "./legacy-fields";
+import { LEGACY_ATTRIBUTES, NAVIGATION_CONFIG_ATTRIBUTE, configurationSchema } from "./configuration-schema";
 import {
+  LegacyNavigationAttributes,
   NavigationConfig,
   mergeNavigationConfig,
   readNavigationConfig,
   serializeNavigationConfig,
 } from "./navigation-config";
 import { navigationChangesStatus, validateNavigationConfig } from "./start-point-rules";
+
+const LEGACY_FIELDS = legacyFieldsFromSchema(LEGACY_ATTRIBUTES, configurationSchema);
+
+/** Die alten Felder, wie der eigene Dialog sie gerade führt. */
+const readLegacyFromDialog = (root: ParentNode): LegacyNavigationAttributes =>
+  readLegacyFields(LEGACY_FIELDS, NAVIGATION_CONFIG_ATTRIBUTE, root).values as LegacyNavigationAttributes;
 
 /**
  * Der Editor kommt erst, wenn ein Dialog ihn zeigt: er baut auf
