@@ -21,7 +21,6 @@ import ReactDOM from "react-dom/client";
 
 import { BlockAttributes, BlockFactory, BlockDefinition, ExternalBlockDefinition, BaseBlock } from "widget-sdk";
 import { startWidget } from "@shared/dev-mode/start-widget";
-import { startEntityPickerInjector } from "@shared/entity-picker/entity-picker-injector";
 import {
   ALL_ATTRIBUTES,
   MENU_ID_ATTRIBUTE,
@@ -31,8 +30,8 @@ import {
   uiSchema,
 } from "./configuration-schema";
 import { resolveStartId } from "./navigation-config";
+import { startNavigationDialog } from "./navigation-dialog";
 import { NavigationMenu } from "./navigation-menu";
-import { fetchStartPointOptions } from "@shared/staffbase/menu-start-points";
 import icon from "../resources/navigation-widget.svg";
 import pkg from "../package.json";
 
@@ -53,13 +52,6 @@ export const NavigationWidget = (props: NavigationWidgetProps): ReactElement => 
 
 /** Aus dem Schema – ein Tippfehler wäre sonst ein stumm leeres Attribut. */
 const widgetAttributes: string[] = ALL_ATTRIBUTES;
-
-const START_POINT_LABELS = {
-  placeholder: "Startpunkt auswählen …",
-  manualOption: "Andere Menü-ID eingeben …",
-  unavailableNotice:
-    "Das Menü konnte nicht geladen werden. Bitte die Adresse der Seite oder die Menü-ID eintragen.",
-};
 
 const factory: BlockFactory = (BaseBlockClass, _widgetApi) => {
   return class NavigationWidgetBlock extends BaseBlockClass implements BaseBlock {
@@ -105,10 +97,10 @@ const externalBlockDefinition: ExternalBlockDefinition = {
 
 /**
  * Meldet den Baustein bei der Wirtsseite an — über `startWidget`, das zuerst
- * fragt, ob ein lokaler Entwicklungsserver übernimmt. Die Auswahlliste
- * hängt am Anmelden, nicht am Laden: sonst belegte das
- * installierte Bundle das Feld, bevor feststeht, welches Bundle gilt (siehe
- * `hotspot-image-widget`).
+ * fragt, ob ein lokaler Entwicklungsserver übernimmt. Das Fenster
+ * „Startpunkt wählen“ hängt am Anmelden, nicht am Laden: sonst belegte das
+ * installierte Bundle das Feld `navigation-config`, bevor feststeht, welches
+ * Bundle gilt (siehe `hotspot-image-widget`).
  *
  * Die Abfrage davor lässt das Modul in Jest laden, wo es keine Wirtsseite gibt.
  */
@@ -117,11 +109,7 @@ if (typeof window.defineBlock === "function") {
     name: NAVIGATION_WIDGET_TAG,
     version: pkg.version,
     register: () => {
-      startEntityPickerInjector({
-        fieldKey: MENU_ID_ATTRIBUTE,
-        fetchOptions: () => fetchStartPointOptions(),
-        labels: START_POINT_LABELS,
-      });
+      startNavigationDialog();
       window.defineBlock(externalBlockDefinition);
     },
   });

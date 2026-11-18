@@ -16,30 +16,30 @@
 export {};
 
 const mockStartWidget = jest.fn().mockResolvedValue(undefined);
-const mockStartPicker = jest.fn(() => () => undefined);
+const mockStartDialog = jest.fn(() => () => undefined);
 
 jest.mock("@shared/dev-mode/start-widget", () => ({ startWidget: mockStartWidget }));
-jest.mock("@shared/entity-picker/entity-picker-injector", () => ({ startEntityPickerInjector: mockStartPicker }));
+jest.mock("./navigation-dialog", () => ({ startNavigationDialog: mockStartDialog }));
 
 interface Host {
   defineBlock: jest.Mock;
 }
 
 describe("Anmeldung des Widgets", () => {
-  it("startet die Auswahlliste erst beim Anmelden, nicht schon beim Laden", async () => {
+  it("startet das Fenster „Startpunkt wählen“ erst beim Anmelden, nicht schon beim Laden", async () => {
     const host = window as unknown as Host;
     host.defineBlock = jest.fn();
 
     jest.resetModules();
     await import("./index");
 
-    expect(mockStartPicker).not.toHaveBeenCalled();
+    expect(mockStartDialog).not.toHaveBeenCalled();
 
     const options = mockStartWidget.mock.calls[0][0] as { name: string; register: () => void };
     expect(options.name).toBe("navigation-widget");
     options.register();
 
-    expect(mockStartPicker).toHaveBeenCalledWith(expect.objectContaining({ fieldKey: "menu-id" }));
+    expect(mockStartDialog).toHaveBeenCalledTimes(1);
     expect(host.defineBlock).toHaveBeenCalledWith(
       expect.objectContaining({
         blockDefinition: expect.objectContaining({ name: "navigation-widget", attributes: ["navigation-config", "menu-id"] }),
