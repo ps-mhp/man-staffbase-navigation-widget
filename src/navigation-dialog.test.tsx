@@ -24,7 +24,7 @@ import Form from "@rjsf/mui";
 import validator from "@rjsf/validator-ajv8";
 
 import * as menu from "@shared/staffbase/menu";
-import { modalRoot, settleModal } from "@shared/ui/config-modal.testing";
+import { modalRoot, settleModal, settleEditor, clickElement } from "@shared/ui/config-modal.testing";
 
 import { configurationSchema } from "./configuration-schema";
 import { readNavigationConfig, serializeNavigationConfig } from "./navigation-config";
@@ -63,19 +63,9 @@ const rowNamed = (title: string): HTMLElement | null =>
 
 const applyButton = (): HTMLElement | null => inModal('[data-testid="config-shell-apply"]');
 
-/** Ein Klick wie von Hilfsmitteln: react-aria nimmt ihn als Druck an. */
-async function click(element: Element | null): Promise<void> {
-  if (element === null) throw new Error("Nichts zum Klicken gefunden");
-  await act(async () => {
-    (element as HTMLElement).click();
-  });
-}
-
-/** Das Modal lädt nach, der Editor darin noch einmal, dann das Menü: so oft warten, bis alles da ist. */
-async function settleEditor(): Promise<void> {
-  for (let round = 0; round < 8 && inModal('[role="treegrid"]') === null; round += 1) {
-    await settleModal();
-  }
+/** Das Modal lädt nach, der Editor darin noch einmal, dann das Menü: erst auf den Baum warten, dann noch eine Runde. */
+async function settleMenuEditor(): Promise<void> {
+  await settleEditor('[role="treegrid"]');
   await settleModal();
 }
 
@@ -106,7 +96,7 @@ async function open(formData: Record<string, string>): Promise<{ container: HTML
   await act(async () => {
     stop = startNavigationDialog(container);
   });
-  await settleEditor();
+  await settleMenuEditor();
   return { container, stop };
 }
 
@@ -126,7 +116,7 @@ describe("Nachladen", () => {
 
     const opened = await open({});
     expect(mockEditorLoaded).toHaveBeenCalledTimes(1);
-    await click(buttonNamed("Editor")); // das Fenster öffnet in „Desktop“
+    await clickElement(buttonNamed("Editor")); // das Fenster öffnet in „Desktop“
     expect(inModal('[data-testid="navigation-editor"]')).not.toBeNull();
     await act(async () => opened.stop());
   });
@@ -162,7 +152,7 @@ describe("startNavigationDialog", () => {
     const { container, stop } = await open({ "menu-id": address });
 
     expect(applyButton()).toBeDisabled();
-    await click(buttonNamed("Editor")); // das Fenster öffnet in „Desktop“
+    await clickElement(buttonNamed("Editor")); // das Fenster öffnet in „Desktop“
     expect(rowNamed("Standorte")).toHaveAttribute("aria-selected", "true");
     expect(inModal('[data-testid="navigation-heading"]')).toHaveTextContent("Standorte");
     expect(ownField(container, "navigation-config").value).toBe("");
@@ -174,9 +164,9 @@ describe("startNavigationDialog", () => {
   it("schreibt einen gewählten Startpunkt nach navigation-config und lässt menu-id stehen", async () => {
     const { container, stop } = await open({ "menu-id": ids.standorte });
 
-    await click(rowNamed("Service"));
+    await clickElement(rowNamed("Service"));
     expect(inModal('[role="status"]')).toHaveTextContent("Startpunkt geändert");
-    await click(applyButton());
+    await clickElement(applyButton());
 
     expect(readNavigationConfig(ownField(container, "navigation-config").value)).toEqual({ menuId: ids.service });
     expect(ownField(container, "menu-id").value).toBe(ids.standorte);
@@ -197,15 +187,15 @@ describe("startNavigationDialog", () => {
   it("übernimmt nichts ohne Startpunkt und sagt, was fehlt", async () => {
     const { container, stop } = await open({});
 
-    await click(rowNamed("Kontakt")); // eine Seite ohne Unterpunkte: nicht wählbar
+    await clickElement(rowNamed("Kontakt")); // eine Seite ohne Unterpunkte: nicht wählbar
     expect(applyButton()).toBeDisabled();
 
-    await click(buttonNamed("Desktop"));
-    await click(buttonNamed("Editor"));
+    await clickElement(buttonNamed("Desktop"));
+    await clickElement(buttonNamed("Editor"));
     expect(inModal('[data-testid="navigation-heading"]')).toHaveTextContent("Noch kein Startpunkt gewählt");
 
-    await click(rowNamed("Unternehmen"));
-    await click(applyButton());
+    await clickElement(rowNamed("Unternehmen"));
+    await clickElement(applyButton());
     expect(readNavigationConfig(ownField(container, "navigation-config").value)).toEqual({ menuId: ids.unternehmen });
 
     await act(async () => stop());
@@ -214,10 +204,10 @@ describe("startNavigationDialog", () => {
   it("setzt eine eingetragene Adresse als ID und weist Unlesbares ab", async () => {
     const { container, stop } = await open({});
 
-    await click(buttonNamed("ID oder Adresse eingeben"));
+    await clickElement(buttonNamed("ID oder Adresse eingeben"));
     const input = inModal('[role="group"][aria-label="ID oder Adresse eingeben"] input') as HTMLInputElement;
     fireEvent.change(input, { target: { value: "Standorte" } });
-    await click(buttonNamed("Als Startpunkt setzen"));
+    await clickElement(buttonNamed("Als Startpunkt setzen"));
     expect(inModal('[role="group"] [role="alert"]')).toHaveTextContent("keine Menü-ID");
 
     const outside = "ffffffffffffffffffffffff";
@@ -230,7 +220,7 @@ describe("startNavigationDialog", () => {
     expect(inModal('[role="group"][aria-label="ID oder Adresse eingeben"]')).toBeNull();
     // Nicht im Menü: oben im Baum, damit die Auswahl nicht ins Leere zeigt.
     expect(inModal('[role="row"][aria-selected="true"]')).toHaveTextContent("nicht im geladenen Menü");
-    await click(applyButton());
+    await clickElement(applyButton());
     expect(readNavigationConfig(ownField(container, "navigation-config").value)).toEqual({ menuId: outside });
 
     await act(async () => stop());
@@ -239,7 +229,7 @@ describe("startNavigationDialog", () => {
   it("klappt die Eingabe mit Escape zu, statt das Fenster zu schließen", async () => {
     const { stop } = await open({});
 
-    await click(buttonNamed("ID oder Adresse eingeben"));
+    await clickElement(buttonNamed("ID oder Adresse eingeben"));
     const input = inModal('[role="group"] input') as HTMLInputElement;
     await act(async () => {
       fireEvent.keyDown(input, { key: "Escape" });
@@ -282,7 +272,7 @@ describe("startNavigationDialog", () => {
   it("zeigt in den Geräteansichten die echte Leiste, still und ohne Klick", async () => {
     const { stop } = await open({ "menu-id": ids.standorte });
 
-    await click(buttonNamed("Desktop"));
+    await clickElement(buttonNamed("Desktop"));
     await settleModal();
 
     const preview = inModal('[data-testid="navigation-preview"]');
