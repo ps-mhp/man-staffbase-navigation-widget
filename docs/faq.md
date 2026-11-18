@@ -3,10 +3,11 @@
 **Frage:** Es erscheint „Bitte in den Einstellungen einen Startpunkt im Menü
 wählen.“
 
-Antwort: Unter **Startpunkt im Menü** ist nichts gewählt — oder der
-eingetragene Wert ist weder eine Menü-ID noch eine Adresse mit einer solchen.
-Den Startpunkt aus der Liste wählen und speichern. Der Hinweis erscheint auch
-auf der veröffentlichten Seite, also nie ohne Startpunkt veröffentlichen.
+Antwort: Es ist kein Startpunkt gewählt — oder der eingetragene Wert ist
+weder eine Menü-ID noch eine Adresse mit einer solchen. Im Fenster
+**Startpunkt wählen** links einen Menüpunkt anklicken, **Übernehmen** und
+speichern. Der Hinweis erscheint auch auf der veröffentlichten Seite, also nie
+ohne Startpunkt veröffentlichen.
 
 **Frage:** Es erscheint „Das Menü konnte nicht geladen werden.“
 
@@ -51,3 +52,16 @@ verschieben. Am Anfang bzw. Ende ist der jeweilige Knopf ausgegraut.
 
 Antwort: Nein. Titel und Reihenfolge kommen aus dem Menü der App; Änderungen
 dort wirken überall, auch in der Navigation.
+
+**Frage:** Ein Menüpunkt lässt sich im Fenster nicht anklicken.
+
+Antwort: Wählbar sind nur Menüpunkte mit Unterpunkten — nur sie füllen eine
+Leiste. Seiten ohne Unterpunkte (Unterzeile „Seite“) stehen zur Orientierung
+im Baum.
+
+**Frage:** Ein Menüpunkt fehlt im Baum des Fensters.
+
+Antwort: Der Baum lädt das Menü bis zu einer festen Tiefe und Größe, und er
+zeigt nur, was das eigene Konto sehen darf. Den Menüpunkt dann über
+**ID oder Adresse eingeben** unten links eintragen: die Adresse seiner Seite
+oder die 24-stellige ID.

@@ -56,3 +56,8 @@ Ein Ordner, der nur andere Einträge enthält und keine eigene Seite hat,
 Im Editor erscheint das Widget so wie auf der veröffentlichten Seite; die
 Dropdowns lassen sich dort auch öffnen. Ein Klick auf einen Titel verlässt dabei
 den Editor — zum Ausprobieren besser die Vorschau verwenden.
+
+Den Startpunkt wählt das Fenster **Startpunkt wählen**, das sich mit den
+Einstellungen des Widgets öffnet: links das Menü der App als Baum mit Suche,
+daneben die Leiste, wie die Seite sie zeigt — auf Wunsch in Desktop-, Tablet-
+und Mobilbreite.
