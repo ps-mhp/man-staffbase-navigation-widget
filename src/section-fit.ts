@@ -121,12 +121,18 @@ export function fitSection(element: HTMLElement): (() => void) | null {
   };
 }
 
-/** Hängt `fitSection` an die Lebensdauer der Leiste. */
-export function useSectionFit(ref: RefObject<HTMLElement | null>): void {
+/**
+ * Hängt `fitSection` an die Lebensdauer der Leiste.
+ *
+ * @param enabled falsch in der Vorschau des Fensters „Startpunkt wählen“:
+ * dort steht die Leiste nicht auf der Seite, und kein Abschnitt darum herum
+ * darf sich ändern.
+ */
+export function useSectionFit(ref: RefObject<HTMLElement | null>, enabled = true): void {
   useEffect(() => {
     const element = ref.current;
-    if (element === null) return undefined;
+    if (!enabled || element === null) return undefined;
     const undo = fitSection(element);
     return () => undo?.();
-  }, [ref]);
+  }, [ref, enabled]);
 }

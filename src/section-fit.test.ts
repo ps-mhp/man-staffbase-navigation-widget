@@ -11,7 +11,9 @@
  * limitations under the License.
  */
 
-import { FRAME_AIR, fitSection, findSection } from "./section-fit";
+import { renderHook } from "@testing-library/react";
+
+import { FRAME_AIR, fitSection, findSection, useSectionFit } from "./section-fit";
 
 /**
  * Ein Abschnitt des Content Designers mit der Leiste darin, wie
@@ -97,5 +99,27 @@ describe("fitSection", () => {
   it("greift im klassischen Editor nicht ein", () => {
     const nav = document.body.appendChild(document.createElement("nav"));
     expect(fitSection(nav)).toBeNull();
+  });
+});
+
+describe("useSectionFit", () => {
+  it("passt den Abschnitt an und nimmt es beim Aushängen zurück", () => {
+    const { container, nav } = buildSection();
+
+    const { unmount } = renderHook(() => useSectionFit({ current: nav }));
+    expect(container.style.marginBottom).toBe("0px");
+
+    unmount();
+    expect(container.style.marginBottom).toBe("32px");
+  });
+
+  // Die Vorschau im Fenster „Startpunkt wählen“ darf um sich herum nichts ändern.
+  it("greift ausgeschaltet nicht ein", () => {
+    const { section, container, nav } = buildSection();
+
+    renderHook(() => useSectionFit({ current: nav }, false));
+
+    expect(container.style.marginBottom).toBe("32px");
+    expect(section.style.getPropertyValue("padding-bottom")).toBe("24px");
   });
 });

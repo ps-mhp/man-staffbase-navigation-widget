@@ -37,6 +37,11 @@ export interface NavigationMenuProps {
   currentId?: string | null;
   /** Nur für Tests. */
   loadLevel?: LevelLoader;
+  /**
+   * Ob die Leiste die Abstände ihres Abschnitts anpasst (`section-fit.ts`).
+   * Falsch in der Vorschau des Fensters: dort gibt es keinen eigenen Abschnitt.
+   */
+  fitSection?: boolean;
 }
 
 /**
@@ -166,6 +171,7 @@ export function NavigationMenu({
   startId,
   currentId = currentMenuId(),
   loadLevel = fetchMenuLevel,
+  fitSection = true,
 }: NavigationMenuProps): React.JSX.Element {
   const liveCss = useHotStyle(navigationCss, "navigation-widget", "styles/navigation-menu.scss");
 
@@ -179,7 +185,16 @@ export function NavigationMenu({
   }
   // Der Schlüssel schließt Dropdowns und vergisst Geladenes, wenn die Redaktion
   // einen anderen Startpunkt wählt.
-  return <NavigationBar key={startId} css={liveCss} startId={startId} currentId={currentId} loadLevel={loadLevel} />;
+  return (
+    <NavigationBar
+      key={startId}
+      css={liveCss}
+      startId={startId}
+      currentId={currentId}
+      loadLevel={loadLevel}
+      fitSection={fitSection}
+    />
+  );
 }
 
 interface NavigationBarProps {
@@ -187,9 +202,10 @@ interface NavigationBarProps {
   startId: string;
   currentId: string | null;
   loadLevel: LevelLoader;
+  fitSection: boolean;
 }
 
-function NavigationBar({ css, startId, currentId, loadLevel }: NavigationBarProps): React.JSX.Element {
+function NavigationBar({ css, startId, currentId, loadLevel, fitSection }: NavigationBarProps): React.JSX.Element {
   const [loaded] = useState(() => new Map<string, MenuLevel>());
   const rootRef = useRef<HTMLElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
@@ -209,7 +225,7 @@ function NavigationBar({ css, startId, currentId, loadLevel }: NavigationBarProp
   );
   const [overflow, scroll] = useOverflow(scrollerRef, children.length);
   const dropdown = useDropdown(rootRef, scrollerRef);
-  useSectionFit(rootRef);
+  useSectionFit(rootRef, fitSection);
 
   const controlsId = (entryId: string): string => `${baseId}-${entryId}`;
   const triggerFor = (forId: string, request: Omit<DropdownRequest, "forId" | "trigger">): TriggerProps => ({
