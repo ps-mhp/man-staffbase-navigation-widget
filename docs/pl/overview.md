@@ -27,13 +27,13 @@ sąsiednimi sekcjami.
 - **Strona, na której aktualnie się znajdujesz**, jest podkreślona na czerwono
   w pasku.
 - Kliknięcie **tytułu** otwiera samą stronę, a kliknięcie
-  **strzałki** obok niego powoduje wyświetlenie rozwijanego menu z podpunktami tej pozycji.
+  **strzałki** obok niego powoduje wyświetlenie menu rozwijanego z podpunktami tej pozycji.
   Strzałka pojawia się tylko wtedy, gdy jest tam coś widocznego do otwarcia.
   Menu rozwijane pokazuje dokładnie jeden poziom; pozycje z niższych poziomów pojawiają się tam jako
   zwykłe odnośniki.
-- Jeśli nie wszystkie podpunkty mieszczą się na szerokości, po prawej stronie pojawiają się dwa przyciski
+- Jeśli nie wszystkie podpunkty mieszczą się w szerokości paska, po prawej stronie pojawiają się dwa przyciski
   **‹ ›**, za pomocą których można przesuwać pasek. Na telefonie
-  można to zrobić również palcem.
+  można to również zrobić palcem.
 - Menu rozwijane zamyka się klawiszem **Escape**, kliknięciem obok niego oraz w momencie
   przewijania paska.
 
@@ -53,6 +53,11 @@ otwiera swoje menu rozwijane po kliknięciu całej pozycji.
 
 ## Co widać w edytorze CMS
 
-W edytorze widżet wygląda tak samo jak na opublikowanej stronie; można tam również
-otwierać menu rozwijane. Kliknięcie tytułu powoduje opuszczenie
-edytora — aby to wypróbować, lepiej skorzystać z podglądu.
+W edytorze widżet wygląda tak samo jak na opublikowanej stronie; można tam
+również otwierać menu rozwijane. Kliknięcie tytułu powoduje opuszczenie
+edytora — aby wypróbować widżet, lepiej skorzystać z podglądu.
+
+Punkt początkowy wybiera się w oknie **Wybierz punkt początkowy**, które otwiera się wraz z
+ustawieniami widżetu: po lewej stronie menu aplikacji w formie drzewa z funkcją wyszukiwania,
+a obok pasek tak, jak wyświetla go strona — w zależności od potrzeb w szerokości dostosowanej do komputerów stacjonarnych, tabletów
+i urządzeń mobilnych.

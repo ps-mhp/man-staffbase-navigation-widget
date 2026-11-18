@@ -49,10 +49,15 @@ opent zijn dropdown wanneer op het volledige item wordt geklikt.
 - Menu-items die in het menu op **„Niet zichtbaar“** staan, worden ook niet
   weergegeven in de navigatie.
 - De **titels** van de menu-items verschijnen in de taal van de lezer,
-  net zoals in het menu van de app.
+  net als in het menu van de app.
 
 ## Wat u in de CMS-editor ziet
 
 In de editor verschijnt de widget precies zoals op de gepubliceerde pagina; de
 dropdownmenu’s kunnen daar ook worden geopend. Als u op een titel klikt, verlaat u
 de editor — gebruik voor het uitproberen beter het voorbeeld.
+
+Het startpunt kiest u in het venster **Startpunt kiezen**, dat wordt geopend met de
+instellingen van de widget: links het menu van de app als boomstructuur met zoekfunctie,
+daarnaast de balk zoals de pagina deze weergeeft — desgewenst in desktop-, tablet-
+en mobiele breedte.

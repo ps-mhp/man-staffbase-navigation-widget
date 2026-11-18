@@ -1,34 +1,46 @@
 # Passo a passo
 
-## Inserir a navegação
+O ponto de partida é selecionado na janela **Selecionar ponto de partida**. Esta abre-se
+automaticamente assim que a caixa de diálogo de configurações do widget aparece; quando fechada,
+o botão **Selecionar ponto de partida** volta a abri-la.
 
-1. No menu da aplicação, verifique qual a opção de menu que contém as páginas pretendidas como
+À esquerda encontra-se o menu da aplicação em forma de árvore, com um campo de pesquisa por cima. No centro
+aparecem o ponto de partida selecionado e a barra, tal como fica com ele.
+
+## Inserir navegação
+
+1. Verifique no menu da aplicação qual a opção de menu que contém as páginas pretendidas como
    subopções. A navegação mostra sempre as subopções **de uma**
-   opção de menu; por isso, as páginas já têm de estar incluídas nessa opção do menu.
+   opção do menu; por isso, as páginas já têm de estar incluídas nesse menu.
 2. Abra a página para edição e coloque o widget **Navegação** no
    local pretendido, de preferência ocupando toda a largura — a barra
    precisa de espaço para os elementos lado a lado.
-3. Nas definições, em **Ponto de partida no menu**, abra a lista
-   **Selecionar ponto de partida …**. Esta apresenta o menu como uma árvore
-   recuada; são apresentados apenas os itens de menu que têm subitens.
-4. Selecione o item de menu cujos subitens devem aparecer.
-5. Guarde e verifique na pré-visualização: clicar no título abre a página,
-   a seta abre os subitens num menu suspenso.
+3. Na janela à esquerda, em **Ponto de partida no menu**, clique no item de menu
+   cujos subitens devem aparecer. A seta à frente de uma pasta
+   abre-a; o campo de pesquisa acima permite encontrar um item de menu pelo seu título.
+   Só podem ser selecionados itens de menu com subitens.
+4. Na parte superior, acima de **Desktop**, **Tablet** e **Móvel**, verifique se a barra se adapta à
+   largura do dispositivo.
+5. Clique em **Aplicar** e, em seguida, guarde a página. Na
+   página, aplica-se o seguinte: clicar no título abre a página; a seta ao lado abre as
+   subopções num menu suspenso.
 
-Se o item do menu não constar da lista:
+Se a opção do menu não estiver na árvore:
 
-1. Abra a página do item do menu no Staffbase e **copie o endereço completo**
+1. Abra a página da opção do menu no Staffbase e copie o **endereço completo**
    da barra de endereços.
-2. Na lista, selecione **Introduzir outro ID de menu…**.
-3. Cole o endereço no campo. O widget identifica automaticamente
-   o ID.
+2. Na janela, no canto inferior esquerdo, clique em **Introduzir ID ou endereço**.
+3. Cole o endereço no campo e clique em **Definir como ponto de partida**.
+   O widget obtém o ID automaticamente. O ponto de partida fica, em seguida,
+   no topo da árvore.
 
 ## Alterar o ponto de partida
 
-1. Abra as definições do widget.
-2. Em **Ponto de partida no menu**, selecione outro item do menu.
-3. Guarde. A barra passará a mostrar o novo ponto de partida e os seus
-   subitens.
+1. Abra as definições do widget — a janela **Selecionar ponto de partida**
+   abre-se com o ponto de partida atual marcado.
+2. Clique noutro item do menu à esquerda.
+3. Clique em **Aplicar** e guarde. A barra passa então a mostrar o novo
+   ponto de partida e os seus subitens.
 
 ## Adicionar, remover ou reorganizar entradas
 
@@ -40,8 +52,11 @@ Isto não se faz no widget, mas sim no **Menu** da aplicação:
 
 ## Se algo não funcionar
 
-1. Se aparecer «Não foi possível carregar o menu», clique em
-   **Tentar novamente** — na barra, tal como num menu suspenso. Se isso não resolver, verifique se o ponto de partida
-   ainda existe no menu e, se necessário, selecione-o novamente.
-2. Se faltar uma entrada, verifique no menu se está definida como «Não visível» ou
+1. Se o menu não carregar na janela, clique em **Tentar novamente**. Se isso
+   não ajudar, introduza o ponto de partida através de **Introduzir ID ou endereço**.
+2. Se aparecer na página «Não foi possível carregar o menu», clique em
+   **Tentar novamente** — na barra, tal como num menu suspenso. Se
+   isso não resolver, verifique se o ponto de partida ainda existe no menu e,
+   se necessário, selecione-o novamente.
+3. Se faltar uma entrada, verifique no menu se está definida como «Não visível» ou
    se a pessoa que está a ler tem permissão para a ver.

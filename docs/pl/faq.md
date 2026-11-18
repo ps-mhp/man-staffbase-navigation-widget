@@ -1,19 +1,20 @@
 # FAQ
 
-**Pytanie:** Pojawia się komunikat „Proszę wybrać punkt początkowy w menu
+**Pytanie:** Pojawia się komunikat: „Proszę wybrać punkt początkowy w menu
 w ustawieniach”.
 
-Odpowiedź: W polu **Punkt początkowy w menu** nie wybrano żadnej opcji — albo
-wprowadzona wartość nie jest ani identyfikatorem menu, ani adresem zawierającym taki identyfikator.
-Wybierz punkt początkowy z listy i zapisz. Komunikat ten pojawia się również
-na opublikowanej stronie, dlatego nigdy nie publikuj bez punktu początkowego.
+Odpowiedź: Nie wybrano punktu początkowego — albo wprowadzona wartość nie jest
+ani identyfikatorem menu, ani adresem zawierającym taki identyfikator. W oknie
+**Wybierz punkt początkowy** kliknij po lewej stronie pozycję menu, wybierz **Zastosuj** i
+zapisz. Komunikat ten pojawia się również na opublikowanej stronie, dlatego nigdy
+nie publikuj bez punktu początkowego.
 
 **Pytanie:** Pojawia się komunikat „Nie udało się załadować menu.”
 
 Odpowiedź: Widżet nie ma dostępu do tej pozycji menu. Typowe przyczyny:
-pozycja menu została usunięta, osoba przeglądająca nie ma uprawnień do jej wyświetlania lub
-na chwilę zanikło połączenie. **Spróbuj ponownie** — system ponownie spróbuje; jeśli
-komunikat nadal się pojawia, wybierz nowy punkt początkowy.
+pozycja menu została usunięta, osoba czytająca nie ma uprawnień do jej wyświetlania lub
+na chwilę zanikło połączenie. Opcja **Spróbuj ponownie** sprawdzi to jeszcze raz; jeśli
+komunikat nadal się pojawia, wybierz punkt początkowy ponownie.
 
 **Pytanie:** Na pasku widoczny jest tylko punkt początkowy.
 
@@ -41,13 +42,26 @@ pasek nawigacyjny. Ponadto każda osoba widzi tylko te pozycje menu, do których
 uprawnienia — jako redaktor/redaktorka mogą Państwo w niektórych przypadkach widzieć więcej niż Państwa
 czytelnicy.
 
-**Pytanie:** Nie wszystkie podpozycje mieszczą się w pasku.
+**Pytanie:** Nie wszystkie podpozycje mieszczą się na pasku.
 
 Odpowiedź: W takim przypadku po prawej stronie pojawiają się przyciski **‹ ›**; służą one do przesuwania paska
-dalej. Na telefonie można go również przesuwać palcem w bok
-. Na początku lub na końcu odpowiedni przycisk jest wyszarzony.
+w dalszą część. Na telefonie można go również przesuwać palcem w bok.
+Na początku lub na końcu odpowiedni przycisk jest wyszarzony.
 
 **Pytanie:** Czy mogę zmieniać nazwy lub porządek pozycji tylko dla tego widżetu?
 
 Odpowiedź: Nie. Tytuły i kolejność pochodzą z menu aplikacji; zmiany
 wprowadzone tam mają wpływ na wszystkie elementy, w tym na nawigację.
+
+**Pytanie:** Nie można kliknąć pozycji menu w oknie.
+
+Odpowiedź: Dostępne do wyboru są tylko pozycje menu z podpunktami — tylko one wypełniają
+pasek. Strony bez podpunktów (podrząd „Strona”) znajdują się w drzewie
+w celach orientacyjnych.
+
+**Pytanie:** W drzewie okna brakuje jednej pozycji menu.
+
+Odpowiedź: Drzewo ładuje menu do określonej głębokości i rozmiaru oraz
+wyświetla tylko te elementy, do których użytkownik ma dostęp na swoim koncie. Należy wówczas wprowadzić pozycję menu poprzez
+**wprowadzenie identyfikatora lub adresu** w lewym dolnym rogu: adres swojej strony
+lub 24-cyfrowy identyfikator.

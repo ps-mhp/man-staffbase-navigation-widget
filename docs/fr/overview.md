@@ -44,7 +44,7 @@ ouvre son menu déroulant lorsque l’on clique sur l’entrée dans son ensembl
 
 - Le widget **ne copie rien**. Il relit le menu à chaque ouverture :
   si le menu change, la navigation change également.
-- **Les autorisations sont conservées.** Chaque utilisateur ne voit que les
+- **Les autorisations restent en vigueur.** Chaque utilisateur ne voit que les
   éléments de menu qu’elle voit également dans le menu de l’application.
 - Les éléments de menu marqués comme **« Non visibles »** dans le menu ne sont
   pas non plus affichés dans la navigation.
@@ -54,5 +54,10 @@ ouvre son menu déroulant lorsque l’on clique sur l’entrée dans son ensembl
 ## Ce que vous voyez dans l’éditeur CMS
 
 Dans l’éditeur, le widget s’affiche tel qu’il apparaît sur la page publiée ; les
-menus déroulants peuvent également y être ouverts. Un clic sur un titre vous fait quitter
+menus déroulants peuvent également y être ouverts. Un clic sur un titre fait quitter
 l’éditeur — pour tester, il est préférable d’utiliser l’aperçu.
+
+Le point de départ est sélectionné dans la fenêtre **Choisir le point de départ**, qui s’ouvre avec les
+paramètres du widget : à gauche, le menu de l’application sous forme d’arborescence avec la recherche,
+à côté, la barre telle qu’elle s’affiche sur la page — au choix en mode ordinateur de bureau, tablette
+ou mobile.

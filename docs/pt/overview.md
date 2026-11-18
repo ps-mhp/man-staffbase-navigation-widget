@@ -18,11 +18,11 @@ secções adjacentes.
 
 - À esquerda, o **ponto de partida**. Um clique no seu título abre a respetiva página.
   A **seta** ao lado abre os seus «irmãos» — os outros itens do menu
-  no mesmo nível, sendo o próprio ponto de partida destacado nesse contexto. Se
+  no mesmo nível, sendo o próprio ponto de partida destacado entre eles. Se
   o ponto de partida estiver no topo do menu ou não houver nada visível ao seu lado, não há
   seta.
 - Uma **linha** vertical separa o ponto de partida dos seus subitens.
-- À direita, encontram-se os **subitens** do ponto inicial, numa única linha e na
+- À direita, os **subitens** do ponto inicial, numa linha e na
   ordem do menu.
 - A **página em que se encontra** está sublinhada a vermelho
   na barra.
@@ -56,3 +56,8 @@ abre o seu menu suspenso ao clicar na entrada completa.
 No editor, o widget aparece tal como na página publicada; os
 menus suspensos também podem ser abertos nesse local. Ao clicar num título, sai-se
 do editor — para experimentar, é melhor utilizar a pré-visualização.
+
+O ponto de partida é selecionado na janela **Selecionar ponto de partida**, que se abre com as
+configurações do widget: à esquerda, o menu da aplicação apresentado como uma árvore com pesquisa,
+ao lado, a barra tal como a página a apresenta — se desejar, em largura para computador, tablet
+e telemóvel.

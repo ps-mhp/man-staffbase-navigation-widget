@@ -42,7 +42,7 @@ opens its dropdown when you click on the entire entry.
 
 ## Important to Know
 
-- The widget **does not copy anything**. It re-reads the menu each time it is called up:
+- The widget **does not copy anything**. It reloads the menu each time it is called up:
   If the menu changes, the navigation changes as well.
 - **Permissions remain in effect.** Each person sees only the
   menu items they see in the app’s menu.
@@ -54,5 +54,10 @@ opens its dropdown when you click on the entire entry.
 ## What You See in the CMS Editor
 
 In the editor, the widget appears exactly as it does on the published page; the
-dropdown menus can also be opened there. Clicking on a title will take you out of
+dropdown menus can also be opened there. Clicking on a title will exit
 the editor—it’s better to use the preview to test things out.
+
+The starting point is selected in the **Select Starting Point** window, which opens with the
+widget’s settings: on the left, the app’s menu as a tree with a search bar,
+next to it the bar as it appears on the page—in desktop, tablet,
+and mobile widths, if desired.

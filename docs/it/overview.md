@@ -51,8 +51,13 @@ apre il proprio menu a tendina quando si clicca sull’intera voce.
 - I **titoli** delle voci di menu appaiono nella lingua dell’utente,
   proprio come nel menu dell’app.
 
-## Cosa vedete nell’editor CMS
+## Cosa si vede nell’editor CMS
 
-Nell’editor il widget appare esattamente come nella pagina pubblicata; i
-menu a tendina possono essere aperti anche lì. Cliccando su un titolo si esce
-dall’editor — per provare, è meglio utilizzare l’anteprima.
+Nell’editor il widget appare esattamente come nella pagina pubblicata; anche i
+menu a tendina possono essere aperti. Cliccando su un titolo si esce
+dall’editor — per provare è meglio utilizzare l’anteprima.
+
+Il punto di partenza viene selezionato nella finestra **Scegli punto di partenza**, che si apre con le
+impostazioni del widget: a sinistra il menu dell’app sotto forma di albero con la ricerca,
+accanto la barra così come appare nella pagina — a scelta in larghezza desktop, tablet
+e mobile.

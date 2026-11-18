@@ -19,10 +19,10 @@ secciones adyacentes.
 - A la izquierda, el **punto de partida**. Al hacer clic en su título, se abre su página.
   La **flecha** situada junto a él abre sus elementos hermanos —las demás opciones del menú
   del mismo nivel—, y el propio punto de partida aparece resaltado en ellas. Si
-  el punto de inicio se encuentra en la parte superior del menú o no hay nada visible junto a él, no hay
+  el punto de inicio se encuentra en la parte superior del menú o no hay nada visible junto a él, no aparece
   ninguna flecha.
-- Una **línea** vertical separa el punto de inicio de sus subpuntos.
-- A la derecha, los **subelementos** del punto de partida, en una sola línea y en el
+- Una **línea** vertical separa el punto de inicio de sus subapartados.
+- A la derecha, los **subelementos** del punto de inicio, en una sola línea y en el
   orden del menú.
 - La **página en la que te encuentras** aparece subrayada en rojo
   en la barra.
@@ -40,7 +40,7 @@ secciones adyacentes.
 Una carpeta que solo contiene otras entradas y no tiene página propia
 abre su menú desplegable al hacer clic en toda la entrada.
 
-## Es importante saber
+## Información importante
 
 - El widget **no copia nada**. Vuelve a leer el menú cada vez que se abre:
   si el menú cambia, también cambia la navegación.
@@ -56,3 +56,8 @@ abre su menú desplegable al hacer clic en toda la entrada.
 En el editor, el widget aparece tal y como se ve en la página publicada; los
 menús desplegables también se pueden abrir allí. Al hacer clic en un título, se sale
 del editor; para probarlo, es mejor utilizar la vista previa.
+
+El punto de partida se selecciona en la ventana **Seleccionar punto de partida**, que se abre con la
+configuración del widget: a la izquierda, el menú de la aplicación en forma de árbol con búsqueda;
+junto a él, la barra tal y como se muestra en la página —si se desea, en ancho de ordenador, tableta
+y móvil—.
