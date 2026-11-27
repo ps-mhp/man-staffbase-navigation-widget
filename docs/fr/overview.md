@@ -10,7 +10,7 @@ Cas d'utilisation typiques : une navigation par rubriques en haut des pages d'un
 un aperçu des thèmes sur une page d'accueil, le passage d'une
 rubrique à l'autre.
 
-## Ce que voient les lecteurs et lectrices
+## Ce que voient les lectrices et lecteurs
 
 ```
 [Point de départ ⌄] | [Sous-rubrique 1 ⌄] [Sous-rubrique 2] [Sous-rubrique 3 ⌄] …   [‹ ›]
@@ -37,14 +37,14 @@ rubrique à l'autre.
 - Un menu déroulant se ferme avec la touche **Échap**, en cliquant à côté de celui-ci ou dès que
   la barre est fait défiler.
 
-Un dossier qui ne contient que d’autres entrées et ne dispose pas de sa propre page
+Un dossier qui ne contient que d’autres entrées et qui ne dispose pas de sa propre page
 ouvre son menu déroulant lorsque l’on clique sur l’entrée dans son ensemble.
 
 ## À savoir
 
 - Le widget **ne copie rien**. Il relit le menu à chaque ouverture :
   si le menu change, la navigation change également.
-- **Les autorisations restent en vigueur.** Chaque utilisateur ne voit que les
+- **Les autorisations sont conservées.** Chaque utilisateur ne voit que les
   éléments de menu qu’elle voit également dans le menu de l’application.
 - Les éléments de menu marqués comme **« Non visibles »** dans le menu ne sont
   pas non plus affichés dans la navigation.

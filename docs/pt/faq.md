@@ -35,11 +35,11 @@ Basta clicar no título para abrir a página. O item inicial não tem
 seta se estiver no topo do menu ou se não houver
 itens de menu visíveis ao seu lado.
 
-**Pergunta:** Falta uma entrada na navegação, apesar de estar presente no menu.
+**Pergunta:** Falta uma entrada na navegação, apesar de estar no menu.
 
 Resposta: Se estiver definido como «Não visível» no menu, a
 navegação também não a mostra. Além disso, cada pessoa vê apenas os itens do menu para os quais tem
-autorização — como editor(a), poderá ver mais do que os seus
+autorização — como editor(a), poderá ver, em determinadas circunstâncias, mais do que os seus
 leitores.
 
 **Pergunta:** Nem todos os subitens cabem na barra.

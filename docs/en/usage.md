@@ -11,7 +11,7 @@ are the selected starting point and the bar showing how it will look.
 
 1. Check the app’s menu to see which menu item contains the desired pages as
    subitems. The navigation always displays the subitems of **one**
-   menu item; the pages must therefore already be listed under that menu item.
+   menu item; the pages must therefore already be listed under that item in the menu.
 2. Open the page for editing and place the **Navigation** widget at the
    desired location, preferably across the full width—the bar
    needs space for the items next to each other.
@@ -22,7 +22,7 @@ are the selected starting point and the bar showing how it will look.
 4. At the top, under **Desktop**, **Tablet**, and **Mobile**, check the bar for
    device width.
 5. Click **Apply** and then save the page. On the
-   page: Clicking the title opens the page; the arrow next to it opens the
+   page: Clicking the title opens the page; clicking the arrow next to it opens the
    subitems as a dropdown.
 
 If the menu item isn’t in the tree:
@@ -46,7 +46,7 @@ If the menu item isn’t in the tree:
 
 This is not done in the widget, but in the app’s **Menu**:
 
-1. Open the menu management in Staffbase.
+1. Open menu management in Staffbase.
 2. Drag pages under the starting point, remove them, or reorder them.
 3. Reload the page with the navigation—the change will be visible immediately.
 

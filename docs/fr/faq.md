@@ -5,7 +5,7 @@ des paramètres » s'affiche.
 
 Réponse : Aucun point de départ n'a été sélectionné — ou la valeur saisie n'est
 ni un identifiant de menu, ni une adresse comportant un tel identifiant. Dans la fenêtre
-**Sélectionner un point de départ**, cliquez sur un élément du menu à gauche, cliquez sur **Appliquer** puis
+**Sélectionner un point de départ**, cliquez sur un élément de menu à gauche, cliquez sur **Appliquer** puis
 enregistrez. Ce message s'affiche également sur la page publiée ; ne publiez donc jamais
 sans avoir défini de point de départ.
 
@@ -22,9 +22,9 @@ Réponse : Le point de départ ne comporte aucun sous-élément visible — soit
 pas du tout, soit tous sont réglés sur « Non visible » dans le menu ou sont bloqués pour le
 lecteur.
 
-**Question :** Dans un menu déroulant, il est indiqué « Il n’y a pas d’autres entrées ici. »
+**Question :** Dans un menu déroulant, il est indiqué « Il n'y a pas d'autres entrées ici. »
 
-Réponse : L’entrée comporte certes des sous-rubriques, mais aucune d’entre elles n’est visible pour la
+Réponse : L'entrée comporte certes des sous-rubriques, mais aucune d'entre elles n'est visible pour la
 personne qui lit ou ne mène à une page.
 
 **Question :** Pourquoi une entrée n’a-t-elle pas de flèche ?
@@ -37,7 +37,7 @@ pas de flèche s'il se trouve tout en haut du menu ou s'il n'y a pas d'
 
 **Question :** Une entrée manque dans la navigation, bien qu'elle figure dans le menu.
 
-Réponse : Si elle est définie sur « Non visible » dans le menu, la
+Réponse : Si elle est réglée sur « Non visible » dans le menu, la
 navigation ne l’affiche pas non plus. De plus, chaque utilisateur ne voit que les éléments de menu auxquels il
 a accès — en tant que rédacteur·trice, vous pouvez voir davantage d’éléments que vos
 lecteurs·trices.
@@ -45,8 +45,8 @@ lecteurs·trices.
 **Question :** Tous les sous-éléments ne tiennent pas dans la barre.
 
 Réponse : Dans ce cas, les boutons **‹ ›** apparaissent à droite ; ils permettent de faire défiler la barre
-. Sur un téléphone, vous pouvez également la faire glisser latéralement avec le doigt
-. Au début et à la fin, le bouton correspondant est grisé.
+. Sur un téléphone, vous pouvez également la faire glisser latéralement
+avec le doigt. Au début et à la fin, le bouton correspondant est grisé.
 
 **Question :** Puis-je renommer ou réorganiser les entrées uniquement pour ce widget ?
 
@@ -56,7 +56,7 @@ effectuées à cet endroit s’appliquent partout, y compris dans la navigation.
 **Question :** Un élément de menu ne peut pas être sélectionné dans la fenêtre.
 
 Réponse : Seuls les éléments de menu comportant des sous-éléments sont sélectionnables — ils sont les seuls à remplir une
-barre. Les pages sans sous-éléments (sous-ligne « Page ») figurent dans l’arborescence à titre d’orientation
+barre. Les pages sans sous-éléments (sous-rubrique « Page ») figurent dans l’arborescence à titre indicatif
 .
 
 **Question :** Un élément de menu manque dans l’arborescence de la fenêtre.

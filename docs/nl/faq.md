@@ -13,7 +13,7 @@ zonder startpunt.
 
 Antwoord: De widget kan het menu-item niet bereiken. Veelvoorkomende oorzaken: het
 menu-item is verwijderd, de lezer heeft geen toestemming om het te zien, of de
-verbinding was even verbroken. **Opnieuw proberen** vraagt het nog een keer; blijft de
+verbinding was even verbroken. **Opnieuw proberen** vraagt het nogmaals; blijft de
 melding staan, kies dan een nieuw startpunt.
 
 **Vraag:** In de balk staat alleen het startpunt.
@@ -27,9 +27,9 @@ lezer.
 Antwoord: De vermelding heeft wel subitems, maar geen daarvan is zichtbaar voor de
 lezer of leidt naar een pagina.
 
-**Vraag:** Waarom heeft een item geen pijl?
+**Vraag:** Waarom heeft een item geen pijltje?
 
-Antwoord: De pijl verschijnt alleen als het item in het menu subitems heeft,
+Antwoord: Het pijltje verschijnt alleen als het item in het menu subitems heeft,
 die de lezer mag zien en die niet op „Niet zichtbaar“ staan.
 Een klik op de titel opent dan gewoon de pagina. Het startpunt heeft
 geen pijltje als het helemaal bovenaan in het menu staat of als er naast het startpunt geen
@@ -62,6 +62,6 @@ in de boomstructuur.
 **Vraag:** Een menu-item ontbreekt in de boomstructuur van het venster.
 
 Antwoord: De boomstructuur laadt het menu tot een vaste diepte en grootte, en
-toont alleen wat je eigen account mag zien. Voer het menu-item vervolgens in via
-**ID of adres invoeren** linksonder: het adres van de pagina
+toont alleen wat je eigen account mag zien. Voer het menu-item dan in via
+**ID of adres invoeren** linksonder: het adres van de betreffende pagina
 of de 24-cijferige ID.

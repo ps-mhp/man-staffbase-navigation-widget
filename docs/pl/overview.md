@@ -31,9 +31,9 @@ sąsiednimi sekcjami.
   Strzałka pojawia się tylko wtedy, gdy jest tam coś widocznego do otwarcia.
   Menu rozwijane pokazuje dokładnie jeden poziom; pozycje z niższych poziomów pojawiają się tam jako
   zwykłe odnośniki.
-- Jeśli nie wszystkie podpunkty mieszczą się w szerokości paska, po prawej stronie pojawiają się dwa przyciski
+- Jeśli nie wszystkie podpunkty mieszczą się w szerokości, po prawej stronie pojawiają się dwa przyciski
   **‹ ›**, za pomocą których można przesuwać pasek. Na telefonie
-  można to również zrobić palcem.
+  można to zrobić również palcem.
 - Menu rozwijane zamyka się klawiszem **Escape**, kliknięciem obok niego oraz w momencie
   przewijania paska.
 

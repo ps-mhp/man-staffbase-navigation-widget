@@ -19,16 +19,16 @@ secciones adyacentes.
 - A la izquierda, el **punto de partida**. Al hacer clic en su título, se abre su página.
   La **flecha** situada junto a él abre sus elementos hermanos —las demás opciones del menú
   del mismo nivel—, y el propio punto de partida aparece resaltado en ellas. Si
-  el punto de inicio se encuentra en la parte superior del menú o no hay nada visible junto a él, no aparece
+  el punto de inicio se encuentra en la parte superior del menú o no hay nada visible junto a él, no hay
   ninguna flecha.
-- Una **línea** vertical separa el punto de inicio de sus subapartados.
-- A la derecha, los **subelementos** del punto de inicio, en una sola línea y en el
+- Una **línea** vertical separa el punto de inicio de sus subpuntos.
+- A la derecha, los **subelementos** del punto de partida, en una sola línea y en el
   orden del menú.
 - La **página en la que te encuentras** aparece subrayada en rojo
   en la barra.
 - Al hacer clic en un **título** se abre la propia página; al hacer clic en la
   **flecha** situada junto a él, se abre un menú desplegable con los subelementos de esa entrada. La
-  flecha solo aparece si hay algo visible que abrir en ese lugar. El
+  flecha solo aparece si hay algo visible que se pueda abrir. El
   menú desplegable muestra exactamente un nivel; las entradas de niveles inferiores aparecen allí como
   simples enlaces.
 - Si no caben todas las subentradas en el ancho, aparecen a la derecha dos botones

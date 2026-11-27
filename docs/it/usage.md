@@ -1,8 +1,8 @@
 # Passo dopo passo
 
-Il punto di partenza viene selezionato nella finestra **Seleziona punto di partenza**. Si apre
+Il punto di partenza viene selezionato nella finestra **Scegli punto di partenza**. Si apre
 automaticamente non appena compare la finestra di dialogo delle impostazioni del widget; una volta chiusa,
-il pulsante **Seleziona punto di partenza** la riapre.
+il pulsante **Scegli punto di partenza** la riapre.
 
 A sinistra si trova il menu dell’app sotto forma di albero, con un campo di ricerca sopra. Al centro
 sono visualizzati il punto di partenza selezionato e la barra, così come apparirà.
@@ -31,8 +31,8 @@ Se la voce di menu non è presente nell’albero:
    dalla barra degli indirizzi.
 2. Nella finestra in basso a sinistra, clicca su **Inserisci ID o indirizzo**.
 3. Incolla l’indirizzo nel campo e clicca su **Imposta come punto di partenza**.
-   Il widget rileva automaticamente l’ID. Il punto di partenza si troverà quindi
-   in cima all’albero.
+   Il widget rileva automaticamente l’ID. Il punto di partenza si trova quindi
+   nella parte superiore dell’albero.
 
 ## Modifica del punto di partenza
 
@@ -54,8 +54,8 @@ Questa operazione non avviene nel widget, ma nel **menu** dell’app:
 
 1. Se il menu non si carica nella finestra, cliccare su **Riprova**. Se ciò
    non risolve il problema, inserire il punto di partenza tramite **Inserisci ID o indirizzo**.
-2. Se sulla pagina compare il messaggio «Impossibile caricare il menu»,
-   clicca su **Riprova** — nella barra, come in un menu a tendina. Se
+2. Se sulla pagina compare il messaggio «Impossibile caricare il menu», clicca su
+   **Riprova** — nella barra, come in un menu a tendina. Se
    ciò non funziona, verificare se il punto di partenza esiste ancora nel menu e,
    se necessario, selezionarlo nuovamente.
 3. Se manca una voce, controllare nel menu se è impostata su “Non visibile” o

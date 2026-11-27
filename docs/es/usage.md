@@ -42,12 +42,12 @@ Si el elemento del menú no aparece en el árbol:
 3. Haz clic en **Aplicar** y guarda los cambios. A continuación, la barra mostrará el nuevo
    punto de partida y sus subopciones.
 
-## Añadir, eliminar o reordenar entradas
+## Añadir, eliminar u ordenar entradas
 
 Esto no se hace en el widget, sino en el **menú** de la aplicación:
 
 1. Abre la gestión de menús en Staffbase.
-2. Arrastra, elimina o reordena las páginas bajo el punto de inicio.
+2. Arrastra, elimina u ordena las páginas bajo el punto de inicio.
 3. Vuelve a cargar la página con la navegación; el cambio se verá inmediatamente.
 
 ## Si algo no funciona
@@ -57,6 +57,6 @@ Esto no se hace en el widget, sino en el **menú** de la aplicación:
 2. Si aparece en la página «No se ha podido cargar el menú», haz
    clic en **Intentarlo de nuevo** —en la barra, como en un menú desplegable—. Si
    esto no funciona, comprueba si el punto de inicio sigue existiendo en el menú y,
-   si es necesario, selecciónalo de nuevo.
+   si es necesario, vuelve a seleccionarlo.
 3. Si falta una entrada, comprueba en el menú si está marcada como «No visible» o
    si la persona que está leyendo tiene permiso para verla.

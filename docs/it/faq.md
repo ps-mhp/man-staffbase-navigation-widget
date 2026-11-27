@@ -57,11 +57,11 @@ apportate lì si riflettono ovunque, anche nella navigazione.
 
 Risposta: Sono selezionabili solo le voci di menu con sottovoci — solo queste riempiono una
 barra. Le pagine senza sottovoci (riga secondaria «Pagina») sono presenti nell’albero
-a scopo di orientamento.
+a scopo orientativo.
 
 **Domanda:** Manca una voce di menu nell’albero della finestra.
 
 Risposta: L’albero carica il menu fino a una profondità e a una dimensione prestabilite e
 mostra solo ciò che il proprio account è autorizzato a visualizzare. Inserire quindi la voce di menu tramite
-**Inserisci ID o indirizzo** in basso a sinistra: l’indirizzo della sua pagina
+**ID o indirizzo** in basso a sinistra: l’indirizzo della sua pagina
 o l’ID a 24 cifre.

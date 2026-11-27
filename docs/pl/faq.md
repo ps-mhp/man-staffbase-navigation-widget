@@ -1,6 +1,6 @@
 # FAQ
 
-**Pytanie:** Pojawia się komunikat: „Proszę wybrać punkt początkowy w menu
+**Pytanie:** Pojawia się komunikat „Proszę wybrać punkt początkowy w menu
 w ustawieniach”.
 
 Odpowiedź: Nie wybrano punktu początkowego — albo wprowadzona wartość nie jest
@@ -22,9 +22,9 @@ Odpowiedź: Punkt początkowy nie ma widocznych podpunktów — albo nie ma ich
 w ogóle, albo wszystkie w menu mają ustawioną opcję „Niewidoczne” lub są zablokowane dla
 osoby czytającej.
 
-**Pytanie:** W rozwijanym menu widnieje komunikat „Nie ma tutaj żadnych innych wpisów”.
+**Pytanie:** W rozwijanym menu widnieje komunikat „Nie ma tutaj żadnych innych pozycji”.
 
-Odpowiedź: Wpis ma wprawdzie podpunkty, ale żaden z nich nie jest widoczny dla
+Odpowiedź: Pozycja ta ma wprawdzie podpunkty, ale żaden z nich nie jest widoczny dla
 osoby czytającej ani nie prowadzi do żadnej strony.
 
 **Pytanie:** Dlaczego pozycja nie ma strzałki?

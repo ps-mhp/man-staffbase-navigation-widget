@@ -29,7 +29,7 @@ reader or lead to a page.
 
 **Question:** Why doesn’t an entry have an arrow?
 
-Answer: The arrow appears only if the entry in the menu has subitems
+Answer: The arrow only appears if the entry in the menu has subitems
 that the reader is allowed to see and that are not set to “Hidden.”
 Clicking on the title then simply opens the page. The root item has
 no arrow if it is at the very top of the menu or if there are no
@@ -37,8 +37,8 @@ visible menu items next to it.
 
 **Question:** An entry is missing from the navigation, even though it’s in the menu.
 
-Answer: If it is set to “Not visible” in the menu, the
-navigation bar won’t display it either. Additionally, each user only sees the menu items they
+Answer: If it is set to “Hidden” in the menu, it will not appear in the
+navigation either. Additionally, each user only sees the menu items they
 are authorized to view—as an editor, you may see more than your
 readers.
 
@@ -55,8 +55,8 @@ made there apply everywhere, including in the navigation.
 
 **Question:** A menu item can’t be clicked in the window.
 
-Answer: Only menu items with subitems are selectable—only they fill a
-bar. Pages without subitems (subline “Page”) are included in the tree
+Answer: Only menu items with subitems can be selected—only they fill a
+bar. Pages without subitems (subline “Page”) are listed in the tree
 for orientation.
 
 **Question:** A menu item is missing from the window’s tree.

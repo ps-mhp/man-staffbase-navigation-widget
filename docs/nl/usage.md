@@ -2,7 +2,7 @@
 
 Het startpunt wordt geselecteerd in het venster **Startpunt kiezen**. Dit venster wordt
 automatisch geopend zodra het instellingenvenster van de widget verschijnt; als het gesloten is,
-kun je het weer openen met de knop **Startpunt kiezen**.
+wordt het opnieuw geopend via de knop **Startpunt kiezen**.
 
 Aan de linkerkant staat het menu van de app in de vorm van een boomstructuur, met daarboven een zoekveld. In het midden
 staan het geselecteerde startpunt en de balk, zoals deze er dan uitziet.
@@ -39,14 +39,14 @@ Als het menu-item niet in de boomstructuur staat:
 1. Open de instellingen van de widget — het venster **Startpunt kiezen**
    wordt geopend met het huidige startpunt gemarkeerd.
 2. Klik links op een ander menu-item.
-3. Klik op **Toepassen** en sla op. De balk toont daarna het nieuwe
+3. Klik op **Toepassen** en sla op. De balk toont vervolgens het nieuwe
    startpunt en de bijbehorende subitems.
 
 ## Items toevoegen, verwijderen of herschikken
 
 Dit gebeurt niet in de widget, maar in het **menu** van de app:
 
-1. Open in Staffbase het menubeheer.
+1. Open het menubeheer in Staffbase.
 2. Sleep pagina’s onder het startpunt, verwijder ze of herschik ze.
 3. Laad de pagina met de navigatie opnieuw — de wijziging is direct zichtbaar.
 

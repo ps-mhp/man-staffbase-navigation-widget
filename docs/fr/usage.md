@@ -1,8 +1,8 @@
 # Étape par étape
 
 Le point de départ est sélectionné dans la fenêtre **Sélectionner le point de départ**. Celle-ci s'ouvre
-automatiquement dès que la boîte de dialogue des paramètres du widget apparaît ; pour la fermer,
-il suffit de cliquer à nouveau sur le bouton **Sélectionner le point de départ**.
+automatiquement dès que la boîte de dialogue des paramètres du widget apparaît ; une fois fermée,
+le bouton **Sélectionner le point de départ** la rouvre.
 
 À gauche se trouve le menu de l'application sous forme d'arborescence, surmonté d'un champ de recherche. Au centre
 se trouvent le point de départ sélectionné et la barre telle qu’elle s’affiche.
@@ -16,8 +16,8 @@ se trouvent le point de départ sélectionné et la barre telle qu’elle s’af
   emplacement souhaité, de préférence sur toute la largeur — la barre
   a besoin d’espace pour afficher les éléments côte à côte.
 3. Dans la fenêtre de gauche, sous **Point de départ dans le menu**, cliquez sur l’option de menu
-   dont vous souhaitez afficher les sous-options. La flèche située devant un dossier permet
-   de le développer ; le champ de recherche situé au-dessus permet de trouver une option de menu par son titre.
+   dont vous souhaitez afficher les sous-options. La flèche devant un dossier permet
+   de le déplier ; le champ de recherche situé au-dessus permet de trouver une option de menu par son titre.
    Seules les options de menu comportant des sous-options peuvent être sélectionnées.
 4. En haut, au-dessus de **Ordinateur de bureau**, **Tablette** et **Mobile**, vérifiez que la barre s’adapte à la
    largeur de l’appareil.
@@ -59,4 +59,4 @@ Cette opération ne s’effectue pas dans le widget, mais dans le **menu** de l�
    cela ne fonctionne pas, vérifiez si l'élément d'entrée existe toujours dans le menu et,
    le cas échéant, sélectionnez-le à nouveau.
 3. Si une entrée manque, vérifiez dans le menu si elle est réglée sur « Non visible » ou
-   si l'utilisateur autorisé peut la voir.
+   si la personne qui consulte la page est autorisée à la voir.

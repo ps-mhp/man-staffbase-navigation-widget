@@ -18,7 +18,7 @@ secções adjacentes.
 
 - À esquerda, o **ponto de partida**. Um clique no seu título abre a respetiva página.
   A **seta** ao lado abre os seus «irmãos» — os outros itens do menu
-  no mesmo nível, sendo o próprio ponto de partida destacado entre eles. Se
+  no mesmo nível, sendo o próprio ponto de partida destacado nesse contexto. Se
   o ponto de partida estiver no topo do menu ou não houver nada visível ao seu lado, não há
   seta.
 - Uma **linha** vertical separa o ponto de partida dos seus subitens.
@@ -54,7 +54,7 @@ abre o seu menu suspenso ao clicar na entrada completa.
 ## O que vê no editor do CMS
 
 No editor, o widget aparece tal como na página publicada; os
-menus suspensos também podem ser abertos nesse local. Ao clicar num título, sai-se
+menus suspensos também podem ser abertos aí. Ao clicar num título, sai-se
 do editor — para experimentar, é melhor utilizar a pré-visualização.
 
 O ponto de partida é selecionado na janela **Selecionar ponto de partida**, que se abre com as

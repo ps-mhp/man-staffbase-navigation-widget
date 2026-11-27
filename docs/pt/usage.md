@@ -18,16 +18,16 @@ aparecem o ponto de partida selecionado e a barra, tal como fica com ele.
 3. Na janela à esquerda, em **Ponto de partida no menu**, clique no item de menu
    cujos subitens devem aparecer. A seta à frente de uma pasta
    abre-a; o campo de pesquisa acima permite encontrar um item de menu pelo seu título.
-   Só podem ser selecionados itens de menu com subitens.
+   Só é possível selecionar itens de menu com subitens.
 4. Na parte superior, acima de **Desktop**, **Tablet** e **Móvel**, verifique se a barra se adapta à
    largura do dispositivo.
 5. Clique em **Aplicar** e, em seguida, guarde a página. Na
    página, aplica-se o seguinte: clicar no título abre a página; a seta ao lado abre as
    subopções num menu suspenso.
 
-Se a opção do menu não estiver na árvore:
+Se a opção de menu não estiver na árvore:
 
-1. Abra a página da opção do menu no Staffbase e copie o **endereço completo**
+1. Abra a página da opção de menu no Staffbase e copie o **endereço completo**
    da barra de endereços.
 2. Na janela, no canto inferior esquerdo, clique em **Introduzir ID ou endereço**.
 3. Cole o endereço no campo e clique em **Definir como ponto de partida**.
@@ -37,7 +37,7 @@ Se a opção do menu não estiver na árvore:
 ## Alterar o ponto de partida
 
 1. Abra as definições do widget — a janela **Selecionar ponto de partida**
-   abre-se com o ponto de partida atual marcado.
+   abre-se com o ponto de partida atual destacado.
 2. Clique noutro item do menu à esquerda.
 3. Clique em **Aplicar** e guarde. A barra passa então a mostrar o novo
    ponto de partida e os seus subitens.

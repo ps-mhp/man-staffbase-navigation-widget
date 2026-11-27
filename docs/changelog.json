@@ -1,0 +1,112 @@
+{
+  "versions": [
+    {
+      "version": "0.3.0-rc.1",
+      "date": "2026-11-27",
+      "entries": [
+        {
+          "type": "feat",
+          "text": "Schalter Sticky im Fenster Startpunkt wählen"
+        },
+        {
+          "type": "feat",
+          "text": "Leiste bleibt beim Scrollen unter dem Hauptmenü stehen (Sticky)"
+        }
+      ]
+    },
+    {
+      "version": "0.2.0-rc.7",
+      "date": "2026-11-18",
+      "entries": [
+        {
+          "type": "feat",
+          "text": "Navigation-Fenster öffnet in der Desktop-Ansicht"
+        },
+        {
+          "type": "feat",
+          "text": "Fenster „Startpunkt wählen“ im Vollbild-Rahmen"
+        },
+        {
+          "type": "feat",
+          "text": "Vorschau der Leiste ohne Eingriff in die Seite"
+        },
+        {
+          "type": "feat",
+          "text": "Menübaum für die Wahl des Startpunkts"
+        },
+        {
+          "type": "feat",
+          "text": "Konfiguration in navigation-config, menu-id gilt je Schlüssel weiter"
+        }
+      ]
+    },
+    {
+      "version": "0.2.0-rc.4",
+      "date": "2026-11-06",
+      "entries": [
+        {
+          "type": "fix",
+          "text": "Abschnitt mit allein stehender Leiste so hoch wie die Leiste"
+        },
+        {
+          "type": "fix",
+          "text": "Dropdown im Top Layer, damit der Content Designer es nicht abschneidet"
+        }
+      ]
+    },
+    {
+      "version": "0.2.0-rc.2",
+      "date": "2026-11-06",
+      "entries": [
+        {
+          "type": "fix",
+          "text": "Pfeil nur bei sichtbaren Unterpunkten"
+        }
+      ]
+    },
+    {
+      "version": "0.2.0-rc.1",
+      "date": "2026-11-06",
+      "entries": [
+        {
+          "type": "feat",
+          "text": "horizontale Leiste statt blaetterndem Menue"
+        }
+      ]
+    },
+    {
+      "version": "0.1.0-rc.3",
+      "date": "2026-10-06",
+      "entries": [
+        {
+          "type": "feat",
+          "text": "aktuelle Seite immer hinterlegt"
+        }
+      ]
+    },
+    {
+      "version": "0.1.0-rc.2",
+      "date": "2026-10-06",
+      "entries": [
+        {
+          "type": "fix",
+          "text": "kein Unterstrich im Hover"
+        }
+      ]
+    },
+    {
+      "version": "0.1.0-rc.1",
+      "date": "2026-10-06",
+      "entries": [
+        {
+          "type": "feat",
+          "text": "blaetterndes Menue ab einem Startpunkt"
+        },
+        {
+          "type": "feat",
+          "text": "scaffold navigation-widget widget"
+        }
+      ]
+    }
+  ]
+}
