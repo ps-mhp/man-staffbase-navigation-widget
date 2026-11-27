@@ -22,7 +22,7 @@
 import type { ValidationIssue } from "@man/config-ui/shell/shell-context";
 import { readMenuId } from "@shared/staffbase/menu";
 
-import type { NavigationConfig } from "./navigation-config";
+import { NavigationConfig, resolveSticky } from "./navigation-config";
 
 /** Kennung der Meldung; der Editor zeigt sie am Startpunkt. */
 export const START_POINT_ISSUE = "start-point";
@@ -48,6 +48,7 @@ export function validateNavigationConfig(config: NavigationConfig): ValidationIs
 export function navigationChangesStatus(draft: NavigationConfig, saved: NavigationConfig): string | undefined {
   const before = saved.menuId ?? "";
   const after = draft.menuId ?? "";
-  if (after === before) return undefined;
-  return after.trim() === "" ? "Startpunkt entfernt" : "Startpunkt geändert";
+  if (after !== before) return after.trim() === "" ? "Startpunkt entfernt" : "Startpunkt geändert";
+  if (resolveSticky(draft) !== resolveSticky(saved)) return "Sticky geändert";
+  return undefined;
 }

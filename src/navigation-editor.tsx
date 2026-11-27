@@ -15,8 +15,8 @@
  * Der Rumpf des Fensters „Startpunkt wählen“ im gemeinsamen Rahmen von
  * `@man/config-ui`: links das Menü als Baum, in der Mitte der gewählte
  * Startpunkt mit seiner Leiste, in den Geräteansichten die Leiste in
- * Gerätebreite. Einen Inspektor gibt es nicht – es gibt nur eine Wahl, und
- * die steht links.
+ * Gerätebreite. Rechts im Inspektor steht „Sticky“ – dort in jeder Ansicht
+ * erreichbar, auch in der Desktop-Ansicht, mit der das Fenster beginnt.
  *
  * Nur im Studio nachgeladen (`navigation-dialog.tsx`): er bringt react-aria
  * und Tailwind mit, und das hat im Seitenbündel, das jede Leserin lädt,
@@ -25,12 +25,14 @@
  */
 
 import * as React from "react";
+import { SwitchRow } from "@man/config-ui/form/switch-row";
+import { InspectorPanel } from "@man/config-ui/inspector/inspector-panel";
 import { ConfigWorkspace } from "@man/config-ui/layout/config-workspace";
 import { useConfigShell } from "@man/config-ui/shell/shell-context";
 import { fetchMenuLevel, readMenuId } from "@shared/staffbase/menu";
 import type { MenuLevelLoader } from "@shared/staffbase/menu-tree";
 
-import type { NavigationConfig } from "./navigation-config";
+import { NavigationConfig, resolveSticky } from "./navigation-config";
 import { NavigationPreview } from "./navigation-preview";
 import { START_POINT_ISSUE, validateNavigationConfig } from "./start-point-rules";
 import { StartPointOverview } from "./start-point-overview";
@@ -50,6 +52,26 @@ function useStartPointIssue(value: NavigationConfig): string | undefined {
   const { issuesVisible } = useConfigShell();
   if (!issuesVisible) return undefined;
   return validateNavigationConfig(value).find((issue) => issue.id === START_POINT_ISSUE)?.message;
+}
+
+interface StickyInspectorProps {
+  value: NavigationConfig;
+  onChange: (value: NavigationConfig) => void;
+}
+
+/** Ob die Leiste beim Scrollen unter dem Hauptmenü stehen bleibt (`use-sticky.ts`); Standard an. */
+function StickyInspector({ value, onChange }: StickyInspectorProps): React.ReactElement {
+  return (
+    <InspectorPanel title="Verhalten">
+      <SwitchRow
+        label="Sticky"
+        hint="Beim Scrollen bleibt die Leiste unter dem Hauptmenü stehen – so ist sie auch am Ende der Seite erreichbar."
+        checked={resolveSticky(value)}
+        onCheckedChange={(sticky) => onChange({ ...value, sticky })}
+        data-testid="navigation-sticky"
+      />
+    </InspectorPanel>
+  );
 }
 
 export function NavigationEditor({ value, onChange, loadLevel = fetchMenuLevel }: NavigationEditorProps): React.ReactElement {
@@ -77,6 +99,7 @@ export function NavigationEditor({ value, onChange, loadLevel = fetchMenuLevel }
           issue={view === "editor" ? undefined : issue}
         />
       }
+      inspector={<StickyInspector value={value} onChange={onChange} />}
       preview={<NavigationPreview config={value} pageTitle={title} loadLevel={loadLevel} />}
     >
       <StartPointOverview

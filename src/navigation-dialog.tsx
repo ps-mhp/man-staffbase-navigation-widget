@@ -70,6 +70,10 @@ const HELP = (
       Fehlt ein Menüpunkt, unten links <strong>ID oder Adresse eingeben</strong> wählen und die komplette Adresse seiner
       Seite oder die 24-stellige ID einfügen.
     </li>
+    <li>
+      <strong>Sticky</strong> (Standard: an) lässt die Leiste beim Scrollen unter dem Hauptmenü stehen, damit sie auch
+      am Ende der Seite erreichbar ist.
+    </li>
     <li>Desktop, Tablet und Mobil zeigen die Leiste in Gerätebreite, so wie die Seite sie zeigt.</li>
     <li>Titel, Reihenfolge und Sichtbarkeit der Einträge kommen aus dem Menü der App und werden dort gepflegt.</li>
   </ul>

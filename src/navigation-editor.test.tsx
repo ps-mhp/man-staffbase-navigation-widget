@@ -128,4 +128,23 @@ describe("NavigationEditor", () => {
 
     expect(await tree()).toBeInTheDocument();
   });
+
+  // Pflicht: Sticky ist ohne Angabe an und schaltet in `navigation-config` um.
+  it("zeigt Sticky an und schreibt das Ausschalten in die Konfiguration", async () => {
+    const user = userEvent.setup();
+    const { onChange } = renderEditor({ menuId: ids.standorte });
+    await tree();
+
+    const sticky = screen.getByTestId("navigation-sticky");
+    expect(sticky).toBeChecked();
+    await user.click(sticky);
+    expect(onChange).toHaveBeenLastCalledWith({ menuId: ids.standorte, sticky: false });
+  });
+
+  it("zeigt Sticky aus, wenn die Konfiguration es ausschaltet", async () => {
+    renderEditor({ menuId: ids.standorte, sticky: false });
+    await tree();
+    expect(screen.getByTestId("navigation-sticky")).not.toBeChecked();
+  });
 });
+

@@ -1,13 +1,14 @@
 # Einstellungen
 
-Die Navigation hat eine Einstellung: den Startpunkt. Sie wird im Fenster
-**Startpunkt wählen** gepflegt. Im Einstellungsdialog selbst steht nur der
+Die Navigation hat zwei Einstellungen: den Startpunkt und **Sticky**. Beide
+werden im Fenster **Startpunkt wählen** gepflegt. Im Einstellungsdialog selbst steht nur der
 Knopf, der es öffnet.
 
 | Einstellung | Beschreibung |
 | --- | --- |
 | Startpunkt im Menü (Baum links) | Der Menüpunkt, den die Leiste links zeigt; rechts daneben stehen seine Unterpunkte. Pflicht. Der Baum zeigt das Menü der App: Ordner mit der Zahl ihrer Unterpunkte, Seiten, im Menü verborgene Menüpunkte mit durchgestrichenem Auge. Wählbar sind nur Menüpunkte mit Unterpunkten; Seiten ohne Unterpunkte stehen zur Orientierung da. Das Suchfeld darüber findet Menüpunkte nach ihrem Titel. Der gewählte Startpunkt ist markiert und trägt in seiner Unterzeile „Startpunkt“. |
 | ID oder Adresse eingeben | Unten links. Nur nötig, wenn der Menüpunkt im Baum fehlt oder das Menü nicht lädt: die komplette Adresse seiner Seite oder die 24-stellige ID einfügen und **Als Startpunkt setzen** klicken. Die ID liest sich das Widget selbst heraus. |
+| Sticky (rechts, Verhalten) | Standard: an. Erreicht die Leiste beim Scrollen das Hauptmenü, bleibt sie darunter stehen, statt aus dem Bild zu rollen — so ist die Navigation auch am Ende der Seite erreichbar. Aus: die Leiste rollt mit der Seite. Im Studio und in der Vorschau des Fensters bleibt sie immer an ihrem Platz. |
 
 Reihenfolge, Titel und Sichtbarkeit der Einträge kommen aus dem Menü der App
 und werden dort gepflegt, nicht im Widget.

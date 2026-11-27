@@ -58,4 +58,9 @@ describe("navigationChangesStatus", () => {
     expect(navigationChangesStatus({ menuId: ID }, { menuId: "6aa0161549d51f0f57864771" })).toBe("Startpunkt geändert");
     expect(navigationChangesStatus({}, { menuId: ID })).toBe("Startpunkt entfernt");
   });
+
+  it("meldet einen umgeschalteten Sticky-Schalter; ohne Angabe gilt an", () => {
+    expect(navigationChangesStatus({ menuId: ID, sticky: false }, { menuId: ID })).toBe("Sticky geändert");
+    expect(navigationChangesStatus({ menuId: ID, sticky: true }, { menuId: ID })).toBeUndefined();
+  });
 });
