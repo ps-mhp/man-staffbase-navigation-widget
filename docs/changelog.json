@@ -1,6 +1,16 @@
 {
   "versions": [
     {
+      "version": "0.3.0-rc.2",
+      "date": "2026-11-27",
+      "entries": [
+        {
+          "type": "fix",
+          "text": "Linie unter der angeklebten Leiste über die ganze Fensterbreite"
+        }
+      ]
+    },
+    {
       "version": "0.3.0-rc.1",
       "date": "2026-11-27",
       "entries": [
