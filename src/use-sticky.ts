@@ -29,8 +29,13 @@
  * sich beim Einhängen der Leiste an, also vor jedem Dropdown.
  *
  * Steht ein Vorfahre mit `transform`, `filter` oder `contain`, ist er statt
- * des Fensters der Bezugskasten für `fixed`. Der Versatz wird beim Ankleben
- * einmal gemessen und herausgerechnet.
+ * des Fensters der Bezugskasten für `fixed` – und rollt mit der Seite. Das
+ * alte Staffbase-UI setzt auf `#content` ein wirkungsloses
+ * `transform: matrix(1, 0, 0, 1, 0, 0)` (gemessen 27.11.2026); die Leiste
+ * wanderte dort mit dem Inhalt aus dem Bild. Solche Einheits-Transformationen
+ * schaltet der Hook für die Dauer des Anklebens ab (`transform: none`,
+ * sichtbar ändert sich nichts). Bleibt ein echter Bezugskasten, wird sein
+ * Versatz bei jedem Scrollen neu gemessen und herausgerechnet.
  *
  * Fläche und Linie der angeklebten Leiste laufen über die ganze
  * Fensterbreite (`::before` in `styles/navigation-menu.scss`); der Hook
@@ -61,6 +66,35 @@ interface Offset {
 }
 
 const STYLED = ["top", "left", "width", "--man-nav-band-left", "--man-nav-band-width"] as const;
+
+const IDENTITY = /^matrix\(1, 0, 0, 1, 0, 0\)$|^matrix3d\(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1\)$/;
+
+/** Der nächste Vorfahre, auch über die Grenze eines Shadow Roots hinweg. */
+function parentOf(element: Element): Element | null {
+  if (element.parentElement !== null) return element.parentElement;
+  const root = element.getRootNode();
+  return root instanceof ShadowRoot ? root.host : null;
+}
+
+/**
+ * Schaltet wirkungslose Transformationen der Vorfahren ab, damit sie nicht
+ * Bezugskasten der festen Leiste werden; gibt das Zurücksetzen zurück.
+ */
+function neutralizeIdentityTransforms(bar: HTMLElement): () => void {
+  const restores: Array<() => void> = [];
+  for (let node = parentOf(bar); node instanceof HTMLElement; node = parentOf(node)) {
+    if (!IDENTITY.test(getComputedStyle(node).transform)) continue;
+    const element = node;
+    const value = element.style.getPropertyValue("transform");
+    const priority = element.style.getPropertyPriority("transform");
+    element.style.setProperty("transform", "none", "important");
+    restores.push(() => {
+      if (value === "") element.style.removeProperty("transform");
+      else element.style.setProperty("transform", value, priority);
+    });
+  }
+  return () => restores.forEach((restore) => restore());
+}
 
 function release(placeholder: HTMLElement, bar: HTMLElement): void {
   bar.classList.remove(STUCK_CLASS);
@@ -96,32 +130,43 @@ export function useSticky(
     if (STUDIO_PATH.test(window.location.pathname)) return undefined;
 
     let offset: Offset | null = null;
+    let restoreTransforms: (() => void) | null = null;
+
+    const unstick = (): void => {
+      if (offset === null) return;
+      release(placeholder, bar);
+      restoreTransforms?.();
+      restoreTransforms = null;
+      offset = null;
+    };
 
     const update = (): void => {
       const slot = placeholder.getBoundingClientRect();
       const chrome = measureChromeHeight();
       // Ein ausgeblendeter Block (Breite 0) klebt nicht.
       if (slot.width === 0 || !shouldStick(slot.top, chrome)) {
-        if (offset !== null) release(placeholder, bar);
-        offset = null;
+        unstick();
         return;
       }
       if (offset === null) {
         placeholder.style.height = `${slot.height}px`;
+        restoreTransforms = neutralizeIdentityTransforms(bar);
         bar.classList.add(STUCK_CLASS);
-        place(bar, chrome, slot.left, slot.width, { x: 0, y: 0 });
-        const actual = bar.getBoundingClientRect();
-        offset = { x: actual.left - slot.left, y: actual.top - chrome };
+        offset = { x: 0, y: 0 };
       } else {
         placeholder.style.height = `${bar.offsetHeight}px`;
       }
+      // Ein verbliebener Bezugskasten kann mitrollen: Abweichung jedes Mal
+      // nachmessen und ausgleichen.
+      place(bar, chrome, slot.left, slot.width, offset);
+      const actual = bar.getBoundingClientRect();
+      offset = { x: offset.x + actual.left - slot.left, y: offset.y + actual.top - chrome };
       place(bar, chrome, slot.left, slot.width, offset);
     };
 
     // Ändert sich die Fensterbreite, kann sich auch der Bezugskasten verschoben haben.
     const remeasure = (): void => {
-      if (offset !== null) release(placeholder, bar);
-      offset = null;
+      unstick();
       update();
     };
 
@@ -132,6 +177,7 @@ export function useSticky(
       window.removeEventListener("scroll", update, { capture: true });
       window.removeEventListener("resize", remeasure);
       release(placeholder, bar);
+      restoreTransforms?.();
     };
   }, [placeholderRef, barRef, enabled]);
 }

@@ -129,6 +129,34 @@ describe("useSticky", () => {
     expect(bar.style.left).toBe("70px");
   });
 
+  // Altes Staffbase-UI: der Bezugskasten rollt mit der Seite.
+  it("folgt einem mitrollenden Bezugskasten bei jedem Scrollen", () => {
+    const { bar } = mount();
+    scrollTo(-500);
+    barShift = { x: 0, y: -300 };
+    scrollTo(-800);
+    expect(bar.style.top).toBe("364px");
+    expect(bar.getBoundingClientRect().top).toBe(64);
+  });
+
+  // Altes Staffbase-UI: `#content` trägt `transform: matrix(1, 0, 0, 1, 0, 0)`.
+  it("schaltet wirkungslose Transformationen der Vorfahren nur beim Ankleben ab", () => {
+    const { slot } = mount();
+    const content = slot.parentElement as HTMLElement;
+    content.style.transform = "matrix(1, 0, 0, 1, 0, 0)";
+    const rotated = content.parentElement as HTMLElement;
+    rotated.style.transform = "rotate(1deg)";
+
+    scrollTo(-500);
+    expect(content.style.transform).toBe("none");
+    expect(content.style.getPropertyPriority("transform")).toBe("important");
+    expect(rotated.style.transform).toBe("rotate(1deg)");
+
+    scrollTo(120);
+    expect(content.style.transform).toBe("matrix(1, 0, 0, 1, 0, 0)");
+    expect(content.style.getPropertyPriority("transform")).toBe("");
+  });
+
   it("klebt nicht, wenn Sticky aus ist", () => {
     const { bar } = mount(false);
     scrollTo(-500);
