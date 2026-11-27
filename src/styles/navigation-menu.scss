@@ -38,8 +38,22 @@
 .man-nav--stuck {
   position: fixed;
   z-index: 5;
-  background: man("surface");
-  box-shadow: 0 1px 0 man("border");
+
+  // Fläche und Linie laufen über die ganze Fensterbreite, nicht nur bis zur
+  // Flucht der Leiste (Vorgabe 27.11.2026). Versatz zur linken Fensterkante
+  // und Breite setzt `use-sticky.ts`; `z-index: -1` legt das Band hinter die
+  // Einträge, aber in den Stapelkontext der Leiste.
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--man-nav-band-left, 0);
+    z-index: -1;
+    width: var(--man-nav-band-width, 100%);
+    background: man("surface");
+    box-shadow: 0 1px 0 man("border");
+  }
 }
 
 .man-nav__bar {

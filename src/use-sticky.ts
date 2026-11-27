@@ -32,6 +32,11 @@
  * des Fensters der Bezugskasten für `fixed`. Der Versatz wird beim Ankleben
  * einmal gemessen und herausgerechnet.
  *
+ * Fläche und Linie der angeklebten Leiste laufen über die ganze
+ * Fensterbreite (`::before` in `styles/navigation-menu.scss`); der Hook
+ * reicht dafür den Abstand zur linken Fensterkante und die Breite des
+ * Fensters ohne Scrollleiste als Eigenschaften durch.
+ *
  * Im Studio bleibt die Leiste im Fluss: dort rollt die Leinwand unter der
  * Werkzeugleiste des Studios, die keine Kopfzeile der Seite ist.
  */
@@ -55,7 +60,7 @@ interface Offset {
   y: number;
 }
 
-const STYLED = ["top", "left", "width"] as const;
+const STYLED = ["top", "left", "width", "--man-nav-band-left", "--man-nav-band-width"] as const;
 
 function release(placeholder: HTMLElement, bar: HTMLElement): void {
   bar.classList.remove(STUCK_CLASS);
@@ -67,6 +72,9 @@ function place(bar: HTMLElement, top: number, left: number, width: number, offse
   bar.style.top = `${top - offset.y}px`;
   bar.style.left = `${left - offset.x}px`;
   bar.style.width = `${width}px`;
+  // Das Band steht relativ zur Leiste; die steht im Fenster bei `left`.
+  bar.style.setProperty("--man-nav-band-left", `${-left}px`);
+  bar.style.setProperty("--man-nav-band-width", `${document.documentElement.clientWidth || window.innerWidth}px`);
 }
 
 /**

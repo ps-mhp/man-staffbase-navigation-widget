@@ -90,6 +90,18 @@ describe("useSticky", () => {
     expect(slot.style.height).toBe("44px");
   });
 
+  // Vorgabe 27.11.2026: die Linie endet nicht an der Flucht der Leiste.
+  it("spannt Fläche und Linie über die ganze Fensterbreite", () => {
+    Object.defineProperty(document.documentElement, "clientWidth", { configurable: true, value: 1280 });
+    const { bar } = mount();
+    scrollTo(-500);
+    expect(bar.style.getPropertyValue("--man-nav-band-left")).toBe("-100px");
+    expect(bar.style.getPropertyValue("--man-nav-band-width")).toBe("1280px");
+
+    scrollTo(120);
+    expect(bar.style.getPropertyValue("--man-nav-band-left")).toBe("");
+  });
+
   // Pflicht: bis ans Ende der Seite – nicht nur bis zum Ende des Abschnitts.
   it("bleibt kleben, wie weit auch gescrollt wird, und folgt der Kopfzeile", () => {
     const { bar } = mount();
