@@ -691,6 +691,21 @@ describe("NavigationMenu auf schmalem Platz", () => {
     expect(within(dropdown).getByRole("link", { name: "Ruhebereich" })).toHaveAttribute("aria-current", "page");
   });
 
+  it("zeigt in der Auswahl auch eine tiefer liegende geöffnete Seite", async () => {
+    withSlotWidth(375);
+    renderMenu({ currentId: LENKRAD, loadLevel: loaderFor({ ...menu, [LENKRAD]: { entry: entry(LENKRAD, "Lenkrad"), parentId: ARBEITSPLATZ, children: [] } }) });
+
+    const picker = await screen.findByRole("button", { name: "Lenkrad" });
+    expect(picker.parentElement).toHaveClass("man-nav__item--current");
+  });
+
+  it("zeigt in der Auswahl den Startpunkt, wenn er die geöffnete Seite ist", async () => {
+    withSlotWidth(375);
+    renderMenu({ currentId: FAHRERHAUS });
+
+    expect(await screen.findByRole("button", { name: "Fahrerhaus" })).toHaveClass("man-nav__picker");
+  });
+
   it("bleibt bei genug Platz die waagerechte Leiste", async () => {
     withSlotWidth(COMPACT_BELOW);
     renderMenu();

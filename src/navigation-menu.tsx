@@ -171,9 +171,8 @@ const opensSomething = (entry: MenuEntry, level: ChildLevel): boolean =>
   entry.hasChildren && (level === null || (level !== undefined && dropdownEntries(level, null).length > 0));
 
 interface ChildPickerProps {
-  /** Die sichtbaren Unterpunkte des Startpunkts. */
-  entries: readonly MenuEntry[];
-  currentId: string | null;
+  /** Titel der geöffneten Seite; `null`, wenn sie nicht festzustellen ist. */
+  currentTitle: string | null;
   trigger: TriggerProps;
 }
 
@@ -181,12 +180,11 @@ interface ChildPickerProps {
  * Auf schmalem Platz (`use-compact.ts`) die zweite Zeile: ein Knopf über die
  * ganze Breite, der die Unterpunkte des Startpunkts als Dropdown öffnet —
  * statt des waagerecht scrollenden Streifens (Vorgabe 27.11.2026). Er zeigt
- * die aktuelle Seite, steht das Widget auf einer davon.
+ * die geöffnete Seite, wo sie auch im Menü steht.
  */
-function ChildPicker({ entries, currentId, trigger }: ChildPickerProps): React.JSX.Element {
-  const current = entries.find((entry) => entry.id === currentId);
+function ChildPicker({ currentTitle, trigger }: ChildPickerProps): React.JSX.Element {
   return (
-    <div className={current === undefined ? "man-nav__pick" : "man-nav__pick man-nav__item--current"}>
+    <div className={currentTitle === null ? "man-nav__pick" : "man-nav__pick man-nav__item--current"}>
       <button
         type="button"
         className="man-nav__picker"
@@ -194,11 +192,35 @@ function ChildPicker({ entries, currentId, trigger }: ChildPickerProps): React.J
         aria-controls={controlsWhileOpen(trigger)}
         onClick={(event) => trigger.onToggle(event.currentTarget)}
       >
-        <span className="man-nav__title">{current?.title ?? MESSAGES.chooseChild}</span>
+        <span className="man-nav__title">{currentTitle ?? MESSAGES.chooseChild}</span>
         <Chevron direction="down" />
       </button>
     </div>
   );
+}
+
+/**
+ * Titel der geöffneten Seite für die Auswahl: ein Unterpunkt, der Startpunkt
+ * selbst oder — tiefer im Menü — die eigens geladene Ebene der Seite.
+ */
+function useCurrentTitle(
+  enabled: boolean,
+  currentId: string | null,
+  start: MenuLevel | null,
+  children: readonly MenuEntry[],
+  loadLevel: LevelLoader,
+  loaded: Map<string, MenuLevel>,
+): string | null {
+  const known =
+    currentId === null || start === null
+      ? undefined
+      : currentId === start.entry.id
+        ? start.entry
+        : children.find((child) => child.id === currentId);
+  const elsewhere = enabled && start !== null && known === undefined ? currentId : null;
+  const level = useMenuLevel(elsewhere, loadLevel, loaded);
+  if (known !== undefined) return known.title;
+  return level.status === "ready" ? level.level.entry.title : null;
 }
 
 /** Schlüssel des Dropdowns, das die zweite Zeile öffnet — keine Menü-ID kann so heißen. */
@@ -277,6 +299,7 @@ function NavigationBar({
     loaded,
   );
   const compact = useCompact(slotRef);
+  const currentTitle = useCurrentTitle(compact, currentId, startLevel, children, loadLevel, loaded);
   const [overflow, scroll] = useOverflow(scrollerRef, compact ? 0 : children.length);
   const dropdown = useDropdown(rootRef, scrollerRef);
   useSectionFit(slotRef, fitSection);
@@ -313,8 +336,7 @@ function NavigationBar({
             />
             {children.length > 0 && compact && (
               <ChildPicker
-                entries={children}
-                currentId={currentId}
+                currentTitle={currentTitle}
                 trigger={triggerFor(pickerKey(startId), {
                   levelId: startId,
                   markId: null,
