@@ -1,6 +1,16 @@
 {
   "versions": [
     {
+      "version": "0.3.0-rc.6",
+      "date": "2026-11-27",
+      "entries": [
+        {
+          "type": "fix",
+          "text": "Pfeil des Startpunkts auf schmalem Platz rechtsbündig"
+        }
+      ]
+    },
+    {
       "version": "0.3.0-rc.5",
       "date": "2026-11-27",
       "entries": [
@@ -111,16 +121,6 @@
         {
           "type": "feat",
           "text": "horizontale Leiste statt blaetterndem Menue"
-        }
-      ]
-    },
-    {
-      "version": "0.1.0-rc.3",
-      "date": "2026-10-06",
-      "entries": [
-        {
-          "type": "feat",
-          "text": "aktuelle Seite immer hinterlegt"
         }
       ]
     }
