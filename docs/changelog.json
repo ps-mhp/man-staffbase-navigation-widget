@@ -1,6 +1,16 @@
 {
   "versions": [
     {
+      "version": "0.3.0-rc.7",
+      "date": "2026-11-27",
+      "entries": [
+        {
+          "type": "fix",
+          "text": "Auswahl auf schmalem Platz zeigt immer die geöffnete Seite"
+        }
+      ]
+    },
+    {
       "version": "0.3.0-rc.6",
       "date": "2026-11-27",
       "entries": [
@@ -111,16 +121,6 @@
         {
           "type": "fix",
           "text": "Pfeil nur bei sichtbaren Unterpunkten"
-        }
-      ]
-    },
-    {
-      "version": "0.2.0-rc.1",
-      "date": "2026-11-06",
-      "entries": [
-        {
-          "type": "feat",
-          "text": "horizontale Leiste statt blaetterndem Menue"
         }
       ]
     }
