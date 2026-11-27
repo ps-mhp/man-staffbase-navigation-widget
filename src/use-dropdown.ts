@@ -24,6 +24,8 @@ export interface DropdownRequest {
   /** Name der Liste darin, derselbe wie der des Pfeils. */
   label: string;
   trigger: HTMLElement;
+  /** So breit wie sein Auslöser — für die zweite Zeile auf schmalem Platz. */
+  wide?: boolean;
 }
 
 export interface Dropdown {

@@ -34,6 +34,7 @@ describe("Stylesheet", () => {
     "man-nav__list",
     "man-nav__item",
     "man-nav__menu-link",
+    "man-nav__picker",
   ])("setzt %s gegen die Regeln der Wirtsseite durch", (className) => {
     expect(css).toMatch(outshineRule(className));
   });
@@ -72,7 +73,7 @@ describe("Stylesheet", () => {
   });
 
   // Vorgabe 06.11.2026: unter dem Zeiger wird der Text rot, keine Fläche.
-  it.each(["man-nav__link", "man-nav__menu-link", "man-nav__open", "man-nav__folder"])(
+  it.each(["man-nav__link", "man-nav__menu-link", "man-nav__open", "man-nav__folder", "man-nav__picker"])(
     "färbt %s unter dem Zeiger MAN-rot, gegen die Wirtsseite durchgesetzt",
     (className) => {
       const selector = `\\.${className.replace(/-/g, "\\-")}`.repeat(5);

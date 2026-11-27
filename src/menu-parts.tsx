@@ -26,6 +26,7 @@ export const MESSAGES = {
   newTab: " (öffnet in neuem Tab)",
   openChildren: (title: string): string => `Unterpunkte von ${title}`,
   openSiblings: (title: string): string => `Weitere Einträge neben ${title}`,
+  chooseChild: "Seite wählen",
   scrollBack: "Vorherige Einträge zeigen",
   scrollForward: "Weitere Einträge zeigen",
   fallbackLabel: "Navigation",

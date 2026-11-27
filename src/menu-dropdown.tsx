@@ -31,7 +31,10 @@ export interface MenuDropdownProps {
 
 /** Wo der Auslöser steht: der ganze Eintrag, nicht nur sein Pfeil. */
 const anchorOf = (trigger: HTMLElement): HTMLElement =>
-  trigger.closest<HTMLElement>(".man-nav__item, .man-nav__start") ?? trigger;
+  trigger.closest<HTMLElement>(".man-nav__item, .man-nav__start, .man-nav__pick") ?? trigger;
+
+/** Rand zwischen Dropdown und Fensterunterkante, in px. */
+const VIEWPORT_GAP = 8;
 
 /**
  * Hebt das Dropdown in den Top Layer. Der Content Designer setzt jeden Block
@@ -59,6 +62,7 @@ function usePlacement(
   rootRef: RefObject<HTMLElement | null>,
   panelRef: RefObject<HTMLDivElement | null>,
   trigger: HTMLElement,
+  wide: boolean,
   contentKey: unknown,
 ): void {
   useLayoutEffect(() => {
@@ -68,6 +72,16 @@ function usePlacement(
     const place = (): void => {
       const bar = root.getBoundingClientRect();
       const anchor = anchorOf(trigger).getBoundingClientRect();
+      // Was unter die Fensterkante reichte, scrollt im Dropdown selbst: es
+      // steht fest und rollte mit der Seite nie ins Bild.
+      const room = window.innerHeight - anchor.bottom - VIEWPORT_GAP;
+      if (room > 0) panel.style.maxHeight = `${room}px`;
+      if (wide) {
+        panel.style.width = `${anchor.width}px`;
+        panel.style.left = `${anchor.left}px`;
+        panel.style.top = `${anchor.bottom}px`;
+        return;
+      }
       const right = Math.min(bar.right, document.documentElement.clientWidth || bar.right);
       const left = Math.max(0, bar.left, Math.min(anchor.left, right - panel.offsetWidth));
       panel.style.left = `${left}px`;
@@ -84,7 +98,7 @@ function usePlacement(
       window.removeEventListener("resize", place);
       observer?.disconnect();
     };
-  }, [rootRef, panelRef, trigger, contentKey]);
+  }, [rootRef, panelRef, trigger, wide, contentKey]);
 }
 
 interface DropdownBodyProps {
@@ -125,10 +139,11 @@ export function MenuDropdown({
 }: MenuDropdownProps): React.JSX.Element {
   const state = useMenuLevel(request.levelId, loadLevel, loaded);
   useTopLayer(panelRef);
-  usePlacement(rootRef, panelRef, request.trigger, state.status);
+  const wide = request.wide === true;
+  usePlacement(rootRef, panelRef, request.trigger, wide, state.status);
 
   return (
-    <div id={id} className="man-nav__dropdown" ref={panelRef}>
+    <div id={id} className={wide ? "man-nav__dropdown man-nav__dropdown--wide" : "man-nav__dropdown"} ref={panelRef}>
       <DropdownBody state={state} label={request.label} markId={request.markId} currentId={currentId} />
     </div>
   );

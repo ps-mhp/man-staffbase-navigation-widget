@@ -18,6 +18,7 @@ import userEvent from "@testing-library/user-event";
 import { MenuEntry, MenuLevel } from "@shared/staffbase/menu";
 
 import { MESSAGES, NavigationMenu } from "./navigation-menu";
+import { COMPACT_BELOW } from "./use-compact";
 import { SCROLL_SHARE } from "./use-overflow";
 
 const WURZEL = "6891d4e0aec53f55e3a819ac";
@@ -636,5 +637,66 @@ describe("NavigationMenu", () => {
       await user.click(back);
       expect(scrollBy).toHaveBeenLastCalledWith({ left: -400 * SCROLL_SHARE, behavior: "smooth" });
     });
+  });
+});
+
+describe("NavigationMenu auf schmalem Platz", () => {
+  /** Gibt dem Platz des Widgets eine Breite — jsdom misst sonst 0. */
+  const withSlotWidth = (width: number): void => {
+    const original = HTMLElement.prototype.getBoundingClientRect;
+    jest.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (this: HTMLElement) {
+      const rect = original.call(this);
+      return this.classList.contains("man-nav-slot") ? ({ ...rect, width } as DOMRect) : rect;
+    });
+  };
+
+  afterEach(() => jest.restoreAllMocks());
+
+  it("zeigt die Unterpunkte als Dropdown in einer zweiten Zeile statt als Streifen", async () => {
+    withSlotWidth(COMPACT_BELOW - 1);
+    const user = userEvent.setup();
+    renderMenu();
+
+    const picker = await screen.findByRole("button", { name: MESSAGES.chooseChild });
+    expect(document.querySelector(".man-nav__scroller")).not.toBeInTheDocument();
+    expect(document.querySelector(".man-nav__bar--compact")).toBeInTheDocument();
+    // Der Startpunkt bleibt oben, mit seinem eigenen Dropdown.
+    expect(screen.getByRole("link", { name: "Fahrerhaus" })).toBeInTheDocument();
+    expect(await screen.findByRole("button", { name: MESSAGES.openSiblings("Fahrerhaus") })).toBeInTheDocument();
+
+    expect(picker).toHaveAttribute("aria-expanded", "false");
+    await user.click(picker);
+
+    expect(picker).toHaveAttribute("aria-expanded", "true");
+    const dropdown = await dropdownOf("Fahrerhaus");
+    expect(picker).toHaveAttribute("aria-controls", dropdown.parentElement!.id);
+    expect(dropdown.parentElement).toHaveClass("man-nav__dropdown--wide");
+    // Alle Einträge derselben Ebene, ohne verborgene und ohne reine Ordner.
+    expect(within(dropdown).getAllByRole("link").map((link) => link.textContent)).toEqual([
+      "Fahrerarbeitsplatz",
+      "Ruhebereich",
+    ]);
+  });
+
+  it("zeigt in der Auswahl die aktuelle Seite und markiert sie im Dropdown", async () => {
+    withSlotWidth(375);
+    const user = userEvent.setup();
+    renderMenu({ currentId: RUHE });
+
+    const picker = await screen.findByRole("button", { name: "Ruhebereich" });
+    expect(picker.parentElement).toHaveClass("man-nav__item--current");
+    await user.click(picker);
+
+    const dropdown = await dropdownOf("Fahrerhaus");
+    expect(within(dropdown).getByRole("link", { name: "Ruhebereich" })).toHaveAttribute("aria-current", "page");
+  });
+
+  it("bleibt bei genug Platz die waagerechte Leiste", async () => {
+    withSlotWidth(COMPACT_BELOW);
+    renderMenu();
+
+    await screen.findByRole("link", { name: "Ruhebereich" });
+    expect(document.querySelector(".man-nav__scroller")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: MESSAGES.chooseChild })).not.toBeInTheDocument();
   });
 });

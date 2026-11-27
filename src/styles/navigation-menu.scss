@@ -199,7 +199,7 @@
 // welches der beiden Ziele greift. Nur mit echtem Zeiger — auf dem Telefon
 // bliebe die Farbe nach dem Tippen am Eintrag hängen. Gegen die Wirtsseite
 // durchgesetzt, weil Links und Knöpfe dort sonst `color: inherit` erben.
-@each $name in ("link", "menu-link", "open", "folder") {
+@each $name in ("link", "menu-link", "open", "folder", "picker") {
   @media (hover: hover) {
     .man-nav__#{$name} {
       @include man-outshine-host {
@@ -283,8 +283,43 @@
   }
 }
 
+// Auf schmalem Platz (`use-compact.ts`) zwei Zeilen: oben der Startpunkt,
+// darunter die Auswahl der Unterpunkte über die ganze Breite.
+.man-nav__bar--compact {
+  flex-direction: column;
+}
+
+.man-nav__pick {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+
+  border-top: man("border-width") solid man("border");
+}
+
+// Die Auswahl: Titel links, Pfeil rechts, wie ein Auswahlfeld.
+.man-nav__picker {
+  @include -bare-button;
+  @include man-outshine-host {
+    display: flex !important;
+    flex: 1 1 auto;
+    gap: man("space-2");
+    align-items: center;
+    justify-content: space-between;
+    width: 100% !important;
+    min-height: 44px !important;
+    padding: 0 man("space-2") 0 man("space-3") !important;
+  }
+}
+
+.man-nav__picker .man-nav__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 // Offen zeigt der Pfeil nach oben.
 .man-nav__open[aria-expanded="true"] .man-nav__chevron,
+.man-nav__picker[aria-expanded="true"] .man-nav__chevron,
 .man-nav__folder[aria-expanded="true"] .man-nav__chevron {
   transform: rotate(180deg);
 }
@@ -332,9 +367,21 @@
   max-width: min(320px, calc(100vw - 2 * #{man("space-3")}));
   margin: 0;
   padding: man("space-1") 0;
-  overflow: visible;
+  overflow: hidden auto;
+  overscroll-behavior: contain;
   color: inherit;
   font: inherit;
+}
+
+// Die Auswahl der zweiten Zeile: so breit wie sie (`menu-dropdown.tsx`).
+.man-nav__dropdown--wide {
+  max-width: none;
+}
+
+// Das Dropdown scrollt, wenn es nicht ins Fenster passt, und schnitte einen
+// Fokusring mit Abstand ab — darin liegt er innen.
+.man-nav__dropdown :focus-visible {
+  outline-offset: calc(-1 * #{man("focus-width")}) !important;
 }
 
 .man-nav__menu {

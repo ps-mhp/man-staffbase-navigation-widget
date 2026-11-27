@@ -24,6 +24,7 @@ import { useSticky } from "./use-sticky";
 import { ChildLevel, useChildLevels } from "./use-child-levels";
 import { DropdownRequest, useDropdown } from "./use-dropdown";
 import { LevelLoader, LevelState, useMenuLevel } from "./use-menu-level";
+import { useCompact } from "./use-compact";
 import { useOverflow } from "./use-overflow";
 
 export { MESSAGES } from "./menu-parts";
@@ -169,6 +170,40 @@ const hasSiblings = (parent: LevelState, startId: string): boolean =>
 const opensSomething = (entry: MenuEntry, level: ChildLevel): boolean =>
   entry.hasChildren && (level === null || (level !== undefined && dropdownEntries(level, null).length > 0));
 
+interface ChildPickerProps {
+  /** Die sichtbaren Unterpunkte des Startpunkts. */
+  entries: readonly MenuEntry[];
+  currentId: string | null;
+  trigger: TriggerProps;
+}
+
+/**
+ * Auf schmalem Platz (`use-compact.ts`) die zweite Zeile: ein Knopf über die
+ * ganze Breite, der die Unterpunkte des Startpunkts als Dropdown öffnet —
+ * statt des waagerecht scrollenden Streifens (Vorgabe 27.11.2026). Er zeigt
+ * die aktuelle Seite, steht das Widget auf einer davon.
+ */
+function ChildPicker({ entries, currentId, trigger }: ChildPickerProps): React.JSX.Element {
+  const current = entries.find((entry) => entry.id === currentId);
+  return (
+    <div className={current === undefined ? "man-nav__pick" : "man-nav__pick man-nav__item--current"}>
+      <button
+        type="button"
+        className="man-nav__picker"
+        aria-expanded={trigger.expanded}
+        aria-controls={controlsWhileOpen(trigger)}
+        onClick={(event) => trigger.onToggle(event.currentTarget)}
+      >
+        <span className="man-nav__title">{current?.title ?? MESSAGES.chooseChild}</span>
+        <Chevron direction="down" />
+      </button>
+    </div>
+  );
+}
+
+/** Schlüssel des Dropdowns, das die zweite Zeile öffnet — keine Menü-ID kann so heißen. */
+const pickerKey = (startId: string): string => `${startId}-children`;
+
 /**
  * Die horizontale Leiste: links der Startpunkt, rechts davon seine
  * Unterpunkte in einem waagerecht scrollenden Streifen, am Ende ‹ › für den
@@ -241,7 +276,8 @@ function NavigationBar({
     loadLevel,
     loaded,
   );
-  const [overflow, scroll] = useOverflow(scrollerRef, children.length);
+  const compact = useCompact(slotRef);
+  const [overflow, scroll] = useOverflow(scrollerRef, compact ? 0 : children.length);
   const dropdown = useDropdown(rootRef, scrollerRef);
   useSectionFit(slotRef, fitSection);
   useSticky(slotRef, rootRef, sticky);
@@ -261,7 +297,7 @@ function NavigationBar({
         {startLevel === null ? (
           <StatusMessage state={start} />
         ) : (
-          <div className="man-nav__bar">
+          <div className={compact ? "man-nav__bar man-nav__bar--compact" : "man-nav__bar"}>
             <StartPoint
               entry={startLevel.entry}
               current={startId === currentId}
@@ -275,7 +311,19 @@ function NavigationBar({
                   : null
               }
             />
-            {children.length > 0 && (
+            {children.length > 0 && compact && (
+              <ChildPicker
+                entries={children}
+                currentId={currentId}
+                trigger={triggerFor(pickerKey(startId), {
+                  levelId: startId,
+                  markId: null,
+                  label: MESSAGES.openChildren(startLevel.entry.title),
+                  wide: true,
+                })}
+              />
+            )}
+            {children.length > 0 && !compact && (
               <>
                 <span className="man-nav__divider" aria-hidden="true" />
                 <div className="man-nav__scroller" ref={scrollerRef}>
