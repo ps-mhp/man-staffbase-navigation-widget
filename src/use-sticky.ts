@@ -37,6 +37,12 @@
  * sichtbar ändert sich nichts). Bleibt ein echter Bezugskasten, wird sein
  * Versatz bei jedem Scrollen neu gemessen und herausgerechnet.
  *
+ * Ebenso der Stapel: Im alten UI steckt der Block in Hüllen mit
+ * `position: relative; z-index: 1`. Jede ist ein eigener Stapelkontext, und
+ * die folgenden Blöcke (gleicher `z-index`, später im Dokument) malten über
+ * die Leiste – sie wirkte durchsichtig (gemeldet 27.11.2026). Für die Dauer
+ * des Anklebens hebt der Hook solche Vorfahren auf den `z-index` der Leiste.
+ *
  * Fläche und Linie der angeklebten Leiste laufen über die ganze
  * Fensterbreite (`::before` in `styles/navigation-menu.scss`); der Hook
  * reicht dafür den Abstand zur linken Fensterkante und die Breite des
@@ -76,22 +82,34 @@ function parentOf(element: Element): Element | null {
   return root instanceof ShadowRoot ? root.host : null;
 }
 
+/** Der `z-index` der angeklebten Leiste (`styles/navigation-menu.scss`). */
+export const STUCK_Z_INDEX = 50;
+
+/** Setzt `property` mit `!important`; gibt das Zurücksetzen zurück. */
+function override(element: HTMLElement, property: string, value: string): () => void {
+  const previous = element.style.getPropertyValue(property);
+  const priority = element.style.getPropertyPriority(property);
+  element.style.setProperty(property, value, "important");
+  return () => {
+    if (previous === "") element.style.removeProperty(property);
+    else element.style.setProperty(property, previous, priority);
+  };
+}
+
 /**
- * Schaltet wirkungslose Transformationen der Vorfahren ab, damit sie nicht
- * Bezugskasten der festen Leiste werden; gibt das Zurücksetzen zurück.
+ * Räumt den Vorfahren aus dem Weg, was die feste Leiste festhält:
+ * wirkungslose Transformationen (Bezugskasten) und Stapelkontexte unter dem
+ * `z-index` der Leiste. Gibt das Zurücksetzen zurück.
  */
-function neutralizeIdentityTransforms(bar: HTMLElement): () => void {
+function freeAncestors(bar: HTMLElement): () => void {
   const restores: Array<() => void> = [];
   for (let node = parentOf(bar); node instanceof HTMLElement; node = parentOf(node)) {
-    if (!IDENTITY.test(getComputedStyle(node).transform)) continue;
-    const element = node;
-    const value = element.style.getPropertyValue("transform");
-    const priority = element.style.getPropertyPriority("transform");
-    element.style.setProperty("transform", "none", "important");
-    restores.push(() => {
-      if (value === "") element.style.removeProperty("transform");
-      else element.style.setProperty("transform", value, priority);
-    });
+    const style = getComputedStyle(node);
+    if (IDENTITY.test(style.transform)) restores.push(override(node, "transform", "none"));
+    const zIndex = Number.parseInt(style.zIndex, 10);
+    if (style.position !== "static" && zIndex < STUCK_Z_INDEX) {
+      restores.push(override(node, "z-index", String(STUCK_Z_INDEX)));
+    }
   }
   return () => restores.forEach((restore) => restore());
 }
@@ -130,13 +148,13 @@ export function useSticky(
     if (STUDIO_PATH.test(window.location.pathname)) return undefined;
 
     let offset: Offset | null = null;
-    let restoreTransforms: (() => void) | null = null;
+    let restoreAncestors: (() => void) | null = null;
 
     const unstick = (): void => {
       if (offset === null) return;
       release(placeholder, bar);
-      restoreTransforms?.();
-      restoreTransforms = null;
+      restoreAncestors?.();
+      restoreAncestors = null;
       offset = null;
     };
 
@@ -150,7 +168,7 @@ export function useSticky(
       }
       if (offset === null) {
         placeholder.style.height = `${slot.height}px`;
-        restoreTransforms = neutralizeIdentityTransforms(bar);
+        restoreAncestors = freeAncestors(bar);
         bar.classList.add(STUCK_CLASS);
         offset = { x: 0, y: 0 };
       } else {
@@ -177,7 +195,7 @@ export function useSticky(
       window.removeEventListener("scroll", update, { capture: true });
       window.removeEventListener("resize", remeasure);
       release(placeholder, bar);
-      restoreTransforms?.();
+      restoreAncestors?.();
     };
   }, [placeholderRef, barRef, enabled]);
 }

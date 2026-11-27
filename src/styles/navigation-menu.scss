@@ -33,11 +33,12 @@
 
 // „Sticky“: unter der Kopfzeile angeklebt. Lage und Breite setzt
 // `use-sticky.ts` in Fensterkoordinaten; die Fläche deckt den Inhalt ab, der
-// darunter durchrollt. Niedriger `z-index`: die Menüs der Kopfzeile klappen
-// darüber auf; das Dropdown liegt ohnehin im Top Layer.
+// darunter durchrollt. `z-index` 50 (= `STUCK_Z_INDEX` in `use-sticky.ts`):
+// über Inhalt der Seite (dort bis 10 gemessen), unter Kopfzeile (210) und
+// Megamenü (102) des alten UIs; das Dropdown liegt ohnehin im Top Layer.
 .man-nav--stuck {
   position: fixed;
-  z-index: 5;
+  z-index: 50;
 
   // Fläche und Linie laufen über die ganze Fensterbreite, nicht nur bis zur
   // Flucht der Leiste (Vorgabe 27.11.2026). Versatz zur linken Fensterkante

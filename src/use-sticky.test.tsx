@@ -16,7 +16,7 @@ import { act, render } from "@testing-library/react";
 
 import { measureChromeHeight } from "@shared/staffbase-chrome";
 
-import { STUCK_CLASS, shouldStick, useSticky } from "./use-sticky";
+import { STUCK_CLASS, STUCK_Z_INDEX, shouldStick, useSticky } from "./use-sticky";
 
 jest.mock("@shared/staffbase-chrome", () => ({ measureChromeHeight: jest.fn(() => 64) }));
 
@@ -155,6 +155,26 @@ describe("useSticky", () => {
     scrollTo(120);
     expect(content.style.transform).toBe("matrix(1, 0, 0, 1, 0, 0)");
     expect(content.style.getPropertyPriority("transform")).toBe("");
+  });
+
+  // Altes Staffbase-UI: Hüllen mit `position: relative; z-index: 1`, die
+  // folgenden Blöcke malten über die Leiste.
+  it("hebt Stapelkontexte der Vorfahren nur beim Ankleben an", () => {
+    const { slot } = mount();
+    const wrapper = slot.parentElement as HTMLElement;
+    wrapper.style.position = "relative";
+    wrapper.style.zIndex = "1";
+    const high = wrapper.parentElement as HTMLElement;
+    high.style.position = "relative";
+    high.style.zIndex = "100";
+
+    scrollTo(-500);
+    expect(wrapper.style.zIndex).toBe(String(STUCK_Z_INDEX));
+    expect(high.style.zIndex).toBe("100");
+
+    scrollTo(120);
+    expect(wrapper.style.zIndex).toBe("1");
+    expect(wrapper.style.getPropertyPriority("z-index")).toBe("");
   });
 
   it("klebt nicht, wenn Sticky aus ist", () => {
