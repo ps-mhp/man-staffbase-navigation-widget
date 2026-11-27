@@ -116,4 +116,10 @@ describe("Stylesheet", () => {
     expect(beforeQuery).not.toMatch(/transition:\s*transform/);
     expect(css).toMatch(/prefers-reduced-motion:\s*no-preference[\s\S]*\.man-nav__chevron\s*\{\s*transition:\s*transform/);
   });
+
+  // Vorgabe 27.11.2026: auf schmalem Platz steht der Pfeil des Startpunkts rechts.
+  it("rückt auf schmalem Platz den Pfeil des Startpunkts nach rechts", () => {
+    expect(css).toMatch(/\.man-nav__bar--compact \.man-nav__start\s*\{[^}]*justify-content:\s*space-between/);
+    expect(css).toMatch(/\.man-nav__bar--compact \.man-nav__start \.man-nav__open(\.man-nav__open){3}\s*\{[^}]*margin-left:\s*0 !important/);
+  });
 });

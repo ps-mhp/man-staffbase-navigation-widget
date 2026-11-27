@@ -289,6 +289,20 @@
   flex-direction: column;
 }
 
+// Auch der Startpunkt läuft über die ganze Breite, sein Pfeil steht rechts
+// wie der der Auswahl darunter (Vorgabe 27.11.2026).
+.man-nav__bar--compact .man-nav__start {
+  justify-content: space-between;
+}
+
+// Pfeil bündig mit dem der Auswahl: 36px Breite lassen rechts denselben
+// Rand wie deren Innenabstand. Mehr Klassen als `.man-nav__open` (fünffach,
+// gegen die Wirtsseite), damit das hier gewinnt.
+.man-nav__bar--compact .man-nav__start .man-nav__open.man-nav__open.man-nav__open.man-nav__open {
+  width: 36px !important;
+  margin-left: 0 !important;
+}
+
 .man-nav__pick {
   position: relative;
   display: flex;
