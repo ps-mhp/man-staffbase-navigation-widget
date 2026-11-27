@@ -18,6 +18,7 @@ import {
   readNavigationConfig,
   resolveNavigationConfig,
   resolveStartId,
+  resolveSticky,
   serializeNavigationConfig,
 } from "./navigation-config";
 
@@ -84,5 +85,30 @@ describe("resolveStartId", () => {
     expect(resolveNavigationConfig({ "navigation-config": serializeNavigationConfig({}), "menu-id": ID })).toEqual({
       menuId: ID,
     });
+  });
+});
+
+describe("sticky", () => {
+  it("liest und schreibt den Schalter, auch ohne Startpunkt", () => {
+    expect(readNavigationConfig(serializeNavigationConfig({ menuId: ID, sticky: false }))).toEqual({
+      menuId: ID,
+      sticky: false,
+    });
+    expect(readNavigationConfig(serializeNavigationConfig({ sticky: true }))).toEqual({ sticky: true });
+  });
+
+  it("lässt einen Schalter weg, der kein Wahrheitswert ist", () => {
+    expect(readNavigationConfig('{"menuId":"x","sticky":"nein"}')).toEqual({ menuId: "x" });
+  });
+
+  it("behält den Schalter beim Mischen mit dem alten Feld", () => {
+    expect(mergeNavigationConfig({ sticky: false }, { "menu-id": ID })).toEqual({ menuId: ID, sticky: false });
+  });
+
+  // Pflicht: Standard ist an – auch für ältere Blöcke ohne den Schlüssel.
+  it("ist ohne Angabe an", () => {
+    expect(resolveSticky({})).toBe(true);
+    expect(resolveSticky(resolveNavigationConfig({ "menu-id": ID }))).toBe(true);
+    expect(resolveSticky({ sticky: false })).toBe(false);
   });
 });

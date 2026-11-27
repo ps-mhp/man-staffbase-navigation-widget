@@ -20,6 +20,7 @@ import { MenuDropdown } from "./menu-dropdown";
 import { Chevron, EntryLink, MESSAGES, StatusMessage, dropdownEntries } from "./menu-parts";
 import navigationCss from "./styles/navigation-menu.scss";
 import { useSectionFit } from "./section-fit";
+import { useSticky } from "./use-sticky";
 import { ChildLevel, useChildLevels } from "./use-child-levels";
 import { DropdownRequest, useDropdown } from "./use-dropdown";
 import { LevelLoader, LevelState, useMenuLevel } from "./use-menu-level";
@@ -42,6 +43,12 @@ export interface NavigationMenuProps {
    * Falsch in der Vorschau des Fensters: dort gibt es keinen eigenen Abschnitt.
    */
   fitSection?: boolean;
+  /**
+   * Ob die Leiste beim Scrollen unter der Kopfzeile stehen bleibt
+   * (`use-sticky.ts`). Ohne Angabe nicht: die Vorschau im Fenster klebt nie;
+   * die Seite reicht den Wert aus `navigation-config` durch.
+   */
+  sticky?: boolean;
 }
 
 /**
@@ -172,6 +179,7 @@ export function NavigationMenu({
   currentId = currentMenuId(),
   loadLevel = fetchMenuLevel,
   fitSection = true,
+  sticky = false,
 }: NavigationMenuProps): React.JSX.Element {
   const liveCss = useHotStyle(navigationCss, "navigation-widget", "styles/navigation-menu.scss");
 
@@ -193,6 +201,7 @@ export function NavigationMenu({
       currentId={currentId}
       loadLevel={loadLevel}
       fitSection={fitSection}
+      sticky={sticky}
     />
   );
 }
@@ -203,10 +212,19 @@ interface NavigationBarProps {
   currentId: string | null;
   loadLevel: LevelLoader;
   fitSection: boolean;
+  sticky: boolean;
 }
 
-function NavigationBar({ css, startId, currentId, loadLevel, fitSection }: NavigationBarProps): React.JSX.Element {
+function NavigationBar({
+  css,
+  startId,
+  currentId,
+  loadLevel,
+  fitSection,
+  sticky,
+}: NavigationBarProps): React.JSX.Element {
   const [loaded] = useState(() => new Map<string, MenuLevel>());
+  const slotRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
   const baseId = useId();
@@ -225,7 +243,8 @@ function NavigationBar({ css, startId, currentId, loadLevel, fitSection }: Navig
   );
   const [overflow, scroll] = useOverflow(scrollerRef, children.length);
   const dropdown = useDropdown(rootRef, scrollerRef);
-  useSectionFit(rootRef, fitSection);
+  useSectionFit(slotRef, fitSection);
+  useSticky(slotRef, rootRef, sticky);
 
   const controlsId = (entryId: string): string => `${baseId}-${entryId}`;
   const triggerFor = (forId: string, request: Omit<DropdownRequest, "forId" | "trigger">): TriggerProps => ({
@@ -234,87 +253,90 @@ function NavigationBar({ css, startId, currentId, loadLevel, fitSection }: Navig
     onToggle: (trigger) => dropdown.toggle({ ...request, forId, trigger }),
   });
 
+  // Der Platzhalter steht immer im Fluss; klebt die Leiste, hält er ihre Höhe.
   return (
-    <nav className="man-nav" aria-label={startLevel?.entry.title ?? MESSAGES.fallbackLabel} ref={rootRef}>
-      <style>{css}</style>
-      {startLevel === null ? (
-        <StatusMessage state={start} />
-      ) : (
-        <div className="man-nav__bar">
-          <StartPoint
-            entry={startLevel.entry}
-            current={startId === currentId}
-            trigger={
-              startLevel.parentId !== null && hasSiblings(parent, startId)
-                ? triggerFor(startId, {
-                    levelId: startLevel.parentId,
-                    markId: startId,
-                    label: MESSAGES.openSiblings(startLevel.entry.title),
-                  })
-                : null
-            }
-          />
-          {children.length > 0 && (
-            <>
-              <span className="man-nav__divider" aria-hidden="true" />
-              <div className="man-nav__scroller" ref={scrollerRef}>
-                <ul className="man-nav__list">
-                  {children.map((entry) => (
-                    <BarItem
-                      key={entry.id}
-                      entry={entry}
-                      current={entry.id === currentId}
-                      trigger={
-                        opensSomething(entry, childLevel(entry.id))
-                          ? triggerFor(entry.id, {
-                              levelId: entry.id,
-                              markId: null,
-                              label: MESSAGES.openChildren(entry.title),
-                            })
-                          : null
-                      }
-                    />
-                  ))}
-                </ul>
-              </div>
-              {overflow.overflowing && (
-                <div className="man-nav__scroll">
-                  <button
-                    type="button"
-                    className="man-nav__scroll-button"
-                    aria-label={MESSAGES.scrollBack}
-                    aria-disabled={overflow.atStart}
-                    onClick={() => !overflow.atStart && scroll(-1)}
-                  >
-                    <Chevron direction="left" />
-                  </button>
-                  <button
-                    type="button"
-                    className="man-nav__scroll-button"
-                    aria-label={MESSAGES.scrollForward}
-                    aria-disabled={overflow.atEnd}
-                    onClick={() => !overflow.atEnd && scroll(1)}
-                  >
-                    <Chevron direction="right" />
-                  </button>
+    <div className="man-nav-slot" ref={slotRef}>
+      <nav className="man-nav" aria-label={startLevel?.entry.title ?? MESSAGES.fallbackLabel} ref={rootRef}>
+        <style>{css}</style>
+        {startLevel === null ? (
+          <StatusMessage state={start} />
+        ) : (
+          <div className="man-nav__bar">
+            <StartPoint
+              entry={startLevel.entry}
+              current={startId === currentId}
+              trigger={
+                startLevel.parentId !== null && hasSiblings(parent, startId)
+                  ? triggerFor(startId, {
+                      levelId: startLevel.parentId,
+                      markId: startId,
+                      label: MESSAGES.openSiblings(startLevel.entry.title),
+                    })
+                  : null
+              }
+            />
+            {children.length > 0 && (
+              <>
+                <span className="man-nav__divider" aria-hidden="true" />
+                <div className="man-nav__scroller" ref={scrollerRef}>
+                  <ul className="man-nav__list">
+                    {children.map((entry) => (
+                      <BarItem
+                        key={entry.id}
+                        entry={entry}
+                        current={entry.id === currentId}
+                        trigger={
+                          opensSomething(entry, childLevel(entry.id))
+                            ? triggerFor(entry.id, {
+                                levelId: entry.id,
+                                markId: null,
+                                label: MESSAGES.openChildren(entry.title),
+                              })
+                            : null
+                        }
+                      />
+                    ))}
+                  </ul>
                 </div>
-              )}
-            </>
-          )}
-        </div>
-      )}
-      {dropdown.open !== null && (
-        <MenuDropdown
-          key={dropdown.open.forId}
-          id={controlsId(dropdown.open.forId)}
-          request={dropdown.open}
-          currentId={currentId}
-          loadLevel={loadLevel}
-          loaded={loaded}
-          rootRef={rootRef}
-          panelRef={dropdown.panelRef}
-        />
-      )}
-    </nav>
+                {overflow.overflowing && (
+                  <div className="man-nav__scroll">
+                    <button
+                      type="button"
+                      className="man-nav__scroll-button"
+                      aria-label={MESSAGES.scrollBack}
+                      aria-disabled={overflow.atStart}
+                      onClick={() => !overflow.atStart && scroll(-1)}
+                    >
+                      <Chevron direction="left" />
+                    </button>
+                    <button
+                      type="button"
+                      className="man-nav__scroll-button"
+                      aria-label={MESSAGES.scrollForward}
+                      aria-disabled={overflow.atEnd}
+                      onClick={() => !overflow.atEnd && scroll(1)}
+                    >
+                      <Chevron direction="right" />
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        )}
+        {dropdown.open !== null && (
+          <MenuDropdown
+            key={dropdown.open.forId}
+            id={controlsId(dropdown.open.forId)}
+            request={dropdown.open}
+            currentId={currentId}
+            loadLevel={loadLevel}
+            loaded={loaded}
+            rootRef={rootRef}
+            panelRef={dropdown.panelRef}
+          />
+        )}
+      </nav>
+    </div>
   );
 }

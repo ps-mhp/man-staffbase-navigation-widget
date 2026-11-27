@@ -27,6 +27,11 @@
  * Der Startpunkt steht so, wie er eingetragen wurde: eine ID oder eine
  * Adresse, die auf einer endet. Gelesen wird beides (`readMenuId`); nichts
  * wird umgeschrieben, damit Öffnen und Übernehmen keinen Block verändert.
+ *
+ * `sticky` (seit 0.3.0): ob die Leiste beim Scrollen unter der Kopfzeile
+ * stehen bleibt (`use-sticky.ts`). Standard ist an – ein Block, der den
+ * Schlüssel nicht trägt, klebt. Geschrieben wird er nur, wenn die Redaktion
+ * ihn umschaltet; das alte Feld kennt ihn nicht.
  */
 
 import { decodePayload, encodePayload } from "@shared/payload";
@@ -37,7 +42,12 @@ import { MENU_ID_ATTRIBUTE, NAVIGATION_CONFIG_ATTRIBUTE } from "./configuration-
 export interface NavigationConfig {
   /** Der Startpunkt: ID oder Adresse. Fehlt er, gilt das alte Feld `menu-id`. */
   menuId?: string;
+  /** Ob die Leiste unter der Kopfzeile stehen bleibt. Fehlt er, gilt `STICKY_DEFAULT`. */
+  sticky?: boolean;
 }
+
+/** Ohne Angabe bleibt die Leiste stehen (Vorgabe 27.11.2026). */
+export const STICKY_DEFAULT = true;
 
 /** Das alte Feld, so wie es am Element oder im Dialog ankommt. */
 export interface LegacyNavigationAttributes {
@@ -70,12 +80,21 @@ export function readNavigationConfig(raw: unknown): NavigationConfig | null {
   if (trimmed === "") return null;
   const value = parseJson(decodePayload(trimmed) ?? trimmed);
   if (!isRecord(value)) return null;
-  return typeof value.menuId === "string" ? { menuId: value.menuId } : {};
+  return {
+    ...(typeof value.menuId === "string" ? { menuId: value.menuId } : {}),
+    ...(typeof value.sticky === "boolean" ? { sticky: value.sticky } : {}),
+  };
 }
+
+/** Nur die gesetzten Schlüssel, in fester Reihenfolge. */
+const definedKeys = ({ menuId, sticky }: NavigationConfig): NavigationConfig => ({
+  ...(menuId === undefined ? {} : { menuId }),
+  ...(sticky === undefined ? {} : { sticky }),
+});
 
 /** Schreibt `navigation-config`, kodiert wie die übrigen JSON-Attribute (`@shared/payload`). */
 export function serializeNavigationConfig(config: NavigationConfig): string {
-  return encodePayload(JSON.stringify(config.menuId === undefined ? {} : { menuId: config.menuId }));
+  return encodePayload(JSON.stringify(definedKeys(config)));
 }
 
 /** Je Schlüssel: der neue Wert, sonst das alte Feld; ein altes Feld, das keine Zeichenkette ist, fehlt. */
@@ -85,7 +104,7 @@ export function mergeNavigationConfig(
 ): NavigationConfig {
   const legacyMenuId = legacy[MENU_ID_ATTRIBUTE];
   const menuId = config?.menuId ?? (typeof legacyMenuId === "string" ? legacyMenuId : undefined);
-  return menuId === undefined ? {} : { menuId };
+  return definedKeys({ menuId, sticky: config?.sticky });
 }
 
 /** Was gilt: `navigation-config`, je Schlüssel ergänzt um das alte Feld. */
@@ -96,4 +115,9 @@ export function resolveNavigationConfig(attrs: NavigationAttributes): Navigation
 /** Der Startpunkt der Leiste als ID; `null`, solange keiner gewählt oder lesbar ist. */
 export function resolveStartId(attrs: NavigationAttributes): string | null {
   return readMenuId(resolveNavigationConfig(attrs).menuId);
+}
+
+/** Ob die Leiste stehen bleibt: der gesetzte Wert, sonst `STICKY_DEFAULT`. */
+export function resolveSticky(config: NavigationConfig): boolean {
+  return config.sticky ?? STICKY_DEFAULT;
 }

@@ -25,6 +25,23 @@
   @include man-type("body");
 }
 
+// Der Platzhalter im Fluss (`use-sticky.ts`): klebt die Leiste, hält er ihre
+// Höhe, damit die Seite darunter nicht springt.
+.man-nav-slot {
+  display: block;
+}
+
+// „Sticky“: unter der Kopfzeile angeklebt. Lage und Breite setzt
+// `use-sticky.ts` in Fensterkoordinaten; die Fläche deckt den Inhalt ab, der
+// darunter durchrollt. Niedriger `z-index`: die Menüs der Kopfzeile klappen
+// darüber auf; das Dropdown liegt ohnehin im Top Layer.
+.man-nav--stuck {
+  position: fixed;
+  z-index: 5;
+  background: man("surface");
+  box-shadow: 0 1px 0 man("border");
+}
+
 .man-nav__bar {
   display: flex;
   align-items: stretch;

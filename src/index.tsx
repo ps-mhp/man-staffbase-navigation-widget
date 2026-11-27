@@ -29,7 +29,7 @@ import {
   configurationSchema,
   uiSchema,
 } from "./configuration-schema";
-import { resolveStartId } from "./navigation-config";
+import { resolveNavigationConfig, resolveStartId, resolveSticky } from "./navigation-config";
 import { startNavigationDialog } from "./navigation-dialog";
 import { NavigationMenu } from "./navigation-menu";
 import icon from "../resources/navigation-widget.svg";
@@ -44,10 +44,10 @@ export type NavigationWidgetProps = BlockAttributes & {
 /**
  * Der Startpunkt kommt aus `navigation-config`; fehlt er dort, aus dem alten
  * Feld `menu-id` – ein älterer Block zeigt so genau, was er bisher zeigte
- * (`navigation-config.ts`).
+ * (`navigation-config.ts`). „Sticky“ ist ohne Angabe an.
  */
 export const NavigationWidget = (props: NavigationWidgetProps): ReactElement => (
-  <NavigationMenu startId={resolveStartId(props)} />
+  <NavigationMenu startId={resolveStartId(props)} sticky={resolveSticky(resolveNavigationConfig(props))} />
 );
 
 /** Aus dem Schema – ein Tippfehler wäre sonst ein stumm leeres Attribut. */
